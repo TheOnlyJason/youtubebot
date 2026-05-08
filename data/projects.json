@@ -1,0 +1,175 @@
+{
+  "projects": [
+    {
+      "id": "cb501e3c-176a-4d7c-b222-2001d2a764ba",
+      "createdAt": "2026-05-08T18:33:22.977Z",
+      "updatedAt": "2026-05-08T18:34:45.695Z",
+      "status": "Visuals Ready",
+      "form": {
+        "niche": "facts",
+        "topic": "facts about your car ",
+        "tone": "friendly",
+        "duration": 30,
+        "voiceStyle": "calm",
+        "visualStyle": "minimal",
+        "cta": "subscribe",
+        "targetAudience": "curious beginners",
+        "language": "English"
+      },
+      "scenes": [
+        {
+          "id": "4b78c387-2aa8-42b4-a7bf-6fd2527474be",
+          "kind": "hook",
+          "caption": "Did you know your car has some hidden secrets?",
+          "durationSeconds": 3,
+          "motion": "zoom_in",
+          "media": {
+            "sourceType": "animated_bg"
+          },
+          "visualSuggestion": "A close-up of a car's engine with parts labeled."
+        },
+        {
+          "id": "48434f68-58e5-4274-89dc-b78feaaf11b8",
+          "kind": "point1",
+          "caption": "The average car has over 30,000 parts!",
+          "durationSeconds": 4,
+          "motion": "pan",
+          "media": {
+            "sourceType": "animated_bg"
+          },
+          "visualSuggestion": "An old black-and-white photo of a vintage car."
+        },
+        {
+          "id": "4908600f-b35c-421d-8a89-fdd650b58951",
+          "kind": "point2",
+          "caption": "Cars date back to the late 19th century.",
+          "durationSeconds": 6,
+          "motion": "fade",
+          "media": {
+            "sourceType": "animated_bg"
+          },
+          "visualSuggestion": "A futuristic car dashboard with technology interfaces."
+        },
+        {
+          "id": "b5ed4439-ec55-4e25-88dd-4fafd73609cf",
+          "kind": "point3",
+          "caption": "Modern cars have spaceship-like technology!",
+          "durationSeconds": 7,
+          "motion": "none",
+          "media": {
+            "sourceType": "animated_bg"
+          },
+          "visualSuggestion": "A person getting into a modern car, looking amazed."
+        },
+        {
+          "id": "cbb5dd6a-e32c-4a45-8e1c-d79bb3e34914",
+          "kind": "ending",
+          "caption": "Remember these amazing facts!",
+          "durationSeconds": 9,
+          "motion": "zoom_in",
+          "media": {
+            "sourceType": "animated_bg"
+          },
+          "visualSuggestion": "A subscribe button popping up on the screen."
+        }
+      ],
+      "voiceover": {
+        "mode": "tts_openai",
+        "fileRelativePath": "uploads/projects/cb501e3c-176a-4d7c-b222-2001d2a764ba/voice_tts.mp3",
+        "providerId": "openai_tts"
+      },
+      "music": {
+        "rightsConfirmed": false,
+        "volumePercent": 12
+      },
+      "voiceVolume": 1,
+      "musicVolume": 0.12,
+      "renderChecklist": {
+        "scriptOriginal": true,
+        "voiceOriginalOrLicensed": true,
+        "visualsOriginalOrLicensed": true,
+        "musicOriginalOrLicensed": true,
+        "noThirdPartyClips": true,
+        "noCopyrightedSong": true,
+        "notSpammy": true,
+        "disclosureNoted": true
+      },
+      "rights": {
+        "allMediaRightsConfirmed": true
+      },
+      "render": {
+        "status": "error",
+        "message": "Voiceover missing on disk",
+        "startedAt": "2026-05-08T18:34:45.693Z",
+        "finishedAt": "2026-05-08T18:34:45.695Z"
+      },
+      "exportApproved": false,
+      "generatedScript": {
+        "title": "3 Fascinating Facts About Your Car!",
+        "description": "Discover some surprising facts about your car that you probably didn't know! From its history to innovative features, let's dive in!",
+        "hook": "Did you know your car has some hidden secrets?",
+        "mainPoints": [
+          "The average car has over 30,000 parts working together!",
+          "Cars can be traced back to the late 19th century, revolutionizing transportation.",
+          "Modern cars can have more technology than a spaceship, with advanced safety and navigation systems."
+        ],
+        "ending": "So, the next time you get in your car, remember these amazing facts!",
+        "ctaLine": "Don't forget to subscribe for more interesting facts!",
+        "fullVoiceoverScript": "Did you know your car has some hidden secrets? The average car has over 30,000 parts working together! Can you believe that? Cars can be traced back to the late 19th century, revolutionizing transportation. And today, modern cars can have more technology than a spaceship, with advanced safety and navigation systems. So, the next time you get in your car, remember these amazing facts! Don't forget to subscribe for more interesting facts!",
+        "captionLines": [
+          {
+            "text": "Did you know your car has some hidden secrets?",
+            "highlights": [
+              "hidden secrets"
+            ]
+          },
+          {
+            "text": "The average car has over 30,000 parts!",
+            "highlights": [
+              "30,000 parts"
+            ]
+          },
+          {
+            "text": "Cars date back to the late 19th century.",
+            "highlights": [
+              "19th century"
+            ]
+          },
+          {
+            "text": "Modern cars have spaceship-like technology!",
+            "highlights": [
+              "spaceship-like technology"
+            ]
+          },
+          {
+            "text": "Remember these amazing facts!",
+            "highlights": [
+              "amazing facts"
+            ]
+          }
+        ],
+        "sceneVisualSuggestions": [
+          "A close-up of a car's engine with parts labeled.",
+          "An old black-and-white photo of a vintage car.",
+          "A futuristic car dashboard with technology interfaces.",
+          "A person getting into a modern car, looking amazed.",
+          "A subscribe button popping up on the screen."
+        ],
+        "hashtags": [
+          "#CarFacts",
+          "#DidYouKnow",
+          "#FunFacts",
+          "#CarEnthusiasts",
+          "#LearnSomethingNew"
+        ],
+        "estimatedDurationSeconds": 30
+      },
+      "safetyReport": {
+        "overall": "low",
+        "findings": [],
+        "keywordWarnings": []
+      },
+      "topicKeywordWarnings": []
+    }
+  ]
+}

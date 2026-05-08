@@ -1,0 +1,72 @@
+{
+  "description": "Copy into data/projects.json under { \"projects\": [ ... ] } to seed the dashboard, or use the UI to create projects.",
+  "project": {
+    "id": "00000000-0000-4000-8000-000000000001",
+    "createdAt": "2026-05-08T12:00:00.000Z",
+    "updatedAt": "2026-05-08T12:00:00.000Z",
+    "status": "Script Ready",
+    "form": {
+      "niche": "facts",
+      "topic": "Why sleep consistency matters more than total hours",
+      "tone": "educational",
+      "duration": 30,
+      "voiceStyle": "calm",
+      "visualStyle": "minimal",
+      "cta": "subscribe",
+      "targetAudience": "busy adults",
+      "language": "English"
+    },
+    "generatedScript": {
+      "title": "Sleep consistency beats chasing hours",
+      "description": "A calm, advertiser-friendly explainer on sleep regularity for busy adults.",
+      "hook": "If your sleep schedule swings wildly, your body may struggle more than you think.",
+      "mainPoints": [
+        "Consistent wake times help anchor your circadian rhythm.",
+        "Stable routines improve mood and focus more than occasional long sleeps.",
+        "Small nightly adjustments beat extreme weekend catch-ups."
+      ],
+      "ending": "Pick one wake time for the next week and protect it like a meeting.",
+      "ctaLine": "Subscribe for more practical health basics in under a minute.",
+      "fullVoiceoverScript": "If your sleep schedule swings wildly, your body may struggle more than you think. Consistent wake times help anchor your circadian rhythm. Stable routines improve mood and focus more than occasional long sleeps. Small nightly adjustments beat extreme weekend catch-ups. Pick one wake time for the next week and protect it like a meeting. Subscribe for more practical health basics in under a minute.",
+      "captionLines": [
+        { "text": "Wild sleep swings confuse your body" },
+        { "text": "Same wake time anchors rhythm" },
+        { "text": "Routine beats random long sleeps" },
+        { "text": "Tiny daily fixes beat crash weekends" },
+        { "text": "Pick one wake time for 7 days" }
+      ],
+      "sceneVisualSuggestions": [
+        "Minimal moon and clock motif",
+        "Simple sunrise timeline graphic",
+        "Calm bedroom with soft light",
+        "Notebook habit tracker",
+        "Friendly host frame with CTA space"
+      ],
+      "hashtags": ["#SleepTips", "#Shorts", "#HealthBasics"],
+      "estimatedDurationSeconds": 30
+    },
+    "safetyReport": {
+      "overall": "low",
+      "findings": [],
+      "keywordWarnings": []
+    },
+    "scenes": [],
+    "voiceover": { "mode": "none" },
+    "music": { "rightsConfirmed": false, "volumePercent": 12 },
+    "voiceVolume": 1,
+    "musicVolume": 0.12,
+    "renderChecklist": {
+      "scriptOriginal": false,
+      "voiceOriginalOrLicensed": false,
+      "visualsOriginalOrLicensed": false,
+      "musicOriginalOrLicensed": false,
+      "noThirdPartyClips": false,
+      "noCopyrightedSong": false,
+      "notSpammy": false,
+      "disclosureNoted": false
+    },
+    "rights": { "allMediaRightsConfirmed": false },
+    "render": { "status": "idle" },
+    "exportApproved": false
+  }
+}
