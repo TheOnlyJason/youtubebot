@@ -3,10 +3,16 @@ import fs from "fs";
 import path from "path";
 import type { Project, Scene } from "@/types";
 import { absFromRelative, ensureDir, rendersDir } from "@/lib/paths";
+import {
+  assertFfmpegPathExists,
+  ffmpegMissingMessage,
+  getFfmpegExecutable,
+} from "@/lib/video/ffmpegBin";
 
 function runFfmpeg(args: string[], cwd?: string): Promise<string> {
+  const bin = getFfmpegExecutable();
   return new Promise((resolve, reject) => {
-    const proc = spawn("ffmpeg", args, {
+    const proc = spawn(bin, args, {
       cwd,
       shell: false,
       windowsHide: true,
@@ -15,7 +21,14 @@ function runFfmpeg(args: string[], cwd?: string): Promise<string> {
     proc.stderr?.on("data", (d: Buffer) => {
       stderr += d.toString();
     });
-    proc.on("error", (err) => reject(err));
+    proc.on("error", (err) => {
+      const ne = err as NodeJS.ErrnoException;
+      if (ne.code === "ENOENT") {
+        reject(new Error(ffmpegMissingMessage(bin)));
+        return;
+      }
+      reject(err);
+    });
     proc.on("close", (code) => {
       if (code === 0) resolve(stderr);
       else reject(new Error(`ffmpeg exited ${code}: ${stderr.slice(-4000)}`));
@@ -206,8 +219,13 @@ export interface RenderResult {
 export async function renderVerticalMp4(project: Project): Promise<RenderResult> {
   if (!project.generatedScript) throw new Error("Script required");
   if (!project.voiceover.fileRelativePath) throw new Error("Voiceover file required");
+  assertFfmpegPathExists(getFfmpegExecutable());
   const voiceAbs = absFromRelative(project.voiceover.fileRelativePath);
-  if (!fs.existsSync(voiceAbs)) throw new Error("Voiceover missing on disk");
+  if (!fs.existsSync(voiceAbs)) {
+    throw new Error(
+      `Voiceover missing on disk (resolved: ${voiceAbs}). Re-upload or regenerate TTS.`,
+    );
+  }
 
   const target = project.form.duration;
   const scenes = normalizeSceneDurations(project.scenes, target);

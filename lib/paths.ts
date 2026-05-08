@@ -27,12 +27,14 @@ export function ensureDir(dir: string): void {
 
 /** Absolute path from relative upload/render path stored in DB */
 export function absFromRelative(rel: string): string {
-  const normalized = rel.replace(/^[/\\]+/, "").replace(/\\/g, path.sep);
-  if (normalized.startsWith("uploads" + path.sep)) {
-    return path.join(ROOT, normalized);
+  // DB stores POSIX-style paths (uploads/...). Compare with / only so Windows path.sep does not break startsWith.
+  const posix = rel.replace(/^[/\\]+/, "").replace(/\\/g, "/");
+  const parts = posix.split("/").filter(Boolean);
+  if (parts[0] === "uploads") {
+    return path.join(ROOT, ...parts);
   }
-  if (normalized.startsWith("renders" + path.sep)) {
-    return path.join(ROOT, normalized);
+  if (parts[0] === "renders") {
+    return path.join(ROOT, ...parts);
   }
-  return path.join(uploadsDir(), normalized);
+  return path.join(uploadsDir(), ...parts);
 }

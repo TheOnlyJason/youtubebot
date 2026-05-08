@@ -52,6 +52,15 @@ export async function POST(_req: Request, ctx: { params: Promise<{ id: string }>
       },
     };
     saveProject(failed);
-    return NextResponse.json({ error: message, project: failed }, { status: 500 });
+    const badInput =
+      message.includes("Voiceover missing") ||
+      message.includes("Missing media") ||
+      message.includes("Script required");
+    const ffmpegSetup =
+      message.includes("ffmpeg was not found") || message.includes("FFMPEG_PATH is");
+    return NextResponse.json(
+      { error: message, project: failed },
+      { status: badInput ? 400 : ffmpegSetup ? 503 : 500 },
+    );
   }
 }

@@ -5,11 +5,17 @@ Local-first **Next.js** app to draft **copyright-conscious YouTube Shorts**: ori
 ## Requirements
 
 - **Node.js 18+** and npm
-- **FFmpeg** on your `PATH` (`ffmpeg -version`)
+- **FFmpeg** available to the dev server: either on your `PATH` (`ffmpeg -version` in the **same** terminal you use for `npm run dev`) or set **`FFMPEG_PATH`** in `.env.local` to the full path of `ffmpeg.exe` (Windows).
 
 ### Windows
 
-Install FFmpeg (e.g. [gyan.dev builds](https://www.gyan.dev/ffmpeg/builds/) or `winget install ffmpeg`) and restart the terminal so `ffmpeg` is visible.
+Install FFmpeg (e.g. [gyan.dev builds](https://www.gyan.dev/ffmpeg/builds/) or `winget install ffmpeg`). **Restart the terminal and your IDE** so the PATH update is picked up by the process running Next.js.
+
+If you still see **`spawn ffmpeg ENOENT`**, add to `.env.local`:
+
+`FFMPEG_PATH=C:\full\path\to\ffmpeg.exe`
+
+(Find `ffmpeg.exe` in Explorer or run `where ffmpeg` in PowerShell after install.)
 
 ## Setup
 
@@ -50,6 +56,7 @@ Generate a script in the UI once to create five timed **scenes** (the sample has
 | Variable | Purpose |
 |----------|---------|
 | `OPENAI_API_KEY` | Chat script + optional TTS |
+| `FFMPEG_PATH` | Full path to `ffmpeg` if not on PATH (fixes `spawn ffmpeg ENOENT`) |
 | `OPENAI_BASE_URL` | Optional compatible API base |
 | `OPENAI_SCRIPT_MODEL` | Default `gpt-4o-mini` |
 | `OPENAI_TTS_MODEL` | Default `tts-1` |

@@ -3,7 +3,7 @@
     {
       "id": "cb501e3c-176a-4d7c-b222-2001d2a764ba",
       "createdAt": "2026-05-08T18:33:22.977Z",
-      "updatedAt": "2026-05-08T18:34:45.695Z",
+      "updatedAt": "2026-05-08T18:57:00.583Z",
       "status": "Visuals Ready",
       "form": {
         "niche": "facts",
@@ -99,9 +99,9 @@
       },
       "render": {
         "status": "error",
-        "message": "Voiceover missing on disk",
-        "startedAt": "2026-05-08T18:34:45.693Z",
-        "finishedAt": "2026-05-08T18:34:45.695Z"
+        "message": "spawn ffmpeg ENOENT",
+        "startedAt": "2026-05-08T18:57:00.577Z",
+        "finishedAt": "2026-05-08T18:57:00.583Z"
       },
       "exportApproved": false,
       "generatedScript": {
