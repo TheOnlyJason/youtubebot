@@ -26,7 +26,7 @@ You must respond with valid JSON only, matching this shape:
 Rules:
 - fullVoiceoverScript: single narration block, natural pacing for the target duration.
 - mainPoints: exactly three distinct points.
-- sceneVisualSuggestions: five entries aligned to hook, point1, point2, point3, ending+cta.
+- sceneVisualSuggestions: five entries aligned to hook, point1, point2, point3, ending+cta. Describe concrete B-roll a filmmaker could shoot (subjects, setting, action). Match the user's visualStyle: for realistic/cinematic/stock-footage use photorealistic scenes only (no cartoon/illustration).
 - estimatedDurationSeconds should be close to the requested duration.
 - No hashtags inside fullVoiceoverScript; put tags only in hashtags array.
 - Language: match the user's language field.`;

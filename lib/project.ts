@@ -8,7 +8,7 @@ const defaultForm: ProjectForm = {
   tone: "friendly",
   duration: 30,
   voiceStyle: "calm",
-  visualStyle: "minimal",
+  visualStyle: "realistic",
   cta: "subscribe",
   targetAudience: "curious beginners",
   language: "English",

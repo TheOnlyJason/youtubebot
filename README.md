@@ -5,17 +5,11 @@ Local-first **Next.js** app to draft **copyright-conscious YouTube Shorts**: ori
 ## Requirements
 
 - **Node.js 18+** and npm
-- **FFmpeg** available to the dev server: either on your `PATH` (`ffmpeg -version` in the **same** terminal you use for `npm run dev`) or set **`FFMPEG_PATH`** in `.env.local` to the full path of `ffmpeg.exe` (Windows).
+- **FFmpeg** for final MP4 assembly: **`npm install` includes `ffmpeg-static`** (bundled binary — no system install required). Optional: set **`FFMPEG_PATH`** in `.env.local` if you prefer your own `ffmpeg.exe`.
 
 ### Windows
 
-Install FFmpeg (e.g. [gyan.dev builds](https://www.gyan.dev/ffmpeg/builds/) or `winget install ffmpeg`). **Restart the terminal and your IDE** so the PATH update is picked up by the process running Next.js.
-
-If you still see **`spawn ffmpeg ENOENT`**, add to `.env.local`:
-
-`FFMPEG_PATH=C:\full\path\to\ffmpeg.exe`
-
-(Find `ffmpeg.exe` in Explorer or run `where ffmpeg` in PowerShell after install.)
+After `npm install`, render should work without installing FFmpeg globally. If you still see **`spawn ffmpeg ENOENT`**, run `npm install` again or set `FFMPEG_PATH` to a full path to `ffmpeg.exe`.
 
 ## Setup
 
@@ -44,7 +38,7 @@ Generate a script in the UI once to create five timed **scenes** (the sample has
 1. **Dashboard** → New project → fill topic and settings.
 2. **Generate script** → edit text → **safety** panel (green / yellow / red).
 3. **Voice**: upload audio, or **Server TTS (OpenAI)** if `OPENAI_API_KEY` is set, or **browser preview** (preview only; not used in render).
-4. **Visuals**: per-scene upload or built-in **animated backgrounds**.
+4. **Visuals**: **OpenAI Sora** video per scene, **DALL·E** stills, **Pexels** stock clips, upload, or color backgrounds.
 5. **Music** (optional): upload + **commercial rights** checkbox; level slider (~10–15% default).
 6. **Rights** checkbox + **human review** checklist → **Render** (FFmpeg).
 7. **Export** page: preview, download MP4, copy metadata, export JSON, re-render.
@@ -60,8 +54,22 @@ Generate a script in the UI once to create five timed **scenes** (the sample has
 | `OPENAI_BASE_URL` | Optional compatible API base |
 | `OPENAI_SCRIPT_MODEL` | Default `gpt-4o-mini` |
 | `OPENAI_TTS_MODEL` | Default `tts-1` |
+| `OPENAI_IMAGE_MODEL` | Default `dall-e-3` for scene stills |
+| `OPENAI_VIDEO_MODEL` | Default `sora-2-pro` for Sora (`1080x1920` Shorts) |
+| `PEXELS_API_KEY` | Optional — real stock video per scene |
 
 No keys are committed; use `.env.local` (gitignored).
+
+### Confirm Sora / Videos API access
+
+```bash
+npm run check:sora              # list Sora models on your key (free)
+npm run check:sora -- --live    # start a test video job (may bill)
+```
+
+With `--live`, if you get a job `id` and `queued`/`in_progress`, your key can use Sora. A `403` or “model” / “access” error means the API is not enabled for that key or org yet.
+
+Also check [platform.openai.com](https://platform.openai.com) → **Settings** → billing active, and **Usage** after a test. ChatGPT’s in-app Sora is **not** the same as API access.
 
 ## Folder layout
 

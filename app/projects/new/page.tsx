@@ -25,7 +25,7 @@ export default function NewProjectPage() {
   const [tone, setTone] = useState<Tone>("friendly");
   const [duration, setDuration] = useState<ShortDuration>(30);
   const [voiceStyle, setVoiceStyle] = useState<VoiceStyle>("calm");
-  const [visualStyle, setVisualStyle] = useState<VisualStyle>("minimal");
+  const [visualStyle, setVisualStyle] = useState<VisualStyle>("realistic");
   const [cta, setCta] = useState<CtaType>("subscribe");
   const [targetAudience, setTargetAudience] = useState("curious beginners");
   const [language, setLanguage] = useState("English");

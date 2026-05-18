@@ -86,6 +86,52 @@ export function ProjectWorkspace({ initialProject }: { initialProject: Project }
     }
   }
 
+  async function generateVisuals(
+    mode: "images" | "stock_video" | "sora",
+    sceneIndex?: number,
+  ) {
+    const busyKey =
+      mode === "stock_video" ? "stock" : mode === "sora" ? "sora" : "visuals";
+    setBusy(busyKey);
+    setErr(null);
+    try {
+      const res = await fetch(`/api/projects/${project.id}/visuals`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mode, sceneIndex }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Visual generation failed");
+      setProject(data.project);
+    } catch (e) {
+      setErr(e instanceof Error ? e.message : "Error");
+    } finally {
+      setBusy(null);
+    }
+  }
+
+  async function generateAllSoraScenes() {
+    if (project.scenes.length !== 5) return;
+    setErr(null);
+    for (let i = 0; i < 5; i++) {
+      setBusy(`sora-${i + 1}`);
+      try {
+        const res = await fetch(`/api/projects/${project.id}/visuals`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ mode: "sora", sceneIndex: i }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || `Sora failed on scene ${i + 1}`);
+        setProject(data.project);
+      } catch (e) {
+        setErr(e instanceof Error ? e.message : "Error");
+        break;
+      }
+    }
+    setBusy(null);
+  }
+
   async function renderVideo() {
     setBusy("render");
     setErr(null);
@@ -343,7 +389,42 @@ export function ProjectWorkspace({ initialProject }: { initialProject: Project }
         </label>
       </Step>
 
-      <Step title="3 · Visuals (5 scenes)" description="Hook, three points, ending. Upload your own media or use built-in animated backgrounds.">
+      <Step
+        title="3 · Visuals (5 scenes)"
+        description="Upload media, generate OpenAI Sora video clips, photorealistic stills, or Pexels stock footage."
+      >
+        <div className="mb-3 flex flex-wrap gap-2">
+          <button
+            type="button"
+            disabled={!project.generatedScript || project.scenes.length !== 5 || !!busy}
+            onClick={() => generateAllSoraScenes()}
+            className="rounded-lg bg-[var(--accent)] px-3 py-2 text-sm font-medium text-white hover:bg-[var(--accent-hover)] disabled:opacity-40"
+          >
+            {busy?.startsWith("sora")
+              ? `Sora scene ${busy.replace("sora-", "")}/5… (several min each)`
+              : "Generate Sora video (OpenAI)"}
+          </button>
+          <button
+            type="button"
+            disabled={!project.generatedScript || project.scenes.length !== 5 || !!busy}
+            onClick={() => generateVisuals("images")}
+            className="rounded-lg border border-[var(--card-border)] px-3 py-2 text-sm hover:bg-white/5 disabled:opacity-40"
+          >
+            {busy === "visuals" ? "Generating images…" : "AI stills (DALL·E)"}
+          </button>
+          <button
+            type="button"
+            disabled={!project.generatedScript || project.scenes.length !== 5 || !!busy}
+            onClick={() => generateVisuals("stock_video")}
+            className="rounded-lg border border-[var(--card-border)] px-3 py-2 text-sm hover:bg-white/5 disabled:opacity-40"
+          >
+            {busy === "stock" ? "Fetching clips…" : "Fetch stock video (Pexels)"}
+          </button>
+        </div>
+        <p className="mb-3 text-xs text-[var(--muted)]">
+          Sora uses the OpenAI Videos API (async, often several minutes per clip). Clips are 16–20s and
+          trimmed to your scene length at render. Requires API access to Sora models on your OpenAI account.
+        </p>
         {project.scenes.length === 0 && (
           <p className="text-sm text-[var(--muted)]">Generate a script to auto-build scenes.</p>
         )}
@@ -563,7 +644,7 @@ export function ProjectWorkspace({ initialProject }: { initialProject: Project }
           className="mt-4 rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-emerald-500 disabled:opacity-40"
         >
           {busy === "render" || project.render.status === "running"
-            ? "Rendering… (FFmpeg)"
+            ? "Rendering…"
             : "Render vertical MP4"}
         </button>
         {project.render.message && (
