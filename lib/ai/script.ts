@@ -3,15 +3,35 @@ import type {
   ProjectForm,
   ShortDuration,
 } from "@/types";
-import { buildDefaultScenesFromScript, scriptToFlatCaptionLines } from "@/lib/captions";
+import { buildDefaultScenesFromScript } from "@/lib/captions";
+import { normalizeScriptSubject } from "@/lib/ai/scriptSubject";
+import { finalizeSkitScript, mockSkitBeats } from "@/lib/ai/skitScript";
 import type { Scene } from "@/types";
 
-const SYSTEM_PROMPT = `You write original YouTube Shorts scripts. Do not copy text from existing articles, videos, captions, books, speeches, lyrics, or copyrighted sources. Do not include copyrighted quotes. Create concise, engaging, educational content. Keep the script suitable for monetization and advertiser-friendly.
+const SYSTEM_PROMPT = `You write original comedy SKITS for YouTube Shorts — short story scenes with the same characters throughout.
 
-You must respond with valid JSON only, matching this shape:
+This is NOT a documentary, NOT a listicle, NOT "did you know" facts, NOT an essay. Write like a funny visual skit (setup → problem → escalation → payoff → button).
+
+The user provides a skit title/concept (example: "Skit 1 — Bath Bubble Betrayal").
+
+Respond with valid JSON only:
 {
   "title": string,
   "description": string,
+  "skitConcept": string,
+  "castDescription": string,
+  "settingAndProps": string,
+  "primarySubject": string,
+  "primarySetting": string,
+  "skitBeats": [
+    {
+      "label": "Setup" | "Complication" | "Escalation" | "Payoff" | "Button",
+      "action": string,
+      "dialogue": string,
+      "visual": string
+    }
+    (exactly 5 beats in this order)
+  ],
   "hook": string,
   "mainPoints": [string, string, string],
   "ending": string,
@@ -23,85 +43,92 @@ You must respond with valid JSON only, matching this shape:
   "estimatedDurationSeconds": number
 }
 
-Rules:
-- fullVoiceoverScript: single narration block, natural pacing for the target duration.
-- mainPoints: exactly three distinct points.
-- sceneVisualSuggestions: five entries aligned to hook, point1, point2, point3, ending+cta. Describe concrete B-roll a filmmaker could shoot (subjects, setting, action). Match the user's visualStyle: for realistic/cinematic/stock-footage use photorealistic scenes only (no cartoon/illustration).
-- estimatedDurationSeconds should be close to the requested duration.
-- No hashtags inside fullVoiceoverScript; put tags only in hashtags array.
-- Language: match the user's language field.`;
+CAST & SETTING (critical for video AI):
+- castDescription: ONE locked cast for all 5 scenes — exact count, species, colors, size, outfits/accessories. Never add or swap characters.
+- settingAndProps: ONE location + recurring props only. No scene hops to a park, office, or different room.
+- primarySubject / primarySetting: short summaries of the same cast and place.
+
+SKIT BEATS (critical):
+- skitBeats: exactly 5 beats labeled Setup, Complication, Escalation, Payoff, Button.
+- action: 2–4 sentences of story detail for that moment — what the SAME cast does (physical comedy, reactions).
+- dialogue: 1–2 short spoken lines for voiceover — witty, conversational, in-character. Not narrator facts.
+- visual: 3–6 sentences for one filmed shot. MUST repeat the same cast traits from castDescription and same setting/props from settingAndProps. Include camera (wide/medium/close), pose, action, lighting. No new characters, objects, or locations. Sora-safe: G-rated, no phone screens/UI, no logos, no violence.
+
+Also fill hook, mainPoints (beats 2–4 dialogue), ending (beat 5), fullVoiceoverScript (all dialogues flowing as one skit), sceneVisualSuggestions (copy each beat's visual).
+
+Tone: match user tone (funny = playful; dramatic = heightened comedy). visualStyle realistic/cinematic = photorealistic cats/people/objects, not cartoon unless animated.
+
+Language: user language field. estimatedDurationSeconds ≈ target duration.`;
 
 function buildUserPrompt(form: ProjectForm): string {
-  return `Niche: ${form.niche}
-Topic: ${form.topic}
+  return `Skit concept: ${form.topic}
 Tone: ${form.tone}
 Target duration seconds: ${form.duration}
 Voice style: ${form.voiceStyle}
 Visual style: ${form.visualStyle}
-CTA: ${form.cta}
-Target audience: ${form.targetAudience}
+CTA preference: ${form.cta}
+Audience: ${form.targetAudience}
 Language: ${form.language}
 
-Write the JSON script now.`;
+Expand this into a 5-beat comedy skit JSON. Same cast and setting in every beat. Story skit, not documentary.
+
+Write the JSON now.`;
 }
 
-/** Deterministic fallback when no API key — still original-ish template text */
 function mockScript(form: ProjectForm): GeneratedScript {
-  const dur = form.duration;
-  const hook = `Here is one ${form.tone} idea about ${form.topic} for ${form.targetAudience}.`;
-  const p1 = `First, frame the topic in simple terms anyone in ${form.language} can follow.`;
-  const p2 = `Second, share one practical takeaway you can try today—no hype, just clarity.`;
-  const p3 = `Third, explain why it matters in the long run for people interested in ${form.niche}.`;
-  const ending = `Keep experimenting, stay curious, and make the idea your own.`;
-  const cta =
+  const beats = mockSkitBeats(form);
+  const ctaLine =
     form.cta === "no CTA"
       ? ""
       : form.cta === "subscribe"
-        ? "If you want more, subscribe for the next short."
+        ? "Subscribe for the next skit."
         : form.cta === "follow"
-          ? "Follow for more bite-sized lessons."
-          : "Tell me what you would try first—drop a comment.";
-  const full = [hook, p1, p2, p3, ending, cta].filter(Boolean).join(" ");
-  const captionLines = scriptToFlatCaptionLines(full);
-  return {
-    title: `${form.topic} — ${form.niche} short`,
-    description: `A ${form.tone}, advertiser-friendly short on ${form.topic} for ${form.targetAudience}.`,
-    hook,
-    mainPoints: [p1, p2, p3],
-    ending,
-    ctaLine: cta,
-    fullVoiceoverScript: full,
-    captionLines,
-    sceneVisualSuggestions: [
-      `Bold ${form.visualStyle} visual suggesting curiosity about ${form.topic}.`,
-      `Clean diagram or iconography for point one (${form.visualStyle}).`,
-      `Simple metaphor image for point two.`,
-      `Minimal text-on-shape for point three.`,
-      `Calm closing frame with space for ${form.cta === "no CTA" ? "brand" : "CTA"}.`,
-    ],
-    hashtags: [`#${form.niche.replace(/\s+/g, "")}`, "#Shorts", "#LearnSomething"],
-    estimatedDurationSeconds: dur,
+          ? "Follow for more skits."
+          : "Comment your favorite moment.";
+  const raw: GeneratedScript = {
+    title: form.topic.trim() || "Untitled skit",
+    description: `A ${form.tone} comedy skit.`,
+    skitConcept: form.topic.trim(),
+    castDescription: "two fluffy orange tabby cats with matching tiny bow ties",
+    settingAndProps:
+      "a clawfoot bathtub with white bubbles, pastel blue tiles, one yellow rubber duck",
+    primarySubject: "two orange tabby cats in bow ties",
+    primarySetting: "a pastel bathroom bubble bath",
+    skitBeats: beats as GeneratedScript["skitBeats"],
+    hook: beats[0]!.dialogue,
+    mainPoints: [beats[1]!.dialogue, beats[2]!.dialogue, beats[3]!.dialogue],
+    ending: beats[4]!.dialogue,
+    ctaLine,
+    fullVoiceoverScript: "",
+    captionLines: [],
+    sceneVisualSuggestions: beats.map((b) => b.visual),
+    hashtags: ["#Skit", "#Shorts", "#Comedy"],
+    estimatedDurationSeconds: form.duration,
   };
+  return normalizeScriptSubject(form, finalizeSkitScript(form, raw));
 }
 
-function parseScriptJson(text: string): GeneratedScript {
+function parseScriptJson(text: string, form: ProjectForm): GeneratedScript {
   const cleaned = text.replace(/```json\n?|```/g, "").trim();
   const data = JSON.parse(cleaned) as GeneratedScript;
-  if (!data.mainPoints || data.mainPoints.length !== 3) {
-    throw new Error("Invalid script: need three mainPoints");
+
+  if (!data.skitBeats || data.skitBeats.length !== 5) {
+    if (!data.mainPoints || data.mainPoints.length !== 3) {
+      throw new Error("Invalid script: need skitBeats (5) or legacy mainPoints (3).");
+    }
+    return normalizeScriptSubject(form, {
+      ...data,
+      estimatedDurationSeconds: data.estimatedDurationSeconds ?? form.duration,
+    });
   }
-  return {
+
+  const finalized = finalizeSkitScript(form, {
     ...data,
-    estimatedDurationSeconds:
-      data.estimatedDurationSeconds ?? 30,
-  };
+    estimatedDurationSeconds: data.estimatedDurationSeconds ?? form.duration,
+  });
+  return normalizeScriptSubject(form, finalized);
 }
 
-/**
- * Generate script via OpenAI-compatible Chat Completions API.
- * Set OPENAI_API_KEY + OPENAI_SCRIPT_MODEL (optional, default gpt-4o-mini).
- * Swap provider: replace fetch URL / headers in this module.
- */
 export async function generateScriptWithOpenAI(
   form: ProjectForm,
 ): Promise<GeneratedScript> {
@@ -119,7 +146,7 @@ export async function generateScriptWithOpenAI(
     },
     body: JSON.stringify({
       model,
-      temperature: 0.7,
+      temperature: 0.85,
       messages: [
         { role: "system", content: SYSTEM_PROMPT },
         { role: "user", content: buildUserPrompt(form) },
@@ -135,21 +162,29 @@ export async function generateScriptWithOpenAI(
   };
   const content = body.choices?.[0]?.message?.content;
   if (!content) throw new Error("Empty script response");
-  return parseScriptJson(content);
+  return parseScriptJson(content, form);
 }
 
 export function buildScenesForScript(
   script: GeneratedScript,
   duration: ShortDuration,
 ): Scene[] {
-  return buildDefaultScenesFromScript({
+  const beats = script.skitBeats;
+  const base = buildDefaultScenesFromScript({
     hook: script.hook,
     mainPoints: script.mainPoints,
     ending: script.ending,
     ctaLine: script.ctaLine,
     targetDuration: duration,
-  }).map((scene, idx) => ({
-    ...scene,
-    visualSuggestion: script.sceneVisualSuggestions[idx],
-  }));
+  });
+
+  return base.map((scene, idx) => {
+    const beat = beats?.[idx];
+    return {
+      ...scene,
+      caption: beat?.dialogue?.trim() || scene.caption,
+      visualSuggestion:
+        script.sceneVisualSuggestions[idx] ?? beat?.visual ?? scene.visualSuggestion,
+    };
+  });
 }

@@ -91,14 +91,20 @@ export function runSafetyCheck(
   topic: string,
 ): SafetyReport {
   const findings: SafetyFinding[] = [];
+  const beatText =
+    script.skitBeats?.flatMap((b) => [b.action, b.dialogue, b.visual]) ?? [];
   const blob = [
     script.title,
     script.description,
+    script.skitConcept,
+    script.castDescription,
+    script.settingAndProps,
     script.fullVoiceoverScript,
     script.hook,
     ...script.mainPoints,
     script.ending,
     script.ctaLine,
+    ...beatText,
     ...script.captionLines.map((c) => c.text),
   ].join("\n");
 

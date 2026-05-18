@@ -55,7 +55,7 @@ Generate a script in the UI once to create five timed **scenes** (the sample has
 | `OPENAI_SCRIPT_MODEL` | Default `gpt-4o-mini` |
 | `OPENAI_TTS_MODEL` | Default `tts-1` |
 | `OPENAI_IMAGE_MODEL` | Default `dall-e-3` for scene stills |
-| `OPENAI_VIDEO_MODEL` | Default `sora-2-pro` for Sora (`1080x1920` Shorts) |
+| `OPENAI_VIDEO_MODEL` | Default `sora-2` (720×1280, faster). Use `sora-2-pro` for 1080×1920 |
 | `PEXELS_API_KEY` | Optional — real stock video per scene |
 
 No keys are committed; use `.env.local` (gitignored).

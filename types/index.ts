@@ -59,9 +59,39 @@ export interface CaptionLine {
   highlights?: string[];
 }
 
+/** One story beat in a 5-scene comedy skit */
+export interface SkitSceneBeat {
+  /** e.g. Setup, Complication, Escalation, Payoff, Button */
+  label: string;
+  /** What happens in the story (detailed, same cast throughout) */
+  action: string;
+  /** Spoken line for this scene — conversational, not documentary */
+  dialogue: string;
+  /** Detailed single-shot visual for Sora (same characters, setting, props) */
+  visual: string;
+}
+
 export interface GeneratedScript {
   title: string;
   description: string;
+  /** User skit prompt, e.g. "Skit 1 — Bath Bubble Betrayal" */
+  skitConcept?: string;
+  /** Locked cast — identical in every scene (species, count, look, outfits) */
+  castDescription?: string;
+  /** Locked location + recurring props */
+  settingAndProps?: string;
+  /** One subject for the whole short — same in every scene */
+  primarySubject: string;
+  /** One location for the whole short */
+  primarySetting: string;
+  /** Five ordered story beats (preferred for new scripts) */
+  skitBeats?: [
+    SkitSceneBeat,
+    SkitSceneBeat,
+    SkitSceneBeat,
+    SkitSceneBeat,
+    SkitSceneBeat,
+  ];
   hook: string;
   mainPoints: [string, string, string];
   ending: string;
@@ -134,6 +164,14 @@ export interface RightsConfirmation {
   allMediaRightsConfirmed: boolean;
 }
 
+export interface VisualContinuity {
+  setting: string;
+  lighting: string;
+  palette: string;
+  colorGrade: string;
+  sceneBackgrounds: [string, string, string, string, string];
+}
+
 export interface ProjectForm {
   niche: Niche;
   topic: string;
@@ -154,6 +192,36 @@ export interface RenderJob {
   finishedAt?: string;
 }
 
+export type VisualGenerationPhase =
+  | "queued"
+  | "creating"
+  | "rendering"
+  | "downloading"
+  | "completed"
+  | "failed"
+  | "cancelled";
+
+export interface VisualGenerationJob {
+  active: boolean;
+  mode: "sora";
+  /** User clicked stop — finish current poll step, then exit */
+  cancelRequested?: boolean;
+  /** Scenes in this run (e.g. retry only missing clips) */
+  sceneIndices?: number[];
+  /** Scene currently generating (0–4) */
+  sceneIndex: number;
+  sceneCount: number;
+  phase: VisualGenerationPhase;
+  /** 0–100 overall across all scenes in this run */
+  progress: number;
+  /** 0–100 from OpenAI for the current scene */
+  sceneProgress: number;
+  message?: string;
+  startedAt: string;
+  finishedAt?: string;
+  error?: string;
+}
+
 export interface Project {
   id: string;
   createdAt: string;
@@ -162,6 +230,8 @@ export interface Project {
   form: ProjectForm;
   generatedScript?: GeneratedScript;
   safetyReport?: SafetyReport;
+  /** Shared setting / palette so scenes match each other */
+  visualContinuity?: VisualContinuity;
   scenes: Scene[];
   voiceover: VoiceoverState;
   music: MusicState;
@@ -172,6 +242,8 @@ export interface Project {
   renderChecklist: RenderChecklist;
   rights: RightsConfirmation;
   render: RenderJob;
+  /** Live Sora / visual generation progress (polled by UI) */
+  visualGeneration?: VisualGenerationJob;
   /** Manual approval for distribution / YouTube prep */
   exportApproved: boolean;
   /** Last known topic keywords for UI warnings */

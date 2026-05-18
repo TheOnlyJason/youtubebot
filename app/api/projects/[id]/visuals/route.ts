@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
 import { getProject, saveProject } from "@/lib/db";
 import { generateAllSceneImages } from "@/lib/ai/images";
-import { generateAllSceneSoraVideos, generateSceneSoraVideo } from "@/lib/ai/sora";
+import { forceResetVisualGeneration } from "@/lib/visuals/soraReconcile";
+import { requestStopSoraGeneration, startSoraGeneration } from "@/lib/visuals/soraRunner";
 import { fetchAllSceneStockVideos } from "@/lib/visuals/pexels";
 
 export const dynamic = "force-dynamic";
-/** Sora jobs can take several minutes per scene when generating all five. */
-export const maxDuration = 900;
+export const maxDuration = 3600;
 
 type VisualMode = "images" | "stock_video" | "sora";
 
@@ -22,45 +22,74 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
   }
 
   let mode: VisualMode = "images";
-  let sceneIndex: number | undefined;
+  let soraOptions: number | { sceneIndex?: number; retryFailed?: boolean } | undefined;
+  let cancelSora = false;
+  let resetSora = false;
   try {
-    const body = (await req.json()) as { mode?: VisualMode; sceneIndex?: number };
+    const body = (await req.json()) as {
+      mode?: VisualMode;
+      sceneIndex?: number;
+      retryFailed?: boolean;
+      cancel?: boolean;
+      resetSora?: boolean;
+    };
     if (body.mode === "stock_video" || body.mode === "images" || body.mode === "sora") {
       mode = body.mode;
     }
-    if (typeof body.sceneIndex === "number" && body.sceneIndex >= 0 && body.sceneIndex < 5) {
-      sceneIndex = body.sceneIndex;
+    if (body.resetSora === true) {
+      resetSora = true;
+    } else if (body.cancel === true) {
+      cancelSora = true;
+    } else if (body.retryFailed === true) {
+      soraOptions = { retryFailed: true };
+    } else if (typeof body.sceneIndex === "number" && body.sceneIndex >= 0 && body.sceneIndex < 5) {
+      soraOptions = body.sceneIndex;
     }
   } catch {
     /* default images */
+  }
+
+  if (resetSora) {
+    const reset = forceResetVisualGeneration(id);
+    if (!reset.ok) {
+      return NextResponse.json({ error: reset.error }, { status: 404 });
+    }
+    return NextResponse.json({ reset: true, project: reset.project });
+  }
+
+  if (cancelSora) {
+    const stopped = requestStopSoraGeneration(id);
+    const project = getProject(id);
+    if (!stopped.ok && !project?.visualGeneration?.active) {
+      return NextResponse.json({ stopped: true, project });
+    }
+    if (!stopped.ok) {
+      return NextResponse.json(
+        { error: stopped.error, project },
+        { status: 409 },
+      );
+    }
+    return NextResponse.json({ stopped: true, project: getProject(id) });
+  }
+
+  if (mode === "sora") {
+    const started = startSoraGeneration(id, soraOptions);
+    if (!started.ok) {
+      return NextResponse.json(
+        { error: started.error, project: getProject(id) },
+        { status: 409 },
+      );
+    }
+    return NextResponse.json(
+      { started: true, project: getProject(id) },
+      { status: 202 },
+    );
   }
 
   try {
     let scenes = project.scenes;
     if (mode === "stock_video") {
       scenes = await fetchAllSceneStockVideos(project);
-    } else if (mode === "sora") {
-      if (sceneIndex != null) {
-        const file = await generateSceneSoraVideo(
-          project.scenes[sceneIndex],
-          sceneIndex,
-          project,
-        );
-        scenes = project.scenes.map((s, i) =>
-          i === sceneIndex
-            ? {
-                ...s,
-                media: {
-                  sourceType: "upload" as const,
-                  fileRelativePath: file.relativePath,
-                  mimeType: file.mimeType,
-                },
-              }
-            : s,
-        );
-      } else {
-        scenes = await generateAllSceneSoraVideos(project);
-      }
     } else {
       scenes = await generateAllSceneImages(project);
     }

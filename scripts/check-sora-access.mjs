@@ -58,7 +58,7 @@ async function main() {
     /\/$/,
     "",
   );
-  const model = process.env.OPENAI_VIDEO_MODEL || "sora-2-pro";
+  const model = process.env.OPENAI_VIDEO_MODEL || "sora-2";
   const headers = { Authorization: `Bearer ${key}` };
 
   console.log("Checking OpenAI account for Sora / Videos API…\n");

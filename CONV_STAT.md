@@ -2,77 +2,164 @@
 
 Last updated: 2026-05-18
 
-## What you reported
+---
 
-1. **“Video” feels like slideshows** — the app builds Shorts from still images (or color backgrounds) with motion effects, then mixes voiceover and captions. It does not generate true AI motion video end-to-end.
-2. **Visuals look cartoonish** — you want **photorealistic** imagery when possible.
-3. **FFmpeg blocked on your PC** — render failed with `spawn ffmpeg ENOENT` (see `data/projects.json` for the car-facts project).
-4. **Conversation status** — this file.
+## Project goal (why this app exists)
 
-## What the app did before this session
+**SafeShorts Studio** is a local-first Next.js app to help create **copyright-conscious YouTube Shorts** with a **human review step** before export.
 
-Built in an earlier session as **SafeShorts Studio** (local Next.js MVP):
+| Target output | 9:16 vertical MP4 (1080×1920), voiceover, burned-in captions, optional licensed music |
+|---------------|----------------------------------------------------------------------------------------|
+| Not in scope (MVP) | Auto-upload to YouTube; scraping TikTok/YouTube clips; copyrighted music |
 
-| Area | Behavior |
-|------|----------|
-| Script | OpenAI chat (or offline mock) → 5 scenes + captions |
-| Voice | Upload or OpenAI TTS |
-| Visuals | Text *suggestions* only; colored **animated backgrounds** or manual upload |
-| Render | **FFmpeg** concatenates segments, burns ASS captions, mixes audio → 1080×1920 MP4 |
-| YouTube | Metadata helper only (no auto-upload) |
+**Intended pipeline**
 
-There was **no** built-in AI image or stock-video fetch — only suggestions + optional uploads. Ken Burns (zoom/pan) on stills can feel like a “picture slideshow,” which matches your observation.
+1. Original AI script (5 scenes)
+2. Voice (upload or OpenAI TTS)
+3. **Real visuals** (not just colored slides)
+4. Human rights + safety checklist
+5. FFmpeg render → download / YouTube helper metadata
 
-## What we changed in this session
+---
 
-| Change | Purpose |
-|--------|---------|
-| **`ffmpeg-static` npm package** | Bundled `ffmpeg.exe` under `node_modules` — render works without a system FFmpeg install |
-| **`lib/ai/images.ts` + `POST …/visuals`** | Generate **5 photorealistic** scene stills via DALL·E 3 (`style: natural` when visual style is realistic/cinematic/minimal/stock) |
-| **`lib/visuals/pexels.ts`** | Optional **real stock video** per scene (needs free `PEXELS_API_KEY`) |
-| **UI buttons** | “Generate AI images (photorealistic)” and “Fetch stock video (Pexels)” on the Visuals step |
-| **Script prompts** | Scene visual suggestions now ask for shootable B-roll, not cartoon |
-| **Default visual style** | New projects default to **`realistic`** instead of `minimal` |
+## Your goals in this conversation
 
-## Outcomes
+| # | What you wanted | Root issue |
+|---|-----------------|------------|
+| 1 | **Real video**, not a slideshow of stills + audio | Render used **animated color backgrounds** unless you uploaded or generated media per scene |
+| 2 | **Photorealistic** visuals, not cartoon | No image gen at first; DALL·E / defaults improved later |
+| 3 | **FFmpeg without a system install** | `spawn ffmpeg ENOENT` on Windows |
+| 4 | **Use OpenAI Sora** for motion video | Was not wired in initially; added after you pointed at the Videos API docs |
+| 5 | **Progress feedback** while Sora runs | Long async jobs; added progress bar + background jobs + polling |
+| 6 | **Faster / lower quality** Sora | `sora-2-pro` @ 1080p was very slow; switched to **`sora-2` @ 720×1280** |
+| 7 | **This document** (`CONV_STAT`) | Ongoing log of goals, work, and outcomes |
+
+**Clarification:** **Closed captions do not slow down Sora.** Captions are burned in only at the final **Render** step (FFmpeg + ASS), after all scene videos exist.
+
+---
+
+## What was wrong (dog project example)
+
+Project ID: `e66c9180-a051-4374-918c-2a59d90dd2bc` (dogs catching food in the air)
+
+| Symptom | Cause |
+|---------|--------|
+| Final MP4 was **solid colors** | All 5 scenes were `animated_bg` with **no** `fileRelativePath` — user went straight to **Render** without **Generate Sora video** |
+| Sora felt “not used” | Sora is a **separate button**; it does not run automatically before render |
+| `POST /visuals` **500 @ ~10 min** | Our poll timeout was **10 minutes**; Sora was still `in_progress` |
+| Progress stuck at **0%** | OpenAI often reports `0%` for a long time, then jumps (e.g. 40%); UI now smooths backward jumps |
+| `useEffect` warning | Unstable dependency array (`?.active`); fixed with stable booleans |
+
+---
+
+## What we built / changed (chronological)
+
+### Session A — Initial MVP (earlier chat)
+
+- SafeShorts Studio: script, TTS, scenes, safety, checklist, FFmpeg render, export page
+- Visuals = text suggestions + **animated backgrounds** or manual upload
+
+### Session B — Your feedback + fixes
+
+| Change | Files / notes |
+|--------|----------------|
+| Bundled FFmpeg | `ffmpeg-static`, `lib/video/ffmpegBin.ts`, `FFMPEG_PATH` in `.env` |
+| DALL·E scene stills | `lib/ai/images.ts`, visuals API |
+| Pexels stock video | `lib/visuals/pexels.ts` (optional `PEXELS_API_KEY`) |
+| Default visual style | `realistic` for new projects |
+| **Sora Videos API** | `lib/ai/sora.ts`, `lib/visuals/soraRunner.ts`, UI button |
+| Sora access check | `npm run check:sora` (reads `.env` + `.env.local`) |
+| Block render without media | `lib/sceneMedia.ts`, `canRender()` — no more silent solid-color export |
+| Render uses files if present | Fixed bug: `animated_bg` + file path was ignored |
+| **Progress bar** | Background Sora job, poll project every 2.5s, `visualGeneration` on project |
+| Longer Sora wait | 30 min poll default; route `maxDuration` 3600s |
+| **Faster Sora** | `.env`: `OPENAI_VIDEO_MODEL=sora-2`, `OPENAI_VIDEO_SIZE=720x1280` |
+
+---
+
+## Current configuration (your machine)
+
+```env
+# .env (not only .env.local — check script reads both)
+OPENAI_API_KEY=...
+FFMPEG_PATH=C:/Users/aiteam.user/Jason/youtubebot/node_modules/ffmpeg-static/ffmpeg.exe
+OPENAI_VIDEO_MODEL=sora-2
+OPENAI_VIDEO_SIZE=720x1280
+```
+
+| Setting | Effect |
+|---------|--------|
+| `sora-2` + `720x1280` | Faster, lower cost, draft quality |
+| `sora-2-pro` + `1080x1920` | Slower, best quality (set in `.env` if you switch back) |
+
+**Sora API access:** Confirmed working (`npm run check:sora -- --live` returned job `queued`).
+
+---
+
+## How to use the app now (correct order)
+
+1. `npm install` → `npm run dev`
+2. New or open project → **Generate script**
+3. **Server TTS** (or upload voice)
+4. **Generate Sora video (OpenAI)** — wait for progress bar (per scene; 5 scenes = long total time)
+5. Confirm each scene shows **✓ uploads/.../scene_X_sora.mp4**
+6. Complete checklist + rights → **Render vertical MP4**
+7. Export / YouTube helper
+
+**Alternatives on Visuals step:** DALL·E stills (Ken Burns at render), Pexels stock clips, manual upload.
+
+---
+
+## Outcomes vs goals
 
 | Goal | Status |
 |------|--------|
-| No system FFmpeg | **Addressed** — use bundled binary after `npm install` |
-| Less cartoon / more realistic stills | **Addressed** — DALL·E prompts + `natural` style + default `realistic` |
-| Actual moving video footage | **Partially addressed** — use **Pexels stock video** per scene; not full generative video (Sora/Runway class) |
-| True AI-generated video clips | **Not in MVP** — would need a separate video API, cost, and latency |
+| No system FFmpeg | **Done** — bundled binary + `FFMPEG_PATH` |
+| Photorealistic option | **Done** — DALL·E + realistic prompts; Sora for motion |
+| Real motion video | **Done** — Sora per scene (manual step before render) |
+| Know Sora is working | **Done** — `check:sora`, terminal `[sora]` logs, UI progress bar |
+| Faster iteration | **Done** — default `sora-2` @ 720p |
+| Auto Sora before render | **Not done** (by design — too slow/expensive to surprise users) |
+| YouTube auto-upload | **Not in MVP** |
 
-## How to use it now
+---
 
-1. `npm install` (pulls in `ffmpeg-static`).
-2. `.env.local`: `OPENAI_API_KEY` (script, TTS, **images**).
-3. Optional: `PEXELS_API_KEY` for real video clips.
-4. Flow: **Generate script** → **Server TTS** → **Generate AI images** *or* **Fetch stock video** → checklist + rights → **Render**.
+## Known limits
 
-## Update: OpenAI Sora (Videos API)
+- **Sora:** Minutes per scene even on `sora-2`; 5 scenes sequentially can take a long time. OpenAI Videos API deprecation noted for **Sept 2026** in their docs.
+- **Render** upscales 720p Sora clips to 1080×1920 — softer than native 1080p Sora.
+- **DALL·E** = stills + motion effects, not true video.
+- **Background job** stops if you kill `npm run dev` mid-generation.
+- **`.env` vs `.env.local`:** Both work with Next.js; `check:sora` reads both.
 
-We were **not** using Sora initially because the first MVP shipped with FFmpeg + uploads only; the follow-up added DALL·E/Pexels as faster/cheaper paths before Sora was wired in.
+---
 
-**Now integrated:** `lib/ai/sora.ts` + **Generate Sora video (OpenAI)** in the UI. Uses `POST /v1/videos`, polls until `completed`, downloads MP4 per scene. Default model `sora-2-pro` at `1080x1920`.
+## Projects referenced
 
-**Why it wasn’t the default earlier:** async jobs (minutes per clip), higher cost, API access gating, and 16–20s clip lengths (trimmed at render) — not because the API is unsuitable.
+| Project ID | Topic | Notes |
+|------------|-------|--------|
+| `cb501e3c-176a-4d7c-b222-2001d2a764ba` | Car facts | Early `ffmpeg ENOENT`; animated_bg only |
+| `e66c9180-a051-4374-918c-2a59d90dd2bc` | Dogs / food toss | Solid-color render before Sora; Sora gen in progress / slow |
 
-## Known limits (honest)
+---
 
-- **Sora**: several minutes per scene; 5 scenes ≈ long wait; needs Sora enabled on your OpenAI account. API deprecates Sept 2026 per OpenAI docs.
-- **DALL·E stills** are not motion video; render adds Ken Burns effects.
-- **Pexels** clips are licensed stock; search quality varies.
-- **YouTube upload** remains manual via the helper page.
+## Suggested next steps
 
-## Your car-facts project
+1. Restart dev server after `.env` changes.
+2. On dog project: run **Generate Sora video** again with `sora-2` (cancel old run if server was restarted).
+3. When all 5 scenes have files → **Render** again.
+4. For production quality: switch to `sora-2-pro` + `1080x1920` when you accept longer waits.
 
-- ID: `cb501e3c-176a-4d7c-b222-2001d2a764ba`
-- Had voiceover + script; scenes used **animated_bg** only (no uploaded/generated media).
-- Render error: `spawn ffmpeg ENOENT` — should clear after `npm install` and re-render, ideally after generating images or stock video for all 5 scenes.
+---
 
-## Suggested next steps (if you want more)
+## Key files (for developers)
 
-1. Re-open the project → generate visuals → render again.
-2. Add `PEXELS_API_KEY` if you want real footage instead of AI stills.
-3. Future: integrate a **video generation API** (Runway, Luma, etc.) behind a feature flag for true AI motion (higher cost/complexity).
+| Area | Path |
+|------|------|
+| Sora API | `lib/ai/sora.ts` |
+| Background + progress | `lib/visuals/soraRunner.ts` |
+| Visuals API | `app/api/projects/[id]/visuals/route.ts` |
+| Render / FFmpeg | `lib/video/ffmpeg.ts`, `lib/video/ffmpegBin.ts` |
+| Media gating | `lib/sceneMedia.ts`, `lib/projectStatus.ts` |
+| UI | `components/ProjectWorkspace.tsx` |
+| Sora check | `scripts/check-sora-access.mjs` |

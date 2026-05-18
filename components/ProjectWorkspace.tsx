@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { StatusBadge } from "@/components/StatusBadge";
+import { fastModeEnabled } from "@/lib/config";
+import { allScenesHaveMedia, sceneHasMediaPath, scenesMissingMedia } from "@/lib/sceneMedia";
 import { canRender } from "@/lib/projectStatus";
 import type { MotionEffect, Project, Scene } from "@/types";
 
@@ -19,9 +21,46 @@ export function ProjectWorkspace({ initialProject }: { initialProject: Project }
     const res = await fetch(`/api/projects/${project.id}`);
     const data = await res.json();
     if (res.ok) setProject(data.project);
+    return data.project as Project | undefined;
   }, [project.id]);
 
+  const soraActive = project.visualGeneration?.active === true;
+  const soraFailedMessage =
+    project.visualGeneration?.active === false &&
+    project.visualGeneration?.phase === "failed"
+      ? project.visualGeneration.error
+      : undefined;
+
+  useEffect(() => {
+    if (soraActive) {
+      setBusy("sora");
+      const tick = () => void refresh();
+      tick();
+      const id = window.setInterval(tick, 2500);
+      return () => window.clearInterval(id);
+    }
+    setBusy((b) => (b === "sora" ? null : b));
+    return undefined;
+  }, [soraActive, refresh]);
+
+  useEffect(() => {
+    if (soraFailedMessage) setErr(soraFailedMessage);
+  }, [soraFailedMessage]);
+
   const gate = useMemo(() => canRender(project), [project]);
+  const missingMediaScenes = useMemo(() => scenesMissingMedia(project), [project]);
+  const hasAllSceneMedia = useMemo(() => allScenesHaveMedia(project), [project]);
+  const missingSceneIndices = useMemo(() => scenesMissingMedia(project), [project]);
+  const canRetryFailedScenes =
+    missingSceneIndices.length > 0 && missingSceneIndices.length < 5;
+  const fastMode = fastModeEnabled();
+
+  function priorScenesReady(sceneIndex: number): boolean {
+    for (let j = 0; j < sceneIndex; j++) {
+      if (!sceneHasMediaPath(project.scenes[j]!)) return false;
+    }
+    return true;
+  }
 
   async function patch(body: unknown) {
     setErr(null);
@@ -86,19 +125,15 @@ export function ProjectWorkspace({ initialProject }: { initialProject: Project }
     }
   }
 
-  async function generateVisuals(
-    mode: "images" | "stock_video" | "sora",
-    sceneIndex?: number,
-  ) {
-    const busyKey =
-      mode === "stock_video" ? "stock" : mode === "sora" ? "sora" : "visuals";
+  async function generateVisuals(mode: "images" | "stock_video") {
+    const busyKey = mode === "stock_video" ? "stock" : "visuals";
     setBusy(busyKey);
     setErr(null);
     try {
       const res = await fetch(`/api/projects/${project.id}/visuals`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ mode, sceneIndex }),
+        body: JSON.stringify({ mode }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Visual generation failed");
@@ -110,26 +145,66 @@ export function ProjectWorkspace({ initialProject }: { initialProject: Project }
     }
   }
 
-  async function generateAllSoraScenes() {
+  async function stopSoraGeneration() {
+    setErr(null);
+    try {
+      const res = await fetch(`/api/projects/${project.id}/visuals`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ cancel: true }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Could not stop Sora");
+      setProject(data.project);
+    } catch (e) {
+      setErr(e instanceof Error ? e.message : "Error");
+    }
+  }
+
+  async function resetStuckSora() {
+    setErr(null);
+    setBusy(null);
+    try {
+      const res = await fetch(`/api/projects/${project.id}/visuals`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ resetSora: true }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Could not reset Sora status");
+      setProject(data.project);
+    } catch (e) {
+      setErr(e instanceof Error ? e.message : "Error");
+    }
+  }
+
+  async function startSoraGeneration(opts?: { sceneIndex?: number; retryFailed?: boolean }) {
     if (project.scenes.length !== 5) return;
     setErr(null);
-    for (let i = 0; i < 5; i++) {
-      setBusy(`sora-${i + 1}`);
-      try {
-        const res = await fetch(`/api/projects/${project.id}/visuals`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ mode: "sora", sceneIndex: i }),
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || `Sora failed on scene ${i + 1}`);
+    setBusy("sora");
+    try {
+      const res = await fetch(`/api/projects/${project.id}/visuals`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          mode: "sora",
+          sceneIndex: opts?.sceneIndex,
+          retryFailed: opts?.retryFailed === true ? true : undefined,
+        }),
+      });
+      const data = await res.json();
+      if (res.status === 409) throw new Error(data.error || "Sora already running");
+      if (res.status === 202) {
         setProject(data.project);
-      } catch (e) {
-        setErr(e instanceof Error ? e.message : "Error");
-        break;
+        return;
       }
+      if (!res.ok) throw new Error(data.error || "Could not start Sora");
+      setProject(data.project);
+      setBusy(null);
+    } catch (e) {
+      setErr(e instanceof Error ? e.message : "Error");
+      setBusy(null);
     }
-    setBusy(null);
   }
 
   async function renderVideo() {
@@ -248,7 +323,10 @@ export function ProjectWorkspace({ initialProject }: { initialProject: Project }
         </div>
       )}
 
-      <Step title="1 · Script" description="Generate an original script, edit it, and review safety flags.">
+      <Step
+        title="1 · Skit script"
+        description="Generate a 5-beat comedy skit from your prompt — same cast and setting every scene."
+      >
         <div className="flex flex-wrap gap-2">
           <button
             type="button"
@@ -256,7 +334,7 @@ export function ProjectWorkspace({ initialProject }: { initialProject: Project }
             onClick={generateScript}
             className="rounded-lg bg-[var(--accent)] px-3 py-2 text-sm font-medium text-white hover:bg-[var(--accent-hover)] disabled:opacity-40"
           >
-            {busy === "script" ? "Generating…" : "Generate script"}
+            {busy === "script" ? "Generating…" : "Generate skit script"}
           </button>
           <button
             type="button"
@@ -329,7 +407,46 @@ export function ProjectWorkspace({ initialProject }: { initialProject: Project }
                 <p className="font-medium text-white/90">Hashtags</p>
                 <p>{project.generatedScript.hashtags.join(" ")}</p>
               </div>
+              {project.generatedScript.castDescription && (
+                <div className="sm:col-span-2">
+                  <p className="font-medium text-white/90">Cast (locked)</p>
+                  <p>{project.generatedScript.castDescription}</p>
+                </div>
+              )}
+              {project.generatedScript.settingAndProps && (
+                <div className="sm:col-span-2">
+                  <p className="font-medium text-white/90">Setting & props (locked)</p>
+                  <p>{project.generatedScript.settingAndProps}</p>
+                </div>
+              )}
             </div>
+            {project.generatedScript.skitBeats && (
+              <div className="mt-2 flex flex-col gap-3">
+                <p className="text-xs font-medium text-white/90">Scene layout (story skit)</p>
+                {project.generatedScript.skitBeats.map((beat, i) => (
+                  <div
+                    key={`${beat.label}-${i}`}
+                    className="rounded-lg border border-[var(--card-border)] bg-black/30 p-3 text-xs"
+                  >
+                    <p className="font-medium text-[var(--accent)]">
+                      Scene {i + 1} — {beat.label}
+                    </p>
+                    <p className="mt-2 text-zinc-400">
+                      <span className="text-zinc-500">Story: </span>
+                      {beat.action}
+                    </p>
+                    <p className="mt-1 text-white/90">
+                      <span className="text-zinc-500">Line: </span>
+                      {beat.dialogue}
+                    </p>
+                    <p className="mt-1 text-zinc-300">
+                      <span className="text-zinc-500">Visual: </span>
+                      {beat.visual}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
       </Step>
@@ -391,19 +508,47 @@ export function ProjectWorkspace({ initialProject }: { initialProject: Project }
 
       <Step
         title="3 · Visuals (5 scenes)"
-        description="Upload media, generate OpenAI Sora video clips, photorealistic stills, or Pexels stock footage."
+        description="Sora runs one scene at a time — scene 2 starts only after scene 1 finishes. Upload, Sora, DALL·E, or Pexels."
       >
+        <p className="mb-3 text-xs text-zinc-400">
+          Full Sora run: scene 1 → 2 → 3 → 4 → 5 in order (several minutes each). Do not start a later
+          scene until earlier ones show a video file below.
+        </p>
         <div className="mb-3 flex flex-wrap gap-2">
           <button
             type="button"
-            disabled={!project.generatedScript || project.scenes.length !== 5 || !!busy}
-            onClick={() => generateAllSoraScenes()}
+            onClick={() => startSoraGeneration()}
+            disabled={
+              !project.generatedScript ||
+              project.scenes.length !== 5 ||
+              !!busy ||
+              project.visualGeneration?.active
+            }
             className="rounded-lg bg-[var(--accent)] px-3 py-2 text-sm font-medium text-white hover:bg-[var(--accent-hover)] disabled:opacity-40"
           >
-            {busy?.startsWith("sora")
-              ? `Sora scene ${busy.replace("sora-", "")}/5… (several min each)`
+            {project.visualGeneration?.active || busy === "sora"
+              ? "Sora generating…"
               : "Generate Sora video (OpenAI)"}
           </button>
+          {(canRetryFailedScenes ||
+            (missingSceneIndices.length > 0 &&
+              project.visualGeneration?.phase === "failed")) && (
+            <button
+              type="button"
+              onClick={() => startSoraGeneration({ retryFailed: true })}
+              disabled={
+                !project.generatedScript ||
+                project.scenes.length !== 5 ||
+                !!busy ||
+                project.visualGeneration?.active ||
+                missingSceneIndices.length === 0
+              }
+              className="rounded-lg border border-amber-500/50 bg-amber-950/50 px-3 py-2 text-sm font-medium text-amber-100 hover:bg-amber-900/50 disabled:opacity-40"
+            >
+              Regenerate missing scenes (
+              {missingSceneIndices.map((i) => i + 1).join(", ")})
+            </button>
+          )}
           <button
             type="button"
             disabled={!project.generatedScript || project.scenes.length !== 5 || !!busy}
@@ -421,9 +566,76 @@ export function ProjectWorkspace({ initialProject }: { initialProject: Project }
             {busy === "stock" ? "Fetching clips…" : "Fetch stock video (Pexels)"}
           </button>
         </div>
+        {!hasAllSceneMedia && project.scenes.length === 5 && !project.visualGeneration?.active && (
+          <p className="mb-3 rounded-lg border border-amber-500/40 bg-amber-950/40 px-3 py-2 text-sm text-amber-100">
+            Render does <strong>not</strong> run Sora automatically. Click{" "}
+            <strong>Generate Sora video</strong> below first (or upload clips). Until each scene has a
+            file, export uses solid color placeholders only.
+          </p>
+        )}
+        {project.visualGeneration?.active && (
+          <div className="mb-4 rounded-lg border border-indigo-500/30 bg-indigo-950/30 p-4">
+            <div className="mb-2 flex items-center justify-between gap-2 text-sm text-indigo-100">
+              <span className="min-w-0 flex-1">
+                {project.visualGeneration.message ?? "Generating with Sora…"}
+              </span>
+              <div className="flex shrink-0 items-center gap-2">
+                <span className="tabular-nums font-medium">
+                  {Math.round(project.visualGeneration.progress)}%
+                </span>
+                {!project.visualGeneration.cancelRequested ? (
+                  <button
+                    type="button"
+                    onClick={() => void stopSoraGeneration()}
+                    className="rounded border border-red-400/50 bg-red-950/60 px-2 py-0.5 text-xs font-medium text-red-100 hover:bg-red-900/60"
+                  >
+                    Stop
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => void resetStuckSora()}
+                    className="rounded border border-amber-400/50 bg-amber-950/60 px-2 py-0.5 text-xs font-medium text-amber-100 hover:bg-amber-900/60"
+                  >
+                    Clear stuck
+                  </button>
+                )}
+              </div>
+            </div>
+            <div className="h-2.5 overflow-hidden rounded-full bg-black/40">
+              <div
+                className="h-full rounded-full bg-indigo-500 transition-[width] duration-500 ease-out"
+                style={{ width: `${Math.min(100, Math.max(0, project.visualGeneration.progress))}%` }}
+              />
+            </div>
+            <p className="mt-2 text-xs text-indigo-200/80">
+              {project.visualGeneration.message ??
+                `Scene ${project.visualGeneration.sceneIndex + 1} · ${project.visualGeneration.phase}`}
+              . sora-2 (720p) is faster than pro; still often several minutes per scene.
+            </p>
+          </div>
+        )}
+        {project.visualGeneration?.phase === "cancelled" && (
+          <p className="mb-3 rounded-lg border border-zinc-500/40 bg-zinc-900/60 px-3 py-2 text-sm text-zinc-200">
+            {project.visualGeneration.message ??
+              "Sora stopped. Completed scenes are kept — use Regenerate missing scenes to continue."}
+          </p>
+        )}
+        {project.visualGeneration?.phase === "failed" && project.visualGeneration.error && (
+          <p className="mb-3 whitespace-pre-wrap rounded-lg border border-red-500/40 bg-red-950/40 px-3 py-2 text-sm text-red-100">
+            {project.visualGeneration.error}
+          </p>
+        )}
+        {project.visualContinuity && (
+          <p className="mb-3 rounded border border-[var(--card-border)] bg-black/20 px-3 py-2 text-xs text-zinc-300">
+            <strong className="text-white">Visual continuity:</strong>{" "}
+            {project.visualContinuity.palette}. {project.visualContinuity.lighting}. Scenes are
+            generated to match the same setting; render uses soft crossfades between clips.
+          </p>
+        )}
         <p className="mb-3 text-xs text-[var(--muted)]">
-          Sora uses the OpenAI Videos API (async, often several minutes per clip). Clips are 16–20s and
-          trimmed to your scene length at render. Requires API access to Sora models on your OpenAI account.
+          Regenerate the script to refresh continuity. Sora runs scene-by-scene with the same look;
+          use <code className="text-zinc-300">sora-2</code> in .env for faster drafts.
         </p>
         {project.scenes.length === 0 && (
           <p className="text-sm text-[var(--muted)]">Generate a script to auto-build scenes.</p>
@@ -453,7 +665,42 @@ export function ProjectWorkspace({ initialProject }: { initialProject: Project }
                   />
                 </label>
               </div>
-              <p className="mt-1 text-xs text-[var(--muted)]">{scene.visualSuggestion}</p>
+              <label className="mt-1 block text-xs text-[var(--muted)]">
+                Visual (Sora / DALL·E) — avoid phones, jealousy, montages
+                <textarea
+                  className="mt-1 w-full rounded border border-[var(--card-border)] bg-black/40 p-2 text-xs text-white"
+                  rows={2}
+                  value={scene.visualSuggestion ?? ""}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    setProject({
+                      ...project,
+                      scenes: project.scenes.map((s, idx) =>
+                        idx === i ? { ...s, visualSuggestion: v } : s,
+                      ),
+                    });
+                  }}
+                  onBlur={(e) => updateScene(i, { visualSuggestion: e.target.value })}
+                />
+              </label>
+              <button
+                type="button"
+                className="mt-2 rounded border border-[var(--card-border)] px-2 py-1 text-xs hover:bg-white/5 disabled:opacity-40"
+                disabled={
+                  !project.generatedScript ||
+                  !!busy ||
+                  project.visualGeneration?.active ||
+                  !priorScenesReady(i)
+                }
+                title={
+                  !priorScenesReady(i)
+                    ? `Finish scene(s) ${Array.from({ length: i }, (_, j) => j + 1).join(", ")} first`
+                    : undefined
+                }
+                onClick={() => startSoraGeneration({ sceneIndex: i })}
+              >
+                Sora — this scene only
+              </button>
               <label className="mt-2 block text-xs text-[var(--muted)]">
                 On-screen caption
                 <textarea
@@ -523,8 +770,14 @@ export function ProjectWorkspace({ initialProject }: { initialProject: Project }
                   </select>
                 </label>
               </div>
-              {scene.media.fileRelativePath && (
-                <p className="mt-2 text-[10px] text-zinc-400">{scene.media.fileRelativePath}</p>
+              {scene.media.fileRelativePath ? (
+                <p className="mt-2 text-[10px] text-emerald-400">
+                  ✓ {scene.media.fileRelativePath}
+                </p>
+              ) : (
+                <p className="mt-2 text-[10px] text-amber-400">
+                  No video/image — render will use a solid color for this scene
+                </p>
               )}
             </div>
           ))}
@@ -582,7 +835,22 @@ export function ProjectWorkspace({ initialProject }: { initialProject: Project }
         )}
       </Step>
 
-      <Step title="5 · Rights & human review" description="Required before FFmpeg will run.">
+      <Step
+        title={fastMode ? "5 · Render" : "5 · Rights & human review"}
+        description={
+          fastMode
+            ? "Fast mode — review checklist skipped. You are still responsible for rights on uploads."
+            : "Required before FFmpeg will run."
+        }
+      >
+        {fastMode ? (
+          <p className="mb-4 text-sm text-zinc-400">
+            <code className="text-zinc-300">NEXT_PUBLIC_FAST_MODE=true</code> in{" "}
+            <code className="text-zinc-300">.env.local</code> — rights and human review checkboxes
+            are skipped.
+          </p>
+        ) : (
+          <>
         <label className="flex items-start gap-2 text-sm text-[var(--muted)]">
           <input
             type="checkbox"
@@ -630,6 +898,8 @@ export function ProjectWorkspace({ initialProject }: { initialProject: Project }
             </label>
           ))}
         </div>
+          </>
+        )}
         {!gate.ok && (
           <ul className="mt-3 list-disc space-y-1 pl-5 text-xs text-amber-200/90">
             {gate.reasons.map((r) => (

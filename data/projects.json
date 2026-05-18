@@ -170,6 +170,1071 @@
         "keywordWarnings": []
       },
       "topicKeywordWarnings": []
+    },
+    {
+      "id": "e66c9180-a051-4374-918c-2a59d90dd2bc",
+      "createdAt": "2026-05-18T19:48:54.660Z",
+      "updatedAt": "2026-05-18T21:23:37.351Z",
+      "status": "Rendered",
+      "form": {
+        "niche": "facts",
+        "topic": "the owner throws food up in the air and two dogs jumps up and trying to catch the food first fighting amongist each other ",
+        "tone": "friendly",
+        "duration": 30,
+        "voiceStyle": "calm",
+        "visualStyle": "realistic",
+        "cta": "no CTA",
+        "targetAudience": "curious beginners",
+        "language": "English"
+      },
+      "scenes": [
+        {
+          "id": "d283e473-ce62-472a-84b6-0ce8cf44b868",
+          "kind": "hook",
+          "caption": "Two dogs ready to catch!",
+          "durationSeconds": 7,
+          "motion": "zoom_in",
+          "media": {
+            "sourceType": "animated_bg"
+          },
+          "visualSuggestion": "Close-up of two eager dogs sitting, tails wagging in anticipation."
+        },
+        {
+          "id": "e7d428af-924f-4534-ab84-b0e1ee95c82c",
+          "kind": "point1",
+          "caption": "Food flies through the air!",
+          "durationSeconds": 6,
+          "motion": "pan",
+          "media": {
+            "sourceType": "animated_bg"
+          },
+          "visualSuggestion": "Owner standing outside, tossing food high into the air with a smile."
+        },
+        {
+          "id": "2ca32b07-7a95-428b-be7d-52a4d496191e",
+          "kind": "point2",
+          "caption": "Who will get the treat first?",
+          "durationSeconds": 7,
+          "motion": "fade",
+          "media": {
+            "sourceType": "animated_bg"
+          },
+          "visualSuggestion": "Dogs leaping gracefully in slow motion as they reach for the food."
+        },
+        {
+          "id": "e4b7856f-bec4-4a01-93ff-f26fb7eed508",
+          "kind": "point3",
+          "caption": "A playful rivalry begins!",
+          "durationSeconds": 6,
+          "motion": "none",
+          "media": {
+            "sourceType": "animated_bg"
+          },
+          "visualSuggestion": "One dog catches a treat while the other playfully nudges for more."
+        },
+        {
+          "id": "eea9968f-a3d5-4794-8ad4-cc5e8e8ffdac",
+          "kind": "ending",
+          "caption": "What a fun competition!",
+          "durationSeconds": 4,
+          "motion": "zoom_in",
+          "media": {
+            "sourceType": "animated_bg"
+          },
+          "visualSuggestion": "Dogs happily munching on treats, the owner laughing in the background."
+        }
+      ],
+      "voiceover": {
+        "mode": "tts_openai",
+        "fileRelativePath": "uploads/projects/e66c9180-a051-4374-918c-2a59d90dd2bc/voice_tts.mp3",
+        "providerId": "openai_tts"
+      },
+      "music": {
+        "rightsConfirmed": false,
+        "volumePercent": 12
+      },
+      "voiceVolume": 1,
+      "musicVolume": 0.12,
+      "renderChecklist": {
+        "scriptOriginal": true,
+        "voiceOriginalOrLicensed": true,
+        "visualsOriginalOrLicensed": true,
+        "musicOriginalOrLicensed": true,
+        "noThirdPartyClips": true,
+        "noCopyrightedSong": true,
+        "notSpammy": true,
+        "disclosureNoted": true
+      },
+      "rights": {
+        "allMediaRightsConfirmed": true
+      },
+      "render": {
+        "status": "done",
+        "message": "Render complete",
+        "outputRelativePath": "renders/short_e66c9180-a051-4374-918c-2a59d90dd2bc.mp4",
+        "startedAt": "2026-05-18T20:35:58.035Z",
+        "finishedAt": "2026-05-18T20:36:08.247Z"
+      },
+      "exportApproved": false,
+      "generatedScript": {
+        "title": "Doggy Food Catch Challenge!",
+        "description": "Watch as these two playful pups compete in a hilarious food-catching contest! Who will catch the most treats?",
+        "hook": "Ever seen dogs battle it out for food? Let’s dive into this adorable showdown!",
+        "mainPoints": [
+          "Two excited dogs wait eagerly as their owner prepares to throw food.",
+          "With a quick toss, the treats fly into the air, and the dogs leap into action!",
+          "Watch as they compete, showing off their skills and playful rivalry!"
+        ],
+        "ending": "It’s all fun and games until the treats are gone!",
+        "ctaLine": "",
+        "fullVoiceoverScript": "Ever seen dogs battle it out for food? Let’s dive into this adorable showdown! Two excited dogs wait eagerly as their owner prepares to throw food. With a quick toss, the treats fly into the air, and the dogs leap into action! Watch as they compete, showing off their skills and playful rivalry! It’s all fun and games until the treats are gone!",
+        "captionLines": [
+          {
+            "text": "Two dogs ready to catch!",
+            "highlights": [
+              "ready",
+              "catch"
+            ]
+          },
+          {
+            "text": "Food flies through the air!",
+            "highlights": [
+              "flies",
+              "air"
+            ]
+          },
+          {
+            "text": "Who will get the treat first?",
+            "highlights": [
+              "get",
+              "first"
+            ]
+          },
+          {
+            "text": "A playful rivalry begins!",
+            "highlights": [
+              "playful",
+              "rivalry"
+            ]
+          },
+          {
+            "text": "What a fun competition!",
+            "highlights": [
+              "fun",
+              "competition"
+            ]
+          }
+        ],
+        "sceneVisualSuggestions": [
+          "Close-up of two eager dogs sitting, tails wagging in anticipation.",
+          "Owner standing outside, tossing food high into the air with a smile.",
+          "Dogs leaping gracefully in slow motion as they reach for the food.",
+          "One dog catches a treat while the other playfully nudges for more.",
+          "Dogs happily munching on treats, the owner laughing in the background."
+        ],
+        "hashtags": [
+          "#DogChallenge",
+          "#FoodCatch",
+          "#PuppyFun",
+          "#DogsOfYouTube",
+          "#PetLovers"
+        ],
+        "estimatedDurationSeconds": 30
+      },
+      "safetyReport": {
+        "overall": "review",
+        "findings": [
+          {
+            "code": "health_claim",
+            "message": "Health claims may be sensitive for monetization. Prefer cautious, evidence-aligned language.",
+            "level": "review"
+          }
+        ],
+        "keywordWarnings": []
+      },
+      "topicKeywordWarnings": [],
+      "visualGeneration": {
+        "active": true,
+        "mode": "sora",
+        "sceneIndex": 0,
+        "sceneCount": 5,
+        "phase": "rendering",
+        "progress": 8,
+        "sceneProgress": 40,
+        "message": "Scene 1: rendering 40%",
+        "startedAt": "2026-05-18T21:03:18.025Z"
+      }
+    },
+    {
+      "id": "123b93ec-8540-49d8-93c9-bc2496a61d05",
+      "createdAt": "2026-05-18T21:27:46.939Z",
+      "updatedAt": "2026-05-18T22:24:48.305Z",
+      "status": "Rendered",
+      "form": {
+        "niche": "facts",
+        "topic": "a cat being worked at a tech company and he looks at his phone and he see all his friend having fun ",
+        "tone": "friendly",
+        "duration": 30,
+        "voiceStyle": "calm",
+        "visualStyle": "realistic",
+        "cta": "subscribe",
+        "targetAudience": "curious beginners",
+        "language": "English"
+      },
+      "scenes": [
+        {
+          "id": "a1c7d7d7-2da8-41d4-a369-ed239f064159",
+          "kind": "hook",
+          "caption": "A cat at work? Yes, please!",
+          "durationSeconds": 4,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/123b93ec-8540-49d8-93c9-bc2496a61d05/scene_0_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "A cozy office space with a cat sitting at a desk surrounded by tech gadgets."
+        },
+        {
+          "id": "5d8d067e-b8a9-4956-b043-74b47a2c35df",
+          "kind": "point1",
+          "caption": "Checking his phone for fun!",
+          "durationSeconds": 7,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/123b93ec-8540-49d8-93c9-bc2496a61d05/scene_1_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "Close-up of the cat looking at a smartphone, with playful emojis popping up on screen."
+        },
+        {
+          "id": "58493467-48f8-403a-9e65-2438ce58ab1b",
+          "kind": "point2",
+          "caption": "Dreaming of adventures outside!",
+          "durationSeconds": 7,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/123b93ec-8540-49d8-93c9-bc2496a61d05/scene_2_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "A montage of outdoor scenes showing other cats playing and having fun in a park."
+        },
+        {
+          "id": "0295ab96-97ee-4922-8655-b70f5fbc6abe",
+          "kind": "point3",
+          "caption": "Feeling a bit jealous, he dreams of joining them outside!",
+          "durationSeconds": 5,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/123b93ec-8540-49d8-93c9-bc2496a61d05/scene_3_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "The cat gazing out of a window, looking wistful as he imagines joining his friends."
+        },
+        {
+          "id": "31cba541-3540-4155-81a9-e1c4d9949f70",
+          "kind": "ending",
+          "caption": "Even tech-savvy cats need a break sometimes! Subscribe for more fun animal facts!",
+          "durationSeconds": 7,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/123b93ec-8540-49d8-93c9-bc2496a61d05/scene_4_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "The cat returning to work but with a playful attitude, hinting at his daydreams."
+        }
+      ],
+      "voiceover": {
+        "mode": "tts_openai",
+        "fileRelativePath": "uploads/projects/123b93ec-8540-49d8-93c9-bc2496a61d05/voice_tts.mp3",
+        "providerId": "openai_tts"
+      },
+      "music": {
+        "rightsConfirmed": false,
+        "volumePercent": 12
+      },
+      "voiceVolume": 1,
+      "musicVolume": 0.12,
+      "renderChecklist": {
+        "scriptOriginal": true,
+        "voiceOriginalOrLicensed": true,
+        "visualsOriginalOrLicensed": true,
+        "musicOriginalOrLicensed": true,
+        "noThirdPartyClips": true,
+        "noCopyrightedSong": true,
+        "notSpammy": true,
+        "disclosureNoted": true
+      },
+      "rights": {
+        "allMediaRightsConfirmed": true
+      },
+      "render": {
+        "status": "done",
+        "message": "Render complete",
+        "outputRelativePath": "renders/short_123b93ec-8540-49d8-93c9-bc2496a61d05.mp4",
+        "startedAt": "2026-05-18T22:24:28.710Z",
+        "finishedAt": "2026-05-18T22:24:48.304Z"
+      },
+      "exportApproved": false,
+      "generatedScript": {
+        "title": "A Cat's Day at Work",
+        "description": "Join us for a lighthearted look at a cat working in a tech company while his friends enjoy their day off!",
+        "hook": "Ever wondered what a cat does at a tech company?",
+        "mainPoints": [
+          "Meet our feline friend, who's the office mascot at a bustling tech firm.",
+          "He takes a break to check his phone and sees his friends having a blast.",
+          "Feeling a bit jealous, he dreams of joining them outside!"
+        ],
+        "ending": "Even tech-savvy cats need a break sometimes!",
+        "ctaLine": "Subscribe for more fun animal facts!",
+        "fullVoiceoverScript": "Ever wondered what a cat does at a tech company? Meet our feline friend, who's the office mascot at a bustling tech firm. With a cozy desk and a laptop, he works hard but takes a break to check his phone. To his surprise, he sees his friends having a blast outside! Feeling a bit jealous, he dreams of joining them for some fun in the sun. Even tech-savvy cats need a break sometimes! Subscribe for more fun animal facts!",
+        "captionLines": [
+          {
+            "text": "A cat at work? Yes, please!",
+            "highlights": [
+              "cat",
+              "work"
+            ]
+          },
+          {
+            "text": "Checking his phone for fun!",
+            "highlights": [
+              "phone",
+              "fun"
+            ]
+          },
+          {
+            "text": "Dreaming of adventures outside!",
+            "highlights": [
+              "adventures",
+              "outside"
+            ]
+          }
+        ],
+        "sceneVisualSuggestions": [
+          "A cozy office space with a cat sitting at a desk surrounded by tech gadgets.",
+          "Close-up of the cat looking at a smartphone, with playful emojis popping up on screen.",
+          "A montage of outdoor scenes showing other cats playing and having fun in a park.",
+          "The cat gazing out of a window, looking wistful as he imagines joining his friends.",
+          "The cat returning to work but with a playful attitude, hinting at his daydreams."
+        ],
+        "hashtags": [
+          "#CatAtWork",
+          "#TechCats",
+          "#FunWithCats"
+        ],
+        "estimatedDurationSeconds": 30
+      },
+      "safetyReport": {
+        "overall": "low",
+        "findings": [],
+        "keywordWarnings": []
+      },
+      "topicKeywordWarnings": [],
+      "visualGeneration": {
+        "active": false,
+        "mode": "sora",
+        "sceneIndices": [
+          4
+        ],
+        "sceneIndex": 4,
+        "sceneCount": 1,
+        "phase": "completed",
+        "progress": 100,
+        "sceneProgress": 100,
+        "message": "All scenes complete",
+        "startedAt": "2026-05-18T22:14:46.438Z",
+        "finishedAt": "2026-05-18T22:18:00.095Z"
+      },
+      "visualContinuity": {
+        "setting": "Keep the exact same location: a desk surrounded by tech gadgets. Same subject throughout: the subject of this short (a cat being worked at a tech company and he looks …).",
+        "lighting": "warm natural daylight, same sun angle across shots",
+        "palette": "natural realistic colors, cohesive white balance",
+        "colorGrade": "consistent color grade and white balance across every shot",
+        "sceneBackgrounds": [
+          "0x201b2c",
+          "0x241e31",
+          "0x262034",
+          "0x231d30",
+          "0x211c2e"
+        ]
+      }
+    },
+    {
+      "id": "21a0e572-db33-44b5-826d-7d57e14796a2",
+      "createdAt": "2026-05-18T22:29:13.813Z",
+      "updatedAt": "2026-05-18T23:11:25.875Z",
+      "status": "Rendered",
+      "form": {
+        "niche": "facts",
+        "topic": "The Impossible Journey of a Salmon",
+        "tone": "friendly",
+        "duration": 30,
+        "voiceStyle": "calm",
+        "visualStyle": "realistic",
+        "cta": "subscribe",
+        "targetAudience": "curious beginners",
+        "language": "English"
+      },
+      "scenes": [
+        {
+          "id": "4a47bf81-794d-4af3-bd71-3b171b1ae8dd",
+          "kind": "hook",
+          "caption": "Did you know that salmon travel thousands of miles to spawn?",
+          "durationSeconds": 4,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/21a0e572-db33-44b5-826d-7d57e14796a2/scene_0_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "Close-up of a salmon swimming in a flowing river, showcasing its vibrant colors."
+        },
+        {
+          "id": "d7ba64f0-bac0-4256-a1f4-df5d2227a433",
+          "kind": "point1",
+          "caption": "Salmon are born in freshwater rivers and migrate to the ocean.",
+          "durationSeconds": 6,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/21a0e572-db33-44b5-826d-7d57e14796a2/scene_1_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In a flowing river, a salmon: Wide shot of the salmon navigating through the river, with rippling water and rocks."
+        },
+        {
+          "id": "f85d654a-8338-4df3-8a43-b4455c4bca24",
+          "kind": "point2",
+          "caption": "They face rapids and obstacles on their journey back upstream.",
+          "durationSeconds": 7,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/21a0e572-db33-44b5-826d-7d57e14796a2/scene_2_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In a flowing river, a salmon: Underwater view of the salmon swimming against the current, highlighting its strength."
+        },
+        {
+          "id": "e27bd414-d67d-460a-8f44-4914973b4ddc",
+          "kind": "point3",
+          "caption": "This journey can take several months.",
+          "durationSeconds": 6,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/21a0e572-db33-44b5-826d-7d57e14796a2/scene_3_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In a flowing river, a salmon: Close-up of the salmon leaping over a small waterfall, demonstrating its determination."
+        },
+        {
+          "id": "c7d35c26-6fb9-4dfb-ac98-a46c0f97c13f",
+          "kind": "ending",
+          "caption": "Salmon embody perseverance in nature.",
+          "durationSeconds": 7,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/21a0e572-db33-44b5-826d-7d57e14796a2/scene_4_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In a flowing river, a salmon: Final shot of the salmon resting in a calm pool, symbolizing its journey's end."
+        }
+      ],
+      "voiceover": {
+        "mode": "tts_openai",
+        "fileRelativePath": "uploads/projects/21a0e572-db33-44b5-826d-7d57e14796a2/voice_tts.mp3",
+        "providerId": "openai_tts"
+      },
+      "music": {
+        "rightsConfirmed": false,
+        "volumePercent": 12
+      },
+      "voiceVolume": 1,
+      "musicVolume": 0.12,
+      "renderChecklist": {
+        "scriptOriginal": false,
+        "voiceOriginalOrLicensed": false,
+        "visualsOriginalOrLicensed": false,
+        "musicOriginalOrLicensed": false,
+        "noThirdPartyClips": false,
+        "noCopyrightedSong": false,
+        "notSpammy": false,
+        "disclosureNoted": false
+      },
+      "rights": {
+        "allMediaRightsConfirmed": false
+      },
+      "render": {
+        "status": "done",
+        "message": "Render complete",
+        "outputRelativePath": "renders/short_21a0e572-db33-44b5-826d-7d57e14796a2.mp4",
+        "startedAt": "2026-05-18T23:11:00.978Z",
+        "finishedAt": "2026-05-18T23:11:25.874Z"
+      },
+      "exportApproved": false,
+      "generatedScript": {
+        "title": "The Incredible Journey of a Salmon",
+        "description": "Discover the amazing journey of salmon as they navigate upstream against all odds! 🐟",
+        "primarySubject": "a salmon",
+        "primarySetting": "a flowing river",
+        "hook": "Did you know that salmon travel thousands of miles to spawn?",
+        "mainPoints": [
+          "Salmon are born in freshwater rivers and migrate to the ocean, where they grow bigger and stronger.",
+          "When it's time to spawn, they embark on a challenging journey back upstream, facing rapids and obstacles.",
+          "This incredible journey can take several months, showcasing their determination and resilience."
+        ],
+        "ending": "Salmon truly embody the spirit of perseverance in nature.",
+        "ctaLine": "For more amazing nature facts, subscribe to our channel!",
+        "fullVoiceoverScript": "Did you know that salmon travel thousands of miles to spawn? Salmon are born in freshwater rivers and migrate to the ocean, where they grow bigger and stronger. When it's time to spawn, they embark on a challenging journey back upstream, facing rapids and obstacles. This incredible journey can take several months, showcasing their determination and resilience. Salmon truly embody the spirit of perseverance in nature. For more amazing nature facts, subscribe to our channel!",
+        "captionLines": [
+          {
+            "text": "Did you know that salmon travel thousands of miles to spawn?",
+            "highlights": [
+              "salmon",
+              "thousands of miles"
+            ]
+          },
+          {
+            "text": "Salmon are born in freshwater rivers and migrate to the ocean.",
+            "highlights": [
+              "born",
+              "freshwater",
+              "ocean"
+            ]
+          },
+          {
+            "text": "They face rapids and obstacles on their journey back upstream.",
+            "highlights": [
+              "rapids",
+              "obstacles"
+            ]
+          },
+          {
+            "text": "This journey can take several months.",
+            "highlights": [
+              "several months"
+            ]
+          },
+          {
+            "text": "Salmon embody perseverance in nature.",
+            "highlights": [
+              "perseverance",
+              "nature"
+            ]
+          }
+        ],
+        "sceneVisualSuggestions": [
+          "Close-up of a salmon swimming in a flowing river, showcasing its vibrant colors.",
+          "In a flowing river, a salmon: Wide shot of the salmon navigating through the river, with rippling water and rocks.",
+          "In a flowing river, a salmon: Underwater view of the salmon swimming against the current, highlighting its strength.",
+          "In a flowing river, a salmon: Close-up of the salmon leaping over a small waterfall, demonstrating its determination.",
+          "In a flowing river, a salmon: Final shot of the salmon resting in a calm pool, symbolizing its journey's end."
+        ],
+        "hashtags": [
+          "#SalmonJourney",
+          "#NatureFacts",
+          "#Wildlife"
+        ],
+        "estimatedDurationSeconds": 30
+      },
+      "safetyReport": {
+        "overall": "low",
+        "findings": [],
+        "keywordWarnings": []
+      },
+      "visualContinuity": {
+        "setting": "Keep the exact same location: a flowing river. Same subject throughout: a salmon.",
+        "lighting": "warm natural daylight, same sun angle across shots",
+        "palette": "natural realistic colors, cohesive white balance",
+        "colorGrade": "consistent color grade and white balance across every shot",
+        "sceneBackgrounds": [
+          "0x161627",
+          "0x19192c",
+          "0x1a1a2e",
+          "0x18182a",
+          "0x171728"
+        ]
+      },
+      "topicKeywordWarnings": [],
+      "visualGeneration": {
+        "active": false,
+        "mode": "sora",
+        "sceneIndices": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "sceneIndex": 0,
+        "sceneCount": 5,
+        "phase": "completed",
+        "progress": 100,
+        "sceneProgress": 100,
+        "message": "All scenes complete",
+        "startedAt": "2026-05-18T22:55:25.265Z",
+        "cancelRequested": false,
+        "finishedAt": "2026-05-18T23:10:33.169Z"
+      }
+    },
+    {
+      "id": "83ce87c3-136e-4802-8fc3-0f94143080c8",
+      "createdAt": "2026-05-18T22:38:16.926Z",
+      "updatedAt": "2026-05-18T22:56:36.952Z",
+      "status": "Rendered",
+      "form": {
+        "niche": "facts",
+        "topic": "a ant carry a cigarette all alone and by him self",
+        "tone": "friendly",
+        "duration": 30,
+        "voiceStyle": "calm",
+        "visualStyle": "realistic",
+        "cta": "subscribe",
+        "targetAudience": "curious beginners",
+        "language": "English"
+      },
+      "scenes": [
+        {
+          "id": "6e210b31-0b8b-40fe-a31e-7d9125934e0c",
+          "kind": "hook",
+          "caption": "Did you know an ant can carry objects many times its weight?",
+          "durationSeconds": 5,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/83ce87c3-136e-4802-8fc3-0f94143080c8/scene_0_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "Close-up of a single ant carrying a cigarette in a sunny outdoor garden."
+        },
+        {
+          "id": "fd720a37-f280-4dda-8508-b6cf84ed99ae",
+          "kind": "point1",
+          "caption": "Ants can lift up to 50 times their own body weight!",
+          "durationSeconds": 6,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/83ce87c3-136e-4802-8fc3-0f94143080c8/scene_1_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In a sunny outdoor garden, a single ant carrying a cigarette: Side view of the ant lifting the cigarette, highlighting its strength."
+        },
+        {
+          "id": "9c0cb34d-fe87-4074-88df-fa0c1cc03960",
+          "kind": "point2",
+          "caption": "This ant is carrying a cigarette, showcasing its strength!",
+          "durationSeconds": 6,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/83ce87c3-136e-4802-8fc3-0f94143080c8/scene_2_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In a sunny outdoor garden, a single ant carrying a cigarette: Wide shot of the ant navigating through grass, cigarette in tow."
+        },
+        {
+          "id": "2ba1fec7-2e89-41c4-8f73-1be5c910000a",
+          "kind": "point3",
+          "caption": "Ants can work solo or in groups.",
+          "durationSeconds": 6,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/83ce87c3-136e-4802-8fc3-0f94143080c8/scene_3_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In a sunny outdoor garden, a single ant carrying a cigarette: Close-up of the ant's determination as it moves forward."
+        },
+        {
+          "id": "464aa746-319a-461a-8f73-2b7f34afa70a",
+          "kind": "ending",
+          "caption": "Remember its strength and perseverance!",
+          "durationSeconds": 7,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/83ce87c3-136e-4802-8fc3-0f94143080c8/scene_4_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In a sunny outdoor garden, a single ant carrying a cigarette: Final shot of the ant reaching its destination in the sunny outdoor garden."
+        }
+      ],
+      "voiceover": {
+        "mode": "tts_openai",
+        "fileRelativePath": "uploads/projects/83ce87c3-136e-4802-8fc3-0f94143080c8/voice_tts.mp3",
+        "providerId": "openai_tts"
+      },
+      "music": {
+        "rightsConfirmed": false,
+        "volumePercent": 12
+      },
+      "voiceVolume": 1,
+      "musicVolume": 0.12,
+      "renderChecklist": {
+        "scriptOriginal": false,
+        "voiceOriginalOrLicensed": false,
+        "visualsOriginalOrLicensed": false,
+        "musicOriginalOrLicensed": false,
+        "noThirdPartyClips": false,
+        "noCopyrightedSong": false,
+        "notSpammy": false,
+        "disclosureNoted": false
+      },
+      "rights": {
+        "allMediaRightsConfirmed": false
+      },
+      "render": {
+        "status": "done",
+        "message": "Render complete",
+        "outputRelativePath": "renders/short_83ce87c3-136e-4802-8fc3-0f94143080c8.mp4",
+        "startedAt": "2026-05-18T22:56:16.352Z",
+        "finishedAt": "2026-05-18T22:56:36.951Z"
+      },
+      "exportApproved": false,
+      "generatedScript": {
+        "title": "The Mighty Ant: Nature's Strongest Worker",
+        "description": "Discover the incredible strength of an ant as it carries a cigarette all by itself! Join us for some fascinating facts about these tiny yet powerful creatures.",
+        "primarySubject": "a single ant carrying a cigarette",
+        "primarySetting": "a sunny outdoor garden",
+        "hook": "Did you know an ant can carry objects many times its weight? Watch this!",
+        "mainPoints": [
+          "Ants can lift up to 50 times their own body weight, making them incredibly strong.",
+          "This ant is carrying a cigarette, showcasing its impressive strength and determination.",
+          "Ants work solo or in groups, and this little guy is on a mission all by himself!"
+        ],
+        "ending": "Next time you see an ant, remember its strength and perseverance!",
+        "ctaLine": "Subscribe for more amazing nature facts!",
+        "fullVoiceoverScript": "Did you know an ant can carry objects many times its weight? Watch this! Ants can lift up to 50 times their own body weight, making them incredibly strong. This ant is carrying a cigarette, showcasing its impressive strength and determination. Ants work solo or in groups, and this little guy is on a mission all by himself! Next time you see an ant, remember its strength and perseverance! Subscribe for more amazing nature facts!",
+        "captionLines": [
+          {
+            "text": "Did you know an ant can carry objects many times its weight?",
+            "highlights": [
+              "ant",
+              "carry",
+              "weight"
+            ]
+          },
+          {
+            "text": "Ants can lift up to 50 times their own body weight!",
+            "highlights": [
+              "50 times",
+              "body weight"
+            ]
+          },
+          {
+            "text": "This ant is carrying a cigarette, showcasing its strength!",
+            "highlights": [
+              "carrying",
+              "cigarette",
+              "strength"
+            ]
+          },
+          {
+            "text": "Ants can work solo or in groups.",
+            "highlights": [
+              "work solo",
+              "groups"
+            ]
+          },
+          {
+            "text": "Remember its strength and perseverance!",
+            "highlights": [
+              "strength",
+              "perseverance"
+            ]
+          }
+        ],
+        "sceneVisualSuggestions": [
+          "Close-up of a single ant carrying a cigarette in a sunny outdoor garden.",
+          "In a sunny outdoor garden, a single ant carrying a cigarette: Side view of the ant lifting the cigarette, highlighting its strength.",
+          "In a sunny outdoor garden, a single ant carrying a cigarette: Wide shot of the ant navigating through grass, cigarette in tow.",
+          "In a sunny outdoor garden, a single ant carrying a cigarette: Close-up of the ant's determination as it moves forward.",
+          "In a sunny outdoor garden, a single ant carrying a cigarette: Final shot of the ant reaching its destination in the sunny outdoor garden."
+        ],
+        "hashtags": [
+          "#AntFacts",
+          "#NatureLovers",
+          "#IncredibleStrength"
+        ],
+        "estimatedDurationSeconds": 30
+      },
+      "safetyReport": {
+        "overall": "low",
+        "findings": [],
+        "keywordWarnings": []
+      },
+      "visualContinuity": {
+        "setting": "Keep the exact same location: a sunny outdoor garden. Same subject throughout: a single ant carrying a cigarette.",
+        "lighting": "warm natural daylight, same sun angle across shots",
+        "palette": "natural realistic colors, cohesive white balance",
+        "colorGrade": "consistent color grade and white balance across every shot",
+        "sceneBackgrounds": [
+          "0x161627",
+          "0x19192c",
+          "0x1a1a2e",
+          "0x18182a",
+          "0x171728"
+        ]
+      },
+      "topicKeywordWarnings": [],
+      "visualGeneration": {
+        "active": false,
+        "mode": "sora",
+        "sceneIndices": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "sceneIndex": 4,
+        "sceneCount": 5,
+        "phase": "completed",
+        "progress": 100,
+        "sceneProgress": 100,
+        "message": "All scenes complete",
+        "startedAt": "2026-05-18T22:38:40.385Z",
+        "finishedAt": "2026-05-18T22:55:30.222Z"
+      }
+    },
+    {
+      "id": "8eaf92d8-0deb-4f7a-87cd-867bd55025bc",
+      "createdAt": "2026-05-18T23:06:41.933Z",
+      "updatedAt": "2026-05-18T23:40:54.369Z",
+      "status": "Rendered",
+      "form": {
+        "niche": "other",
+        "topic": "bath bubble betrayal ",
+        "tone": "funny",
+        "duration": 30,
+        "voiceStyle": "calm",
+        "visualStyle": "realistic",
+        "cta": "no CTA",
+        "targetAudience": "curious beginners",
+        "language": "English"
+      },
+      "scenes": [
+        {
+          "id": "fd4081c5-6a5a-411a-a2bc-33b58e7a449e",
+          "kind": "hook",
+          "caption": "When bubble baths become bubble chaos!",
+          "durationSeconds": 6,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/8eaf92d8-0deb-4f7a-87cd-867bd55025bc/scene_0_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In A cozy bathroom with a bathtub overflowing with bubbles., Whiskers and Shadow's bubble bath competition turns into a funny mishap.: A wide shot of the cozy bathroom with Whiskers pouring bubble bath into the tub, grinning with pride. Shadow leans against the wall, rolling his eyes, plotting his bubble attack."
+        },
+        {
+          "id": "9f8dcdd5-d55e-4005-acb7-0afa1b453d2a",
+          "kind": "point1",
+          "caption": "Who knew bubbles could betray?",
+          "durationSeconds": 7,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/8eaf92d8-0deb-4f7a-87cd-867bd55025bc/scene_1_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In A cozy bathroom with a bathtub overflowing with bubbles., Whiskers and Shadow's bubble bath competition turns into a funny mishap.: A medium shot of Shadow pouring the bubble solution, his eyes sparkling with mischief. The camera captures the bubbles beginning to spill over the sides of the tub."
+        },
+        {
+          "id": "0c12f2f3-c453-40bc-898a-eeec0dc2ae94",
+          "kind": "point2",
+          "caption": "Whiskers: \"I have to save my kingdom!\"",
+          "durationSeconds": 5,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/8eaf92d8-0deb-4f7a-87cd-867bd55025bc/scene_2_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In A cozy bathroom with a bathtub overflowing with bubbles., Whiskers and Shadow's bubble bath competition turns into a funny mishap.: A close-up of Whiskers' face, eyes wide in panic. The camera pulls back to reveal bubbles spilling onto the floor, creating a bubbly mess."
+        },
+        {
+          "id": "95d0c4a1-e17a-4d2e-b275-4185e21d0220",
+          "kind": "point3",
+          "caption": "Shadow: \"Maybe we should start a bubble business?\"",
+          "durationSeconds": 7,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/8eaf92d8-0deb-4f7a-87cd-867bd55025bc/scene_3_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In A cozy bathroom with a bathtub overflowing with bubbles., Whiskers and Shadow's bubble bath competition turns into a funny mishap.: A medium shot of both cats sitting in a sea of bubbles, looking disheveled but happy. They exchange amused glances, surrounded by their bubble chaos."
+        },
+        {
+          "id": "9dcc4a2e-5faf-409e-86fe-ef637b744f38",
+          "kind": "ending",
+          "caption": "Whiskers: \"At least the duck is happy!\"",
+          "durationSeconds": 5,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/8eaf92d8-0deb-4f7a-87cd-867bd55025bc/scene_4_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In A cozy bathroom with a bathtub overflowing with bubbles., Whiskers and Shadow's bubble bath competition turns into a funny mishap.: A wide shot of the bathroom as Whiskers steps on the rubber duck. The camera captures the moment of surprise and their laughter echoing in the bubbly mess."
+        }
+      ],
+      "voiceover": {
+        "mode": "tts_openai",
+        "fileRelativePath": "uploads/projects/8eaf92d8-0deb-4f7a-87cd-867bd55025bc/voice_tts.mp3",
+        "providerId": "openai_tts"
+      },
+      "music": {
+        "rightsConfirmed": false,
+        "volumePercent": 12
+      },
+      "voiceVolume": 1,
+      "musicVolume": 0.12,
+      "renderChecklist": {
+        "scriptOriginal": false,
+        "voiceOriginalOrLicensed": false,
+        "visualsOriginalOrLicensed": false,
+        "musicOriginalOrLicensed": false,
+        "noThirdPartyClips": false,
+        "noCopyrightedSong": false,
+        "notSpammy": false,
+        "disclosureNoted": false
+      },
+      "rights": {
+        "allMediaRightsConfirmed": false
+      },
+      "render": {
+        "status": "done",
+        "message": "Render complete",
+        "outputRelativePath": "renders/short_8eaf92d8-0deb-4f7a-87cd-867bd55025bc.mp4",
+        "startedAt": "2026-05-18T23:40:35.928Z",
+        "finishedAt": "2026-05-18T23:40:54.369Z"
+      },
+      "exportApproved": false,
+      "generatedScript": {
+        "title": "Bath Bubble Betrayal",
+        "description": "A humorous take on a bubble bath gone wrong when two friends try to outdo each other with their bubble-making skills.",
+        "skitConcept": "Two friends compete to create the biggest bubble bath, leading to unexpected consequences.",
+        "castDescription": "Two cats: a fluffy white cat named Whiskers, wearing a blue bathrobe, and a sleek black cat named Shadow, wearing a red bathrobe. Both are around medium size with playful expressions.",
+        "settingAndProps": "A cozy bathroom with a large bathtub filled with bubbles, a rubber duck, and various bath products scattered around.",
+        "primarySubject": "Whiskers and Shadow's bubble bath competition turns into a funny mishap.",
+        "primarySetting": "A cozy bathroom with a bathtub overflowing with bubbles.",
+        "skitBeats": [
+          {
+            "label": "Setup",
+            "action": "Whiskers fills the bathtub with bubble bath and watches as the bubbles start to rise. Shadow smirks, preparing his own bath mix.",
+            "dialogue": "Whiskers: \"Check out my bubble kingdom!\"",
+            "visual": "A wide shot of the cozy bathroom with Whiskers pouring bubble bath into the tub, grinning with pride. Shadow leans against the wall, rolling his eyes, plotting his bubble attack."
+          },
+          {
+            "label": "Complication",
+            "action": "Shadow sneaks in a giant bottle of bubble solution, pouring it into his own side of the tub, grinning mischievously as bubbles start overflowing.",
+            "dialogue": "Shadow: \"You know what they say, bigger is better!\"",
+            "visual": "A medium shot of Shadow pouring the bubble solution, his eyes sparkling with mischief. The camera captures the bubbles beginning to spill over the sides of the tub."
+          },
+          {
+            "label": "Escalation",
+            "action": "Whiskers notices the bubbles overflowing and looks alarmed. He scrambles to pour in more bubble bath, but it’s too late—bubbles are now everywhere.",
+            "dialogue": "Whiskers: \"I have to save my kingdom!\"",
+            "visual": "A close-up of Whiskers' face, eyes wide in panic. The camera pulls back to reveal bubbles spilling onto the floor, creating a bubbly mess."
+          },
+          {
+            "label": "Payoff",
+            "action": "Both cats are now surrounded by bubbles, their bathrobes soaked. They start laughing, realizing they’ve created a bubble disaster together.",
+            "dialogue": "Shadow: \"Maybe we should start a bubble business?\"",
+            "visual": "A medium shot of both cats sitting in a sea of bubbles, looking disheveled but happy. They exchange amused glances, surrounded by their bubble chaos."
+          },
+          {
+            "label": "Button",
+            "action": "As the bubbles settle, Whiskers accidentally steps on a rubber duck, causing it to squeak loudly. They both freeze, then burst into laughter again.",
+            "dialogue": "Whiskers: \"At least the duck is happy!\"",
+            "visual": "A wide shot of the bathroom as Whiskers steps on the rubber duck. The camera captures the moment of surprise and their laughter echoing in the bubbly mess."
+          }
+        ],
+        "hook": "Whiskers: \"Check out my bubble kingdom!\"",
+        "mainPoints": [
+          "Shadow: \"You know what they say, bigger is better!\"",
+          "Whiskers: \"I have to save my kingdom!\"",
+          "Shadow: \"Maybe we should start a bubble business?\""
+        ],
+        "ending": "Whiskers: \"At least the duck is happy!\"",
+        "ctaLine": "",
+        "fullVoiceoverScript": "Whiskers: \"Check out my bubble kingdom!\" Shadow: \"You know what they say, bigger is better!\" Whiskers: \"I have to save my kingdom!\" Shadow: \"Maybe we should start a bubble business?\" Whiskers: \"At least the duck is happy!\"",
+        "captionLines": [
+          {
+            "text": "When bubble baths become bubble chaos!",
+            "highlights": [
+              "bubble baths",
+              "chaos"
+            ]
+          },
+          {
+            "text": "Who knew bubbles could betray?",
+            "highlights": [
+              "bubbles",
+              "betray"
+            ]
+          }
+        ],
+        "sceneVisualSuggestions": [
+          "In A cozy bathroom with a bathtub overflowing with bubbles., Whiskers and Shadow's bubble bath competition turns into a funny mishap.: A wide shot of the cozy bathroom with Whiskers pouring bubble bath into the tub, grinning with pride. Shadow leans against the wall, rolling his eyes, plotting his bubble attack.",
+          "In A cozy bathroom with a bathtub overflowing with bubbles., Whiskers and Shadow's bubble bath competition turns into a funny mishap.: A medium shot of Shadow pouring the bubble solution, his eyes sparkling with mischief. The camera captures the bubbles beginning to spill over the sides of the tub.",
+          "In A cozy bathroom with a bathtub overflowing with bubbles., Whiskers and Shadow's bubble bath competition turns into a funny mishap.: A close-up of Whiskers' face, eyes wide in panic. The camera pulls back to reveal bubbles spilling onto the floor, creating a bubbly mess.",
+          "In A cozy bathroom with a bathtub overflowing with bubbles., Whiskers and Shadow's bubble bath competition turns into a funny mishap.: A medium shot of both cats sitting in a sea of bubbles, looking disheveled but happy. They exchange amused glances, surrounded by their bubble chaos.",
+          "In A cozy bathroom with a bathtub overflowing with bubbles., Whiskers and Shadow's bubble bath competition turns into a funny mishap.: A wide shot of the bathroom as Whiskers steps on the rubber duck. The camera captures the moment of surprise and their laughter echoing in the bubbly mess."
+        ],
+        "hashtags": [
+          "#BubbleBath",
+          "#CatComedy",
+          "#FelineFun",
+          "#BathTimeBloopers"
+        ],
+        "estimatedDurationSeconds": 30
+      },
+      "safetyReport": {
+        "overall": "low",
+        "findings": [],
+        "keywordWarnings": []
+      },
+      "visualContinuity": {
+        "setting": "Keep the exact same location and props: A cozy bathroom with a large bathtub filled with bubbles, a rubber duck, and various bath products scattered around.. Same cast throughout: Two cats: a fluffy white cat named Whiskers, wearing a blue bathrobe, and a sleek black cat named Shadow, wearing a red bathrobe. Both are around medium size with playful expressions..",
+        "lighting": "bright even daylight, cheerful and consistent",
+        "palette": "natural realistic colors, cohesive white balance",
+        "colorGrade": "consistent color grade and white balance across every shot",
+        "sceneBackgrounds": [
+          "0x18201f",
+          "0x1b2422",
+          "0x1c2624",
+          "0x1a2321",
+          "0x192120"
+        ]
+      },
+      "topicKeywordWarnings": [],
+      "visualGeneration": {
+        "active": false,
+        "mode": "sora",
+        "sceneIndices": [
+          4
+        ],
+        "sceneIndex": 4,
+        "sceneCount": 1,
+        "phase": "completed",
+        "progress": 100,
+        "sceneProgress": 100,
+        "message": "All scenes complete",
+        "startedAt": "2026-05-18T23:34:59.662Z",
+        "cancelRequested": false,
+        "finishedAt": "2026-05-18T23:38:31.664Z"
+      }
     }
   ]
 }

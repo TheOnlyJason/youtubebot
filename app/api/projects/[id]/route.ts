@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { deleteProject, getProject, saveProject } from "@/lib/db";
+import { reconcileProjectState } from "@/lib/visuals/soraReconcile";
 import type {
   GeneratedScript,
   MusicState,
@@ -34,7 +35,8 @@ export async function GET(
   const { id } = await ctx.params;
   const p = getProject(id);
   if (!p) return NextResponse.json({ error: "Not found" }, { status: 404 });
-  return NextResponse.json({ project: p });
+  const project = reconcileProjectState(p);
+  return NextResponse.json({ project });
 }
 
 export async function PATCH(req: Request, ctx: { params: Promise<{ id: string }> }) {

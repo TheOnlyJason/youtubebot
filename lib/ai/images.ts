@@ -1,6 +1,8 @@
 import fs from "fs";
 import path from "path";
-import type { Project, Scene, VisualStyle } from "@/types";
+import { finalizeVisualPrompt, sanitizeVisualText } from "@/lib/ai/moderationSafe";
+import { continuityPromptBlock } from "@/lib/visuals/continuity";
+import type { Project, Scene, VisualContinuity, VisualStyle } from "@/types";
 import { ensureDir, uploadsDir } from "@/lib/paths";
 
 function styleDirective(visualStyle: VisualStyle): string {
@@ -27,24 +29,45 @@ function styleDirective(visualStyle: VisualStyle): string {
   }
 }
 
-function buildImagePrompt(scene: Scene, form: Project["form"]): string {
-  const subject =
+function buildImagePrompt(
+  scene: Scene,
+  form: Project["form"],
+  opts?: {
+    continuity?: VisualContinuity;
+    sceneIndex?: number;
+    priorSceneSummary?: string;
+    primarySubject?: string;
+    primarySetting?: string;
+  },
+): string {
+  const subject = sanitizeVisualText(
     scene.visualSuggestion?.trim() ||
-    scene.caption ||
-    `Scene for a ${form.niche} short about ${form.topic}`;
-  return [
+      scene.caption ||
+      `Scene for a ${form.niche} short about ${form.topic}`,
+  );
+  const parts = [
     styleDirective(form.visualStyle),
-    `Topic context: ${form.topic}. Tone: ${form.tone}.`,
+    `Topic: ${form.topic}. Tone: ${form.tone}.`,
+    opts?.primarySubject
+      ? `Same subject every scene: ${opts.primarySubject}. Setting: ${opts.primarySetting}.`
+      : "",
     `Visual: ${subject}`,
     "Vertical 9:16 safe composition with subject centered; leave lower third clear for captions.",
     "Original generic stock-style imagery only; no logos, watermarks, or recognizable celebrities.",
-  ].join(" ");
+  ];
+  if (opts?.continuity != null && opts.sceneIndex != null) {
+    parts.push(
+      continuityPromptBlock(opts.continuity, opts.sceneIndex, 5, opts.priorSceneSummary),
+    );
+  }
+  return finalizeVisualPrompt(parts.join(" "));
 }
 
 export async function generateSceneImage(
   scene: Scene,
   sceneIndex: number,
   project: Project,
+  priorSceneSummary?: string,
 ): Promise<{ relativePath: string; mimeType: string }> {
   const key = process.env.OPENAI_API_KEY;
   if (!key) {
@@ -53,7 +76,13 @@ export async function generateSceneImage(
 
   const model = process.env.OPENAI_IMAGE_MODEL || "dall-e-3";
   const base = process.env.OPENAI_BASE_URL || "https://api.openai.com/v1";
-  const prompt = buildImagePrompt(scene, project.form);
+  const prompt = buildImagePrompt(scene, project.form, {
+    continuity: project.visualContinuity,
+    sceneIndex,
+    priorSceneSummary,
+    primarySubject: project.generatedScript?.primarySubject,
+    primarySetting: project.generatedScript?.primarySetting,
+  });
 
   const res = await fetch(`${base.replace(/\/$/, "")}/images/generations`, {
     method: "POST",
@@ -112,9 +141,12 @@ export async function generateAllSceneImages(
   }
 
   const updated: Scene[] = [];
+  let priorSceneSummary: string | undefined;
   for (let i = 0; i < project.scenes.length; i++) {
     const scene = project.scenes[i];
-    const file = await generateSceneImage(scene, i, project);
+    const file = await generateSceneImage(scene, i, project, priorSceneSummary);
+    priorSceneSummary =
+      scene.visualSuggestion?.trim() || scene.caption || priorSceneSummary;
     updated.push({
       ...scene,
       media: {

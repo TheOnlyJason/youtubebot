@@ -21,8 +21,8 @@ export default function NewProjectPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [topic, setTopic] = useState("");
-  const [niche, setNiche] = useState<Niche>("facts");
-  const [tone, setTone] = useState<Tone>("friendly");
+  const [niche, setNiche] = useState<Niche>("other");
+  const [tone, setTone] = useState<Tone>("funny");
   const [duration, setDuration] = useState<ShortDuration>(30);
   const [voiceStyle, setVoiceStyle] = useState<VoiceStyle>("calm");
   const [visualStyle, setVisualStyle] = useState<VisualStyle>("realistic");
@@ -62,15 +62,16 @@ export default function NewProjectPage() {
   return (
     <div className="mx-auto max-w-2xl flex flex-col gap-8">
       <div>
-        <h1 className="text-2xl font-semibold text-white">New Short project</h1>
+        <h1 className="text-2xl font-semibold text-white">New skit Short</h1>
         <p className="mt-1 text-sm text-[var(--muted)]">
-          Describe what you want to say. You will review everything before FFmpeg renders a 9:16 MP4.
+          Enter a skit title or idea. The script becomes five story beats (Setup → Button) with the
+          same cast and setting in every scene — not a documentary.
         </p>
       </div>
 
       <div className="flex flex-col gap-4 rounded-xl border border-[var(--card-border)] bg-[var(--card)] p-6">
         <label className="flex flex-col gap-1 text-sm">
-          <span className="text-[var(--muted)]">Topic</span>
+          <span className="text-[var(--muted)]">Skit prompt</span>
           <input
             className="rounded-lg border border-[var(--card-border)] bg-black/30 px-3 py-2 text-white outline-none focus:border-[var(--accent)]"
             value={topic}
@@ -79,8 +80,11 @@ export default function NewProjectPage() {
               setTopic(v);
               setKw(scanTopicForRiskyKeywords(v));
             }}
-            placeholder="e.g. three habits that make mornings easier"
+            placeholder="e.g. Skit 1 — Bath Bubble Betrayal"
           />
+          <span className="text-xs text-zinc-500">
+            AI expands this into 5 detailed scenes: same characters, same location, story comedy.
+          </span>
         </label>
         {kw.length > 0 && (
           <div className="rounded-lg border border-amber-700/50 bg-amber-950/30 px-3 py-2 text-xs text-amber-100">

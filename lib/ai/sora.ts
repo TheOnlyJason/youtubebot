@@ -1,6 +1,12 @@
 import fs from "fs";
 import path from "path";
-import type { Project, Scene, VisualStyle } from "@/types";
+import {
+  finalizeVisualPrompt,
+  isModerationBlockError,
+  sanitizeVisualText,
+} from "@/lib/ai/moderationSafe";
+import { continuityPromptBlock } from "@/lib/visuals/continuity";
+import type { Project, Scene, VisualContinuity, VisualStyle } from "@/types";
 import { ensureDir, uploadsDir } from "@/lib/paths";
 
 type SoraStatus = "queued" | "in_progress" | "completed" | "failed";
@@ -23,7 +29,7 @@ function openAiKey(): string {
 }
 
 function soraModel(): string {
-  return process.env.OPENAI_VIDEO_MODEL || "sora-2-pro";
+  return process.env.OPENAI_VIDEO_MODEL || "sora-2";
 }
 
 /** Sora supports 16s and 20s generations; we trim to scene length at render time. */
@@ -50,18 +56,56 @@ function styleDirective(visualStyle: VisualStyle): string {
   }
 }
 
-export function buildSoraPrompt(scene: Scene, form: Project["form"]): string {
-  const action =
+export function buildSoraPrompt(
+  scene: Scene,
+  form: Project["form"],
+  opts?: {
+    continuity?: VisualContinuity;
+    sceneIndex?: number;
+    sceneCount?: number;
+    priorSceneSummary?: string;
+    primarySubject?: string;
+    primarySetting?: string;
+    castDescription?: string;
+    settingAndProps?: string;
+    /** Second attempt after moderation block */
+    extraSoft?: boolean;
+  },
+): string {
+  const action = sanitizeVisualText(
     scene.visualSuggestion?.trim() ||
-    scene.caption ||
-    `A scene about ${form.topic}`;
-  return [
+      scene.caption ||
+      `A scene about ${form.topic}`,
+  );
+  const subject = opts?.primarySubject?.trim() || form.topic;
+  const setting = opts?.primarySetting?.trim() || "unchanged location";
+  const parts = [
     styleDirective(form.visualStyle),
     `Topic: ${form.topic}. Tone: ${form.tone}.`,
+    `Subject (same in every scene): ${subject}. Setting: ${setting}.`,
+    opts?.castDescription
+      ? `Cast bible (do not change): ${opts.castDescription}.`
+      : "",
+    opts?.settingAndProps
+      ? `Setting and props (do not change): ${opts.settingAndProps}.`
+      : "",
     `Shot: ${action}`,
     "Vertical 9:16 framing, smooth camera motion, leave lower third relatively clear for captions.",
     "No logos, watermarks, copyrighted characters, or recognizable public figures.",
-  ].join(" ");
+  ];
+  if (opts?.continuity != null && opts.sceneIndex != null && opts.sceneCount != null) {
+    parts.push(
+      continuityPromptBlock(
+        opts.continuity,
+        opts.sceneIndex,
+        opts.sceneCount,
+        opts.priorSceneSummary
+          ? sanitizeVisualText(opts.priorSceneSummary)
+          : undefined,
+      ),
+    );
+  }
+  return finalizeVisualPrompt(parts.join(" "), opts?.extraSoft === true);
 }
 
 async function createSoraJob(prompt: string, seconds: "16" | "20"): Promise<SoraVideoJob> {
@@ -98,24 +142,67 @@ async function retrieveSoraJob(videoId: string): Promise<SoraVideoJob> {
   return (await res.json()) as SoraVideoJob;
 }
 
+function pollConfig() {
+  const maxWaitMs = Number(process.env.OPENAI_VIDEO_MAX_WAIT_MS) || 1_800_000; // 30 min
+  const pollMs = Number(process.env.OPENAI_VIDEO_POLL_MS) || 10_000;
+  return { maxWaitMs, pollMs };
+}
+
+export type SoraProgressUpdate = {
+  phase: "queued" | "in_progress" | "completed" | "failed";
+  progress: number;
+};
+
 async function pollSoraJob(
   videoId: string,
-  opts?: { pollMs?: number; maxWaitMs?: number },
+  opts?: {
+    pollMs?: number;
+    maxWaitMs?: number;
+    label?: string;
+    onProgress?: (u: SoraProgressUpdate) => void;
+    shouldCancel?: () => void;
+  },
 ): Promise<SoraVideoJob> {
-  const pollMs = opts?.pollMs ?? 15_000;
-  const maxWaitMs = opts?.maxWaitMs ?? 600_000;
+  const defaults = pollConfig();
+  const pollMs = opts?.pollMs ?? defaults.pollMs;
+  const maxWaitMs = opts?.maxWaitMs ?? defaults.maxWaitMs;
   const started = Date.now();
+  const label = opts?.label ?? videoId;
 
   while (Date.now() - started < maxWaitMs) {
+    opts?.shouldCancel?.();
     const job = await retrieveSoraJob(videoId);
+    const progress = job.progress ?? 0;
+    opts?.onProgress?.({ phase: job.status, progress });
+    if (job.status === "in_progress" || job.status === "queued") {
+      console.info(
+        `[sora] ${label}: ${job.status} ${progress}% (${Math.round((Date.now() - started) / 1000)}s elapsed)`,
+      );
+    }
     if (job.status === "completed") return job;
     if (job.status === "failed") {
-      throw new Error(job.error?.message || "Sora video generation failed");
+      const msg = job.error?.message || "Sora video generation failed";
+      if (isModerationBlockError(msg)) {
+        throw new Error(
+          `${msg} Try editing the scene visual under Script (avoid phones, jealousy, montages), then regenerate this scene only.`,
+        );
+      }
+      throw new Error(msg);
     }
-    await new Promise((r) => setTimeout(r, pollMs));
+    const chunkMs = 1000;
+    let waited = 0;
+    while (waited < pollMs) {
+      opts?.shouldCancel?.();
+      const step = Math.min(chunkMs, pollMs - waited);
+      await new Promise((r) => setTimeout(r, step));
+      waited += step;
+    }
   }
 
-  throw new Error("Sora video generation timed out (try again or generate one scene at a time).");
+  const waitedMin = Math.round(maxWaitMs / 60_000);
+  throw new Error(
+    `Sora still processing after ${waitedMin} minutes. Try scene-by-scene, use OPENAI_VIDEO_MODEL=sora-2 for faster renders, or increase OPENAI_VIDEO_MAX_WAIT_MS.`,
+  );
 }
 
 async function downloadSoraMp4(videoId: string, destAbs: string): Promise<void> {
@@ -134,12 +221,55 @@ export async function generateSceneSoraVideo(
   scene: Scene,
   sceneIndex: number,
   project: Project,
+  genOpts?: {
+    continuity?: VisualContinuity;
+    priorSceneSummary?: string;
+  },
+  hooks?: {
+    onCreating?: () => void;
+    onProgress?: (progress: number) => void;
+    onDownloading?: () => void;
+    shouldCancel?: () => void;
+  },
 ): Promise<{ relativePath: string; mimeType: string }> {
-  const prompt = buildSoraPrompt(scene, project.form);
-  const seconds = soraSecondsForScene(scene.durationSeconds);
+  const promptOpts = {
+    continuity: genOpts?.continuity ?? project.visualContinuity,
+    sceneIndex,
+    sceneCount: 5,
+    priorSceneSummary: genOpts?.priorSceneSummary,
+    primarySubject: project.generatedScript?.primarySubject,
+    primarySetting: project.generatedScript?.primarySetting,
+    castDescription: project.generatedScript?.castDescription,
+    settingAndProps: project.generatedScript?.settingAndProps,
+  };
 
-  const job = await createSoraJob(prompt, seconds);
-  await pollSoraJob(job.id);
+  const runOnce = async (extraSoft: boolean) => {
+    hooks?.shouldCancel?.();
+    const prompt = buildSoraPrompt(scene, project.form, { ...promptOpts, extraSoft });
+    const seconds = soraSecondsForScene(scene.durationSeconds);
+    hooks?.onCreating?.();
+    hooks?.shouldCancel?.();
+    const job = await createSoraJob(prompt, seconds);
+    await pollSoraJob(job.id, {
+      label: `scene ${sceneIndex + 1}${extraSoft ? " (soft retry)" : ""}`,
+      onProgress: (u) => hooks?.onProgress?.(u.progress),
+      shouldCancel: hooks?.shouldCancel,
+    });
+    return job;
+  };
+
+  let job: SoraVideoJob;
+  try {
+    job = await runOnce(false);
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : String(e);
+    if (!isModerationBlockError(msg)) throw e;
+    console.warn(`[sora] scene ${sceneIndex + 1}: moderation block, retrying softened prompt`);
+    job = await runOnce(true);
+  }
+
+  hooks?.shouldCancel?.();
+  hooks?.onDownloading?.();
 
   const projectDir = path.join(uploadsDir(), "projects", project.id);
   ensureDir(projectDir);

@@ -3,6 +3,7 @@ import fs from "fs";
 import path from "path";
 import type { Project, Scene } from "@/types";
 import { absFromRelative, ensureDir, rendersDir } from "@/lib/paths";
+import { sceneHasUsableMedia } from "@/lib/sceneMedia.server";
 import {
   assertFfmpegPathExists,
   ffmpegMissingMessage,
@@ -66,19 +67,106 @@ export function normalizeSceneDurations(
   return base;
 }
 
-function vfForMotion(motion: Scene["motion"], frames: number): string {
-  const base =
-    "scale=1080:1920:force_original_aspect_ratio=decrease,pad=1080:1920:(ow-iw)/2:(oh-ih)/2,format=yuv420p";
+const DEFAULT_BACKGROUNDS = [
+  "0x1a1a2e",
+  "0x1c2238",
+  "0x1e263c",
+  "0x1a2436",
+  "0x182230",
+] as const;
+
+function scenePadColor(project: Project, sceneIndex: number): string {
+  return (
+    project.visualContinuity?.sceneBackgrounds[sceneIndex] ??
+    DEFAULT_BACKGROUNDS[sceneIndex % DEFAULT_BACKGROUNDS.length]
+  );
+}
+
+function padColorForFfmpeg(hex: string): string {
+  return hex.replace(/^0x/i, "");
+}
+
+function sceneFadeSuffix(dur: number): string {
+  const fade = Math.min(0.35, dur / 4);
+  const fadeOutSt = Math.max(0, dur - fade);
+  return `,fade=t=in:st=0:d=${fade},fade=t=out:st=${fadeOutSt}:d=${fade}`;
+}
+
+/** Still images only — zoompan on video uses frame 0 and looks like a frozen thumbnail */
+function vfForStillImage(
+  motion: Scene["motion"],
+  frames: number,
+  padHex: string,
+  dur: number,
+): string {
+  const pad = padColorForFfmpeg(padHex);
+  const base = `scale=1080:1920:force_original_aspect_ratio=decrease,pad=1080:1920:(ow-iw)/2:(oh-ih)/2:color=0x${pad},format=yuv420p`;
+  const fades = sceneFadeSuffix(dur);
   if (motion === "fade") {
-    return `${base},fade=t=in:st=0:d=0.35`;
+    return `${base}${fades}`;
   }
   if (motion === "zoom_in") {
-    return `scale=4000:-1,zoompan=z='min(zoom+0.0018,1.18)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=${frames}:s=1080x1920:fps=30,format=yuv420p`;
+    return `scale=4000:-1,zoompan=z='min(zoom+0.0018,1.18)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=${frames}:s=1080x1920:fps=30,format=yuv420p${fades}`;
   }
   if (motion === "pan") {
-    return `scale=4000:-1,zoompan=z=1.12:x='50+on*3':y='ih/2-(ih/zoom/2)':d=${frames}:s=1080x1920:fps=30,format=yuv420p`;
+    return `scale=4000:-1,zoompan=z=1.12:x='50+on*3':y='ih/2-(ih/zoom/2)':d=${frames}:s=1080x1920:fps=30,format=yuv420p${fades}`;
   }
-  return `${base},fade=t=in:st=0:d=0.15`;
+  return `${base}${fades}`;
+}
+
+/** Play Sora / stock MP4 as real video (no Ken Burns — that breaks multi-frame input) */
+function vfForVideoClip(padHex: string, dur: number): string {
+  const pad = padColorForFfmpeg(padHex);
+  return `scale=1080:1920:force_original_aspect_ratio=decrease,pad=1080:1920:(ow-iw)/2:(oh-ih)/2:color=0x${pad},fps=30,format=yuv420p${sceneFadeSuffix(dur)}`;
+}
+
+async function probeMediaDuration(abs: string): Promise<number> {
+  const bin = getFfmpegExecutable();
+  return new Promise((resolve) => {
+    const proc = spawn(bin, ["-hide_banner", "-i", abs], {
+      windowsHide: true,
+    });
+    let stderr = "";
+    proc.stderr?.on("data", (d: Buffer) => {
+      stderr += d.toString();
+    });
+    proc.on("close", () => {
+      const m = stderr.match(/Duration:\s*(\d+):(\d+):(\d+(?:\.\d+)?)/);
+      if (!m) {
+        resolve(0);
+        return;
+      }
+      resolve(
+        parseInt(m[1]!, 10) * 3600 +
+          parseInt(m[2]!, 10) * 60 +
+          parseFloat(m[3]!),
+      );
+    });
+    proc.on("error", () => resolve(0));
+  });
+}
+
+/** When Sora clip is longer than the scene slot, use the middle segment (not just the first seconds) */
+function videoTrimStart(sourceDur: number, sceneDur: number): number {
+  if (sourceDur <= sceneDur + 0.25) return 0;
+  return Math.max(0, (sourceDur - sceneDur) / 2);
+}
+
+function buildXfadeFilter(durations: number[], fadeSec = 0.35): string {
+  if (durations.length <= 1) return `[0:v]copy[outv]`;
+  let acc = durations[0]!;
+  let left = "0:v";
+  const parts: string[] = [];
+  for (let i = 1; i < durations.length; i++) {
+    const offset = Math.max(0, acc - fadeSec);
+    const out = i === durations.length - 1 ? "outv" : `xv${i}`;
+    parts.push(
+      `[${left}][${i}:v]xfade=transition=fade:duration=${fadeSec}:offset=${offset.toFixed(3)}[${out}]`,
+    );
+    left = out;
+    acc = acc + durations[i]! - fadeSec;
+  }
+  return `${parts.join(";")};`;
 }
 
 async function buildSceneSegment(
@@ -86,43 +174,44 @@ async function buildSceneSegment(
   idx: number,
   workDir: string,
   isLavfi: boolean,
+  project: Project,
 ): Promise<string> {
   const out = path.join(workDir, `seg_${idx}.mp4`);
   const dur = scene.durationSeconds;
   const frames = Math.max(1, Math.round(dur * 30));
-  const vf = isLavfi
-    ? "format=yuv420p,fade=t=in:st=0:d=0.25"
-    : vfForMotion(scene.motion, frames);
-
-  if (scene.media.sourceType === "upload" && scene.media.fileRelativePath) {
-    const abs = absFromRelative(scene.media.fileRelativePath);
+  const padHex = scenePadColor(project, idx);
+  if (sceneHasUsableMedia(scene)) {
+    const abs = absFromRelative(scene.media.fileRelativePath!);
     if (!fs.existsSync(abs)) {
       throw new Error(`Missing media file: ${scene.media.fileRelativePath}`);
     }
     const ext = path.extname(abs).toLowerCase();
     const isVideo = [".mp4", ".webm", ".mov", ".mkv"].includes(ext);
     if (isVideo) {
-      await runFfmpeg(
-        [
-          "-y",
-          "-i",
-          abs,
-          "-t",
-          String(dur),
-          "-vf",
-          vf,
-          "-an",
-          "-r",
-          "30",
-          "-c:v",
-          "libx264",
-          "-pix_fmt",
-          "yuv420p",
-          out,
-        ],
-        workDir,
+      const sourceDur = await probeMediaDuration(abs);
+      const trimStart = videoTrimStart(sourceDur, dur);
+      const vf = vfForVideoClip(padHex, dur);
+      const inputArgs: string[] = ["-y"];
+      if (trimStart > 0) {
+        inputArgs.push("-ss", trimStart.toFixed(3));
+      }
+      inputArgs.push(
+        "-i",
+        abs,
+        "-t",
+        String(dur),
+        "-vf",
+        vf,
+        "-an",
+        "-c:v",
+        "libx264",
+        "-pix_fmt",
+        "yuv420p",
+        out,
       );
+      await runFfmpeg(inputArgs, workDir);
     } else {
+      const vf = vfForStillImage(scene.motion, frames, padHex, dur);
       await runFfmpeg(
         [
           "-y",
@@ -148,8 +237,11 @@ async function buildSceneSegment(
     return out;
   }
 
-  const hex =
-    ["0x1a1a2e", "0x16213e", "0x0f3460", "0x533483", "0xe94560"][idx % 5];
+  const vf = isLavfi
+    ? `format=yuv420p${sceneFadeSuffix(dur)}`
+    : vfForStillImage(scene.motion, frames, padHex, dur);
+
+  const hex = padHex;
   await runFfmpeg(
     [
       "-y",
@@ -236,11 +328,8 @@ export async function renderVerticalMp4(project: Project): Promise<RenderResult>
   const segments: string[] = [];
   for (let i = 0; i < scenes.length; i++) {
     const s = scenes[i];
-    const lavfi =
-      !s.media.fileRelativePath ||
-      s.media.sourceType === "animated_bg" ||
-      s.media.sourceType === "placeholder";
-    const p = await buildSceneSegment(s, i, workDir, lavfi);
+    const lavfi = !sceneHasUsableMedia(s);
+    const p = await buildSceneSegment(s, i, workDir, lavfi, project);
     segments.push(p);
   }
 
@@ -249,9 +338,8 @@ export async function renderVerticalMp4(project: Project): Promise<RenderResult>
   for (const seg of segments) {
     concatArgs.push("-i", seg);
   }
-  const concatFilter =
-    segments.map((_, i) => `[${i}:v]`).join("") +
-    `concat=n=${segments.length}:v=1:a=0[outv]`;
+  const durations = scenes.map((s) => s.durationSeconds);
+  const concatFilter = buildXfadeFilter(durations);
   concatArgs.push(
     "-filter_complex",
     concatFilter,
@@ -278,7 +366,12 @@ export async function renderVerticalMp4(project: Project): Promise<RenderResult>
       : null;
   const hasMusic = musicAbs && fs.existsSync(musicAbs);
 
-  const totalSeconds = scenes.reduce((a, s) => a + s.durationSeconds, 0);
+  const fadeSec = 0.35;
+  const totalSeconds = Math.max(
+    1,
+    scenes.reduce((a, s) => a + s.durationSeconds, 0) -
+      fadeSec * Math.max(0, scenes.length - 1),
+  );
 
   if (hasMusic) {
     const mv = Math.max(0, Math.min(1, project.musicVolume));

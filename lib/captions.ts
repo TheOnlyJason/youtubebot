@@ -67,7 +67,7 @@ export function buildDefaultScenesFromScript(input: {
       2,
       Math.round((input.targetDuration * weights[i]) / sum),
     ),
-    motion: (["zoom_in", "pan", "fade", "none", "zoom_in"] as const)[i % 5],
+    motion: "none",
     media: { sourceType: "animated_bg" as const },
     visualSuggestion: undefined,
   }));
