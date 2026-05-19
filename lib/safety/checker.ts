@@ -93,6 +93,8 @@ export function runSafetyCheck(
   const findings: SafetyFinding[] = [];
   const beatText =
     script.skitBeats?.flatMap((b) => [b.action, b.dialogue, b.visual]) ?? [];
+  const lyricText =
+    script.lyricsSections?.flatMap((s) => [...s.lines, s.visual]) ?? [];
   const blob = [
     script.title,
     script.description,
@@ -105,6 +107,8 @@ export function runSafetyCheck(
     script.ending,
     script.ctaLine,
     ...beatText,
+    script.fullLyrics,
+    ...lyricText,
     ...script.captionLines.map((c) => c.text),
   ].join("\n");
 

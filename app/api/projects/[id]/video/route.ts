@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import fs from "fs";
 import { getProject } from "@/lib/db";
 import { absFromRelative } from "@/lib/paths";
+import { renderBasenameFromRelativePath } from "@/lib/video/renderFilename";
 
 export const dynamic = "force-dynamic";
 
@@ -16,10 +17,13 @@ export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> 
     return NextResponse.json({ error: "File missing" }, { status: 404 });
   }
   const data = fs.readFileSync(abs);
+  const filename =
+    renderBasenameFromRelativePath(project.render.outputRelativePath) ??
+    `short-${id}.mp4`;
   return new NextResponse(data, {
     headers: {
       "Content-Type": "video/mp4",
-      "Content-Disposition": `inline; filename="safeshorts-${id}.mp4"`,
+      "Content-Disposition": `inline; filename="${filename}"`,
     },
   });
 }

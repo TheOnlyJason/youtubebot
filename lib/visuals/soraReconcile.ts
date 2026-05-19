@@ -1,67 +1,62 @@
-import fs from "fs";
 import { getProject, saveProject } from "@/lib/db";
-import { absFromRelative } from "@/lib/paths";
-import { scenesMissingUsableMedia } from "@/lib/sceneMedia.server";
 import type { Project, VisualGenerationJob } from "@/types";
 
-/** No runner heartbeat after cancel — background job likely died (dev server restart, etc.) */
-const STALE_AFTER_CANCEL_MS = 90_000;
+/** No DB updates while a run is active (poll patches) for this long → worker likely died */
+const STALE_ACTIVE_MS = 3 * 60 * 1000;
+/** Cancel requested but never cleared */
+const STALE_CANCEL_MS = 2 * 60 * 1000;
+/** Whole run older than this → zombie */
+const MAX_RUN_MS = 40 * 60 * 1000;
 
-function formatSceneList(indices: number[]): string {
-  return indices.map((i) => i + 1).join(", ");
-}
-
-function closedJob(
+function clearedJob(
   prev: VisualGenerationJob,
-  phase: VisualGenerationJob["phase"],
-  message: string,
+  patch: Partial<VisualGenerationJob>,
 ): VisualGenerationJob {
   return {
     ...prev,
     active: false,
     cancelRequested: false,
-    phase,
-    progress: phase === "completed" ? 100 : prev.progress,
-    sceneProgress: phase === "completed" ? 100 : prev.sceneProgress,
-    finishedAt: new Date().toISOString(),
-    error: phase === "failed" ? message : undefined,
-    message,
+    ...patch,
   };
 }
 
-/**
- * Fix zombie `visualGeneration.active` when the background runner stopped
- * (e.g. user clicked Stop then Next.js reloaded, or process crashed).
- */
-export function reconcileVisualGeneration(project: Project): Project {
+export function reconcileSoraVisualGeneration(project: Project): Project {
   const vg = project.visualGeneration;
   if (!vg?.active) return project;
 
-  const missing = scenesMissingUsableMedia(project);
-  const ageMs = Date.now() - Date.parse(project.updatedAt);
+  const now = Date.now();
+  const updatedMs = Date.parse(project.updatedAt) || now;
+  const startedMs = Date.parse(vg.startedAt) || updatedMs;
+  const idleMs = now - updatedMs;
+  const runMs = now - startedMs;
 
-  if (missing.length === 0) {
+  if (vg.cancelRequested && idleMs > STALE_CANCEL_MS) {
     const next: Project = {
       ...project,
-      visualGeneration: closedJob(
-        vg,
-        "completed",
-        "All scenes complete",
-      ),
+      visualGeneration: clearedJob(vg, {
+        phase: "cancelled",
+        message:
+          "Stopped. Finished scenes are saved — use Regenerate missing scenes to continue.",
+        finishedAt: new Date().toISOString(),
+        error: undefined,
+      }),
+      updatedAt: new Date().toISOString(),
     };
     saveProject(next);
     return next;
   }
 
-  if (vg.cancelRequested && ageMs >= STALE_AFTER_CANCEL_MS) {
-    const saved = 5 - missing.length;
-    const message =
-      saved > 0
-        ? `Stopped. ${saved} scene(s) saved — use Regenerate missing scenes (${formatSceneList(missing)}).`
-        : "Stopped before any scene finished.";
+  if (runMs > MAX_RUN_MS || idleMs > STALE_ACTIVE_MS) {
     const next: Project = {
       ...project,
-      visualGeneration: closedJob(vg, "cancelled", message),
+      visualGeneration: clearedJob(vg, {
+        phase: "cancelled",
+        message:
+          "Sora run ended (timed out or app restarted). Completed scenes are kept — use Regenerate missing scenes.",
+        finishedAt: new Date().toISOString(),
+        error: undefined,
+      }),
+      updatedAt: new Date().toISOString(),
     };
     saveProject(next);
     return next;
@@ -70,81 +65,33 @@ export function reconcileVisualGeneration(project: Project): Project {
   return project;
 }
 
-export function forceResetVisualGeneration(
+/** Immediate UI recovery when Stop is stuck */
+export function forceClearSoraGeneration(
   projectId: string,
 ): { ok: true; project: Project } | { ok: false; error: string } {
-  const raw = getProject(projectId);
-  if (!raw) return { ok: false, error: "Project not found" };
-  const project = reconcileVisualGeneration(raw);
+  const project = getProject(projectId);
+  if (!project) return { ok: false, error: "Project not found" };
   if (!project.visualGeneration?.active) {
-    return { ok: true, project };
+    return { ok: false, error: "Sora is not marked as running." };
   }
 
   const vg = project.visualGeneration;
-  const missing = scenesMissingUsableMedia(project);
-  const message =
-    missing.length === 0
-      ? "All scenes complete"
-      : missing.length === 5
-        ? "Sora status cleared."
-        : `Status cleared. Regenerate missing scenes (${formatSceneList(missing)}).`;
-
   const next: Project = {
     ...project,
-    visualGeneration: closedJob(
-      vg,
-      missing.length === 0 ? "completed" : "cancelled",
-      message,
-    ),
+    visualGeneration: clearedJob(vg, {
+      phase: vg.cancelRequested ? "cancelled" : "failed",
+      message: vg.cancelRequested
+        ? "Stopped. Finished scenes are saved — use Regenerate missing scenes to continue."
+        : "Sora status reset. Retry missing scenes if needed.",
+      finishedAt: new Date().toISOString(),
+      error: undefined,
+    }),
+    updatedAt: new Date().toISOString(),
   };
   saveProject(next);
   return { ok: true, project: next };
 }
 
-const STALE_RENDER_MS = 8 * 60 * 1000;
-
-/** Clear zombie render.status = running after dev server restart */
-export function reconcileRenderJob(project: Project): Project {
-  if (project.render.status !== "running") return project;
-
-  const outRel =
-    project.render.outputRelativePath ??
-    `renders/short_${project.id}.mp4`;
-  try {
-    if (fs.existsSync(absFromRelative(outRel))) {
-      const next: Project = {
-        ...project,
-        render: {
-          status: "done",
-          message: "Render complete",
-          outputRelativePath: outRel.replace(/\\/g, "/"),
-          startedAt: project.render.startedAt,
-          finishedAt: new Date().toISOString(),
-        },
-      };
-      saveProject(next);
-      return next;
-    }
-  } catch {
-    /* ignore */
-  }
-
-  const started = Date.parse(project.render.startedAt ?? "0");
-  if (Date.now() - started < STALE_RENDER_MS) return project;
-
-  const next: Project = {
-    ...project,
-    render: {
-      status: "error",
-      message: "Render was interrupted (server restarted?). Click Render vertical MP4 again.",
-      startedAt: project.render.startedAt,
-      finishedAt: new Date().toISOString(),
-    },
-  };
-  saveProject(next);
-  return next;
-}
-
 export function reconcileProjectState(project: Project): Project {
-  return reconcileRenderJob(reconcileVisualGeneration(project));
+  return reconcileSoraVisualGeneration(project);
 }

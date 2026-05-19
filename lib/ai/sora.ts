@@ -134,6 +134,7 @@ async function createSoraJob(prompt: string, seconds: "16" | "20"): Promise<Sora
 async function retrieveSoraJob(videoId: string): Promise<SoraVideoJob> {
   const res = await fetch(`${openAiBase()}/videos/${videoId}`, {
     headers: { Authorization: `Bearer ${openAiKey()}` },
+    signal: AbortSignal.timeout(90_000),
   });
   if (!res.ok) {
     const err = await res.text();

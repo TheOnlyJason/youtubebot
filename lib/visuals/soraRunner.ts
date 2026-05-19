@@ -6,7 +6,6 @@ import {
   assertSoraNotCancelled,
   isSoraGenerationCancelledError,
 } from "@/lib/visuals/soraCancel";
-import { reconcileVisualGeneration } from "@/lib/visuals/soraReconcile";
 import { sceneHasUsableMedia, scenesMissingUsableMedia } from "@/lib/sceneMedia.server";
 import type { Project, VisualGenerationJob } from "@/types";
 
@@ -277,11 +276,10 @@ export async function runSoraScenesBackground(
 export function requestStopSoraGeneration(
   projectId: string,
 ): { ok: true } | { ok: false; error: string } {
-  let project = getProject(projectId);
+  const project = getProject(projectId);
   if (!project) return { ok: false, error: "Project not found" };
-  project = reconcileVisualGeneration(project);
   if (!project.visualGeneration?.active) {
-    return { ok: true };
+    return { ok: false, error: "No Sora generation is running." };
   }
   if (project.visualGeneration.cancelRequested) {
     return { ok: true };
@@ -302,9 +300,8 @@ export function startSoraGeneration(
   projectId: string,
   options?: number | StartSoraOptions,
 ): { ok: true; sceneIndices: number[] } | { ok: false; error: string } {
-  let project = getProject(projectId);
+  const project = getProject(projectId);
   if (!project) return { ok: false, error: "Project not found" };
-  project = reconcileVisualGeneration(project);
   if (project.visualGeneration?.active) {
     return { ok: false, error: "Sora generation already in progress." };
   }

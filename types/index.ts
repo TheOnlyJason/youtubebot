@@ -40,6 +40,32 @@ export type VisualStyle =
 
 export type CtaType = "follow" | "subscribe" | "comment" | "no CTA";
 
+export type ContentType = "skit" | "music_lyrics";
+
+/** Google Lyria 3 via Gemini API */
+export type LyriaModelId = "lyria-3-clip-preview" | "lyria-3-pro-preview";
+
+/** What the user pasted before we adapt it into a song */
+export type LyricSourceKind = "messages" | "reddit";
+
+export type MusicGenre =
+  | "pop"
+  | "hip-hop"
+  | "country"
+  | "r&b"
+  | "rock"
+  | "indie"
+  | "electronic"
+  | "other";
+
+/** One section of original song lyrics (maps to a Short scene) */
+export interface LyricSection {
+  label: string;
+  lines: string[];
+  /** Music-video shot description for Sora */
+  visual: string;
+}
+
 export type SceneKind =
   | "hook"
   | "point1"
@@ -72,10 +98,27 @@ export interface SkitSceneBeat {
 }
 
 export interface GeneratedScript {
+  contentType?: ContentType;
   title: string;
   description: string;
   /** User skit prompt, e.g. "Skit 1 — Bath Bubble Betrayal" */
   skitConcept?: string;
+  /** Music lyrics mode */
+  songConcept?: string;
+  genre?: string;
+  mood?: string;
+  bpm?: number;
+  lyricsSections?: [
+    LyricSection,
+    LyricSection,
+    LyricSection,
+    LyricSection,
+    LyricSection,
+  ];
+  fullLyrics?: string;
+  /** Pasted DM thread or Reddit post */
+  sourceText?: string;
+  lyricSourceKind?: LyricSourceKind;
   /** Locked cast — identical in every scene (species, count, look, outfits) */
   castDescription?: string;
   /** Locked location + recurring props */
@@ -146,6 +189,10 @@ export interface MusicState {
   /** User must confirm commercial rights */
   rightsConfirmed: boolean;
   volumePercent: number; // 0–100, voice uses separate control
+  /** e.g. lyria-3-clip-preview when generated via Gemini */
+  providerId?: string;
+  /** Text parts returned alongside Lyria audio */
+  generatedLyricsText?: string;
 }
 
 export interface RenderChecklist {
@@ -173,8 +220,14 @@ export interface VisualContinuity {
 }
 
 export interface ProjectForm {
+  /** skit = comedy beats (OpenAI). music_lyrics = story → song (Gemini + Lyria) */
+  contentType?: ContentType;
   niche: Niche;
+  /** Short title; for music mode, source lives in sourceText */
   topic: string;
+  /** Full pasted text messages or Reddit post */
+  sourceText?: string;
+  lyricSourceKind?: LyricSourceKind;
   tone: Tone;
   duration: ShortDuration;
   voiceStyle: VoiceStyle;
@@ -182,6 +235,11 @@ export interface ProjectForm {
   cta: CtaType;
   targetAudience: string;
   language: string;
+  musicGenre?: MusicGenre;
+  /** Optional vibe reference — must still be 100% original lyrics */
+  artistStyle?: string;
+  /** Lyria 3 model; auto-picks clip (30s) vs pro from duration if unset */
+  lyriaModel?: LyriaModelId;
 }
 
 export interface RenderJob {

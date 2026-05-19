@@ -1235,6 +1235,727 @@
         "cancelRequested": false,
         "finishedAt": "2026-05-18T23:38:31.664Z"
       }
+    },
+    {
+      "id": "b628389f-96f3-4463-b997-04217fc12c02",
+      "createdAt": "2026-05-19T16:36:19.516Z",
+      "updatedAt": "2026-05-19T17:02:59.344Z",
+      "status": "Rendered",
+      "form": {
+        "niche": "other",
+        "topic": "cat playing poker ",
+        "tone": "funny",
+        "duration": 30,
+        "voiceStyle": "calm",
+        "visualStyle": "realistic",
+        "cta": "subscribe",
+        "targetAudience": "curious beginners",
+        "language": "English"
+      },
+      "scenes": [
+        {
+          "id": "e170d1df-046d-4e8b-8a67-ea9f8a5d079b",
+          "kind": "hook",
+          "caption": "Who knew cats could bluff?",
+          "durationSeconds": 6,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/b628389f-96f3-4463-b997-04217fc12c02/scene_0_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In A cozy living room with a round poker table for cats., Cats playing poker in a living room.: Wide shot of the three cats around the table, with Whiskers shuffling cards in the center, Mittens leaning forward with wide eyes, and Fluffy adjusting his glasses. The room is warmly lit, creating an inviting atmosphere."
+        },
+        {
+          "id": "f037ab1a-c46d-4bf4-b9d8-eddd0cfcaa9e",
+          "kind": "point1",
+          "caption": "A high-stakes game of treats!",
+          "durationSeconds": 7,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/b628389f-96f3-4463-b997-04217fc12c02/scene_1_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In A cozy living room with a round poker table for cats., Cats playing poker in a living room.: Medium shot showing Mittens with a dramatic pose, leaning back in his chair while trying to look tough, but his trembling paws give him away. Whiskers leans in with a sly grin, and Fluffy adjusts his glasses again, looking skeptical."
+        },
+        {
+          "id": "00c48c26-d174-44c7-a1c0-900f366485e8",
+          "kind": "point2",
+          "caption": "Will Mittens ever win?",
+          "durationSeconds": 4,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/b628389f-96f3-4463-b997-04217fc12c02/scene_2_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In A cozy living room with a round poker table for cats., Cats playing poker in a living room.: Close-up of Whiskers' winning hand, with his tiny paw proudly showcasing the cards. In the background, Mittens reacts with wide eyes and an open mouth, while Fluffy's toys fly as he spills treats everywhere. The lighting sequence the excitement."
+        },
+        {
+          "id": "dfc422f0-cd1f-4e84-825a-9c10742ef887",
+          "kind": "point3",
+          "caption": "Mittens: 'I’ll get you next time!'",
+          "durationSeconds": 4,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/b628389f-96f3-4463-b997-04217fc12c02/scene_3_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In A cozy living room with a round poker table for cats., Cats playing poker in a living room.: Wide shot of the table as Mittens slams his paw down in frustration, sending treats flying across the room. Whiskers laughs, and Fluffy tries to catch the treats with both paws, looking goofy."
+        },
+        {
+          "id": "8a19471d-8da1-411a-8b61-f572c1c0bb00",
+          "kind": "ending",
+          "caption": "Whiskers: 'Next round is on me!'",
+          "durationSeconds": 10,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/b628389f-96f3-4463-b997-04217fc12c02/scene_4_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In A cozy living room with a round poker table for cats., Cats playing poker in a living room.: Medium shot of all three cats lounging together on the floor, surrounded by scattered treats. Whiskers happily munches on some, Mittens sulks, and Fluffy tries to grab a few treats with a playful smirk."
+        }
+      ],
+      "voiceover": {
+        "mode": "tts_openai",
+        "fileRelativePath": "uploads/projects/b628389f-96f3-4463-b997-04217fc12c02/voice_tts.mp3",
+        "providerId": "openai_tts"
+      },
+      "music": {
+        "rightsConfirmed": false,
+        "volumePercent": 12
+      },
+      "voiceVolume": 1,
+      "musicVolume": 0.12,
+      "renderChecklist": {
+        "scriptOriginal": false,
+        "voiceOriginalOrLicensed": false,
+        "visualsOriginalOrLicensed": false,
+        "musicOriginalOrLicensed": false,
+        "noThirdPartyClips": false,
+        "noCopyrightedSong": false,
+        "notSpammy": false,
+        "disclosureNoted": false
+      },
+      "rights": {
+        "allMediaRightsConfirmed": false
+      },
+      "render": {
+        "status": "done",
+        "message": "Render complete",
+        "outputRelativePath": "renders/short_b628389f-96f3-4463-b997-04217fc12c02.mp4",
+        "startedAt": "2026-05-19T17:02:40.646Z",
+        "finishedAt": "2026-05-19T17:02:59.343Z"
+      },
+      "exportApproved": false,
+      "generatedScript": {
+        "title": "Skit 1 — Cat's High-Stakes Poker Night",
+        "description": "Watch as Whiskers the cat faces off against his feline friends in a hilarious game of poker!",
+        "skitConcept": "A group of cats gather for a poker game, and things get unexpectedly dramatic over a simple bluff.",
+        "castDescription": "Three cats: Whiskers (gray tabby, medium-sized, wearing a tiny black bowtie), Mittens (black and white, small, wearing a red bandana), and Fluffy (fluffy orange, large, wearing a pair of oversized glasses).",
+        "settingAndProps": "Inside a cozy living room with a small round table, three cat-sized chairs, a deck of cards, and a pile of cat treats as chips.",
+        "primarySubject": "Cats playing poker in a living room.",
+        "primarySetting": "A cozy living room with a round poker table for cats.",
+        "skitBeats": [
+          {
+            "label": "Setup",
+            "action": "The three cats are seated around the table, each with a serious expression. Whiskers shuffles the cards while Mittens eyes the stack of treats hungrily.",
+            "dialogue": "Whiskers: 'Okay, let's play for some serious treats!'",
+            "visual": "Wide shot of the three cats around the table, with Whiskers shuffling cards in the center, Mittens leaning forward with wide eyes, and Fluffy adjusting his glasses. The room is warmly lit, creating an inviting atmosphere."
+          },
+          {
+            "label": "Complication",
+            "action": "Mittens plays a hand and pretends to be confident, but his legs are shaking. Fluffy notices and raises an eyebrow, while Whiskers smirks.",
+            "dialogue": "Mittens: 'I’m all in!' Fluffy: 'You sure about that, Mittens?'",
+            "visual": "Medium shot showing Mittens with a dramatic pose, leaning back in his chair while trying to look tough, but his trembling paws give him away. Whiskers leans in with a sly grin, and Fluffy adjusts his glasses again, looking skeptical."
+          },
+          {
+            "label": "Escalation",
+            "action": "Whiskers dramatically reveals his cards, showing a winning hand. Mittens gasps, and Fluffy spills his treats in shock.",
+            "dialogue": "Whiskers: 'Full house!' Mittens: 'No way!'",
+            "visual": "Close-up of Whiskers' winning hand, with his tiny paw proudly showcasing the cards. In the background, Mittens reacts with wide eyes and an open mouth, while Fluffy's toys fly as he spills treats everywhere. The lighting highlights the excitement."
+          },
+          {
+            "label": "Payoff",
+            "action": "Mittens tries to maintain his composure but ends up knocking over the entire stack of treats in defeat.",
+            "dialogue": "Mittens: 'I’ll get you next time!'",
+            "visual": "Wide shot of the table as Mittens slams his paw down in frustration, sending treats flying across the room. Whiskers laughs, and Fluffy tries to catch the treats with both paws, looking goofy."
+          },
+          {
+            "label": "Button",
+            "action": "The game ends with Whiskers munching on the treats as Mittens and Fluffy complain playfully. They all settle down together, purring.",
+            "dialogue": "Whiskers: 'Next round is on me!'",
+            "visual": "Medium shot of all three cats lounging together on the floor, surrounded by scattered treats. Whiskers happily munches on some, Mittens sulks, and Fluffy tries to grab a few treats with a playful smirk."
+          }
+        ],
+        "hook": "Whiskers: 'Okay, let's play for some serious treats!'",
+        "mainPoints": [
+          "Mittens: 'I’m all in!' Fluffy: 'You sure about that, Mittens?'",
+          "Whiskers: 'Full house!' Mittens: 'No way!'",
+          "Mittens: 'I’ll get you next time!'"
+        ],
+        "ending": "Whiskers: 'Next round is on me!'",
+        "ctaLine": "Don’t forget to subscribe for more cat-tastic adventures!",
+        "fullVoiceoverScript": "Whiskers: 'Okay, let's play for some serious treats!' Mittens: 'I’m all in!' Fluffy: 'You sure about that, Mittens?' Whiskers: 'Full house!' Mittens: 'No way!' Mittens: 'I’ll get you next time!' Whiskers: 'Next round is on me!'",
+        "captionLines": [
+          {
+            "text": "Who knew cats could bluff?",
+            "highlights": []
+          },
+          {
+            "text": "A high-stakes game of treats!",
+            "highlights": []
+          },
+          {
+            "text": "Will Mittens ever win?",
+            "highlights": []
+          }
+        ],
+        "sceneVisualSuggestions": [
+          "In A cozy living room with a round poker table for cats., Cats playing poker in a living room.: Wide shot of the three cats around the table, with Whiskers shuffling cards in the center, Mittens leaning forward with wide eyes, and Fluffy adjusting his glasses. The room is warmly lit, creating an inviting atmosphere.",
+          "In A cozy living room with a round poker table for cats., Cats playing poker in a living room.: Medium shot showing Mittens with a dramatic pose, leaning back in his chair while trying to look tough, but his trembling paws give him away. Whiskers leans in with a sly grin, and Fluffy adjusts his glasses again, looking skeptical.",
+          "In A cozy living room with a round poker table for cats., Cats playing poker in a living room.: Close-up of Whiskers' winning hand, with his tiny paw proudly showcasing the cards. In the background, Mittens reacts with wide eyes and an open mouth, while Fluffy's toys fly as he spills treats everywhere. The lighting sequence the excitement.",
+          "In A cozy living room with a round poker table for cats., Cats playing poker in a living room.: Wide shot of the table as Mittens slams his paw down in frustration, sending treats flying across the room. Whiskers laughs, and Fluffy tries to catch the treats with both paws, looking goofy.",
+          "In A cozy living room with a round poker table for cats., Cats playing poker in a living room.: Medium shot of all three cats lounging together on the floor, surrounded by scattered treats. Whiskers happily munches on some, Mittens sulks, and Fluffy tries to grab a few treats with a playful smirk."
+        ],
+        "hashtags": [
+          "#CatComedy",
+          "#PokerCats",
+          "#FunnyCats",
+          "#CatLife",
+          "#PetHumor"
+        ],
+        "estimatedDurationSeconds": 30
+      },
+      "safetyReport": {
+        "overall": "review",
+        "findings": [
+          {
+            "code": "third_party_reference",
+            "message": "Content references third-party or high-risk media types. Ensure you are not implying reused protected footage.",
+            "level": "review"
+          }
+        ],
+        "keywordWarnings": []
+      },
+      "visualContinuity": {
+        "setting": "Keep the exact same location and props: Inside a cozy living room with a small round table, three cat-sized chairs, a deck of cards, and a pile of cat treats as chips.. Same cast throughout: Three cats: Whiskers (gray tabby, medium-sized, wearing a tiny black bowtie), Mittens (black and white, small, wearing a red bandana), and Fluffy (fluffy orange, large, wearing a pair of oversized glasses)..",
+        "lighting": "bright even daylight, cheerful and consistent",
+        "palette": "natural realistic colors, cohesive white balance",
+        "colorGrade": "consistent color grade and white balance across every shot",
+        "sceneBackgrounds": [
+          "0x161627",
+          "0x19192c",
+          "0x1a1a2e",
+          "0x18182a",
+          "0x171728"
+        ]
+      },
+      "topicKeywordWarnings": [],
+      "visualGeneration": {
+        "active": false,
+        "mode": "sora",
+        "sceneIndices": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "sceneIndex": 4,
+        "sceneCount": 5,
+        "phase": "completed",
+        "progress": 100,
+        "sceneProgress": 100,
+        "message": "All scenes complete",
+        "startedAt": "2026-05-19T16:37:12.757Z",
+        "cancelRequested": false,
+        "finishedAt": "2026-05-19T17:02:03.953Z"
+      }
+    },
+    {
+      "id": "e6abef78-5d89-40ae-8611-bd00c84bf0ef",
+      "createdAt": "2026-05-19T17:14:55.860Z",
+      "updatedAt": "2026-05-19T18:02:01.904Z",
+      "status": "Rendered",
+      "form": {
+        "niche": "other",
+        "topic": "doctor kitty diagnose cat with a addiction to catnip",
+        "tone": "funny",
+        "duration": 30,
+        "voiceStyle": "calm",
+        "visualStyle": "realistic",
+        "cta": "subscribe",
+        "targetAudience": "curious beginners",
+        "language": "English"
+      },
+      "scenes": [
+        {
+          "id": "a2a0157b-836c-4912-ae0e-c1b4b64e358f",
+          "kind": "hook",
+          "caption": "Is your cat addicted to catnip?",
+          "durationSeconds": 5,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/e6abef78-5d89-40ae-8611-bd00c84bf0ef/scene_0_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In A small veterinary office filled with feline-friendly decor., Doctor Kitty diagnosing a fellow cat with a catnip addiction.: A medium shot of Doctor Kitty, fluffing up her coat, intently scribbling on her clipboard, while Addicted Cat sits on the table, eyes wide and twitching, showing signs of anxiety."
+        },
+        {
+          "id": "bcbeff28-34a4-4cf7-9d76-4b5e56293bfc",
+          "kind": "point1",
+          "caption": "Join the purring support group!",
+          "durationSeconds": 5,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/e6abef78-5d89-40ae-8611-bd00c84bf0ef/scene_1_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In A small veterinary office filled with feline-friendly decor., Doctor Kitty diagnosing a fellow cat with a catnip addiction.: Close up of Addicted Cat's face, ears drooping, as he looks at Doctor Kitty. A side shot shows Doctor Kitty leaning in, intrigued, her stethoscope dangling."
+        },
+        {
+          "id": "3d923b96-aa6b-4b53-b374-b9381a504209",
+          "kind": "point2",
+          "caption": "Doctor Kitty: 'You know, there’s a support group for this, right?'",
+          "durationSeconds": 6,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/e6abef78-5d89-40ae-8611-bd00c84bf0ef/scene_2_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In A small veterinary office filled with feline-friendly decor., Doctor Kitty diagnosing a fellow cat with a catnip addiction.: Wide shot of the veterinary room showing the cozy atmosphere, with Doctor Kitty looking stern yet playful and Addicted Cat looking panicked, glancing around nervously."
+        },
+        {
+          "id": "dd4391b3-64ac-424c-a097-789df3332eb9",
+          "kind": "point3",
+          "caption": "Addicted Cat: 'Okay, you caught me! It's more of a lifestyle!'",
+          "durationSeconds": 6,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/e6abef78-5d89-40ae-8611-bd00c84bf0ef/scene_3_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In A small veterinary office filled with feline-friendly decor., Doctor Kitty diagnosing a fellow cat with a catnip addiction.: Close-up of Addicted Cat pulling out a vibrant bag of catnip, both cats erupting in giggles, their tails flicking happily, showcasing their playful bond."
+        },
+        {
+          "id": "07b19bbe-82ca-44dd-920e-fc57b4346f86",
+          "kind": "ending",
+          "caption": "Doctor Kitty: 'Moderation is key, my friend!'",
+          "durationSeconds": 8,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/e6abef78-5d89-40ae-8611-bd00c84bf0ef/scene_4_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In A small veterinary office filled with feline-friendly decor., Doctor Kitty diagnosing a fellow cat with a catnip addiction.: Medium shot of both cats sharing a hearty laugh, Doctor Kitty giving a thumbs up with her paw while Addicted Cat nods in agreement, the warm vet office glowing around them."
+        }
+      ],
+      "voiceover": {
+        "mode": "tts_openai",
+        "fileRelativePath": "uploads/projects/e6abef78-5d89-40ae-8611-bd00c84bf0ef/voice_tts.mp3",
+        "providerId": "openai_tts"
+      },
+      "music": {
+        "rightsConfirmed": false,
+        "volumePercent": 12
+      },
+      "voiceVolume": 1,
+      "musicVolume": 0.12,
+      "renderChecklist": {
+        "scriptOriginal": false,
+        "voiceOriginalOrLicensed": false,
+        "visualsOriginalOrLicensed": false,
+        "musicOriginalOrLicensed": false,
+        "noThirdPartyClips": false,
+        "noCopyrightedSong": false,
+        "notSpammy": false,
+        "disclosureNoted": false
+      },
+      "rights": {
+        "allMediaRightsConfirmed": false
+      },
+      "render": {
+        "status": "done",
+        "message": "Render complete",
+        "outputRelativePath": "renders/short_e6abef78-5d89-40ae-8611-bd00c84bf0ef.mp4",
+        "startedAt": "2026-05-19T18:01:40.396Z",
+        "finishedAt": "2026-05-19T18:02:01.903Z"
+      },
+      "exportApproved": false,
+      "generatedScript": {
+        "title": "Skit 1 — Catnip Confessions",
+        "description": "A hilarious skit where Doctor Kitty, a purring feline physician, diagnoses a fellow cat with an addiction to catnip. Watch as the drama unfolds in the consultation room!",
+        "skitConcept": "Doctor Kitty tries to help a friend who can't stop loving catnip, leading to unexpected confessions and laughs.",
+        "castDescription": "Two cats: Doctor Kitty is a fluffy white cat in a tiny doctor coat with a stethoscope, and Addicted Cat is a tabby with a catnip leaf headband, looking a bit disheveled.",
+        "settingAndProps": "A cozy veterinarian office with a small examination table, a plush cat tree in the corner, and various cat toys scattered around.",
+        "primarySubject": "Doctor Kitty diagnosing a fellow cat with a catnip addiction.",
+        "primarySetting": "A small veterinary office filled with feline-friendly decor.",
+        "skitBeats": [
+          {
+            "label": "Setup",
+            "action": "Doctor Kitty sits at her desk with a clipboard, looking serious. Addicted Cat fidgets nervously on the examination table, twitching his tail.",
+            "dialogue": "Doctor Kitty: 'So, how often do you indulge in catnip?'",
+            "visual": "A medium shot of Doctor Kitty, fluffing up her coat, intently scribbling on her clipboard, while Addicted Cat sits on the table, eyes wide and twitching, showing signs of anxiety."
+          },
+          {
+            "label": "Complication",
+            "action": "Addicted Cat starts nervously confessing, pawing at the headband on his head. Doctor Kitty raises an eyebrow, intrigued.",
+            "dialogue": "Addicted Cat: 'I swear, I only use it for stress relief...'",
+            "visual": "Close up of Addicted Cat's face, ears drooping, as he looks at Doctor Kitty. A side shot shows Doctor Kitty leaning in, intrigued, her stethoscope dangling."
+          },
+          {
+            "label": "Escalation",
+            "action": "Doctor Kitty leans back, crossing her paws, preparing for a serious intervention while Addicted Cat starts to sweat.",
+            "dialogue": "Doctor Kitty: 'You know, there’s a support group for this, right?'",
+            "visual": "Wide shot of the veterinary room showing the cozy atmosphere, with Doctor Kitty looking stern yet playful and Addicted Cat looking panicked, glancing around nervously."
+          },
+          {
+            "label": "Payoff",
+            "action": "Addicted Cat bursts into laughter, revealing his secret stash of catnip hidden under the table. Doctor Kitty bursts out laughing too.",
+            "dialogue": "Addicted Cat: 'Okay, you caught me! It's more of a lifestyle!'",
+            "visual": "Close-up of Addicted Cat pulling out a vibrant bag of catnip, both cats erupting in giggles, their tails flicking happily, showcasing their playful bond."
+          },
+          {
+            "label": "Button",
+            "action": "Doctor Kitty gently pats Addicted Cat's back, playfully suggesting a catnip moderation plan. They both purr together.",
+            "dialogue": "Doctor Kitty: 'Moderation is key, my friend!'",
+            "visual": "Medium shot of both cats sharing a hearty laugh, Doctor Kitty giving a thumbs up with her paw while Addicted Cat nods in agreement, the warm vet office glowing around them."
+          }
+        ],
+        "hook": "Doctor Kitty: 'So, how often do you indulge in catnip?'",
+        "mainPoints": [
+          "Addicted Cat: 'I swear, I only use it for stress relief...'",
+          "Doctor Kitty: 'You know, there’s a support group for this, right?'",
+          "Addicted Cat: 'Okay, you caught me! It's more of a lifestyle!'"
+        ],
+        "ending": "Doctor Kitty: 'Moderation is key, my friend!'",
+        "ctaLine": "Like and subscribe for more pawsitive vibes!",
+        "fullVoiceoverScript": "Doctor Kitty: 'So, how often do you indulge in catnip?' Addicted Cat: 'I swear, I only use it for stress relief...' Doctor Kitty: 'You know, there’s a support group for this, right?' Addicted Cat: 'Okay, you caught me! It's more of a lifestyle!' Doctor Kitty: 'Moderation is key, my friend!'",
+        "captionLines": [
+          {
+            "text": "Is your cat addicted to catnip?",
+            "highlights": [
+              "catnip",
+              "addicted"
+            ]
+          },
+          {
+            "text": "Join the purring support group!",
+            "highlights": [
+              "support group",
+              "purring"
+            ]
+          }
+        ],
+        "sceneVisualSuggestions": [
+          "In A small veterinary office filled with feline-friendly decor., Doctor Kitty diagnosing a fellow cat with a catnip addiction.: A medium shot of Doctor Kitty, fluffing up her coat, intently scribbling on her clipboard, while Addicted Cat sits on the table, eyes wide and twitching, showing signs of anxiety.",
+          "In A small veterinary office filled with feline-friendly decor., Doctor Kitty diagnosing a fellow cat with a catnip addiction.: Close up of Addicted Cat's face, ears drooping, as he looks at Doctor Kitty. A side shot shows Doctor Kitty leaning in, intrigued, her stethoscope dangling.",
+          "In A small veterinary office filled with feline-friendly decor., Doctor Kitty diagnosing a fellow cat with a catnip addiction.: Wide shot of the veterinary room showing the cozy atmosphere, with Doctor Kitty looking stern yet playful and Addicted Cat looking panicked, glancing around nervously.",
+          "In A small veterinary office filled with feline-friendly decor., Doctor Kitty diagnosing a fellow cat with a catnip addiction.: Close-up of Addicted Cat pulling out a vibrant bag of catnip, both cats erupting in giggles, their tails flicking happily, showcasing their playful bond.",
+          "In A small veterinary office filled with feline-friendly decor., Doctor Kitty diagnosing a fellow cat with a catnip addiction.: Medium shot of both cats sharing a hearty laugh, Doctor Kitty giving a thumbs up with her paw while Addicted Cat nods in agreement, the warm vet office glowing around them."
+        ],
+        "hashtags": [
+          "#catnip",
+          "#cataddiction",
+          "#funnycats",
+          "#catvideos",
+          "#petcomedy"
+        ],
+        "estimatedDurationSeconds": 30
+      },
+      "safetyReport": {
+        "overall": "low",
+        "findings": [],
+        "keywordWarnings": []
+      },
+      "visualContinuity": {
+        "setting": "Keep the exact same location and props: A cozy veterinarian office with a small examination table, a plush cat tree in the corner, and various cat toys scattered around.. Same cast throughout: Two cats: Doctor Kitty is a fluffy white cat in a tiny doctor coat with a stethoscope, and Addicted Cat is a tabby with a catnip leaf headband, looking a bit disheveled..",
+        "lighting": "bright even daylight, cheerful and consistent",
+        "palette": "natural realistic colors, cohesive white balance",
+        "colorGrade": "consistent color grade and white balance across every shot",
+        "sceneBackgrounds": [
+          "0x201b2c",
+          "0x241e31",
+          "0x262034",
+          "0x231d30",
+          "0x211c2e"
+        ]
+      },
+      "topicKeywordWarnings": [],
+      "visualGeneration": {
+        "active": false,
+        "mode": "sora",
+        "sceneIndices": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "sceneIndex": 4,
+        "sceneCount": 5,
+        "phase": "completed",
+        "progress": 100,
+        "sceneProgress": 100,
+        "message": "All scenes complete",
+        "startedAt": "2026-05-19T17:33:42.353Z",
+        "cancelRequested": false,
+        "finishedAt": "2026-05-19T17:51:07.215Z"
+      }
+    },
+    {
+      "id": "be015b4e-e0fa-4e6b-9780-d0ee624e4bf5",
+      "createdAt": "2026-05-19T18:06:37.750Z",
+      "updatedAt": "2026-05-19T19:04:17.787Z",
+      "status": "Rendered",
+      "form": {
+        "niche": "other",
+        "topic": "a cat in the olympics doing a perfect dive scoring 10s from everyone. ",
+        "tone": "funny",
+        "duration": 30,
+        "voiceStyle": "energetic",
+        "visualStyle": "realistic",
+        "cta": "subscribe",
+        "targetAudience": "curious beginners",
+        "language": "English"
+      },
+      "scenes": [
+        {
+          "id": "fc1fbb7d-9400-45a5-ba54-775f707de58d",
+          "kind": "hook",
+          "caption": "Purr-fect Olympic Dive!",
+          "durationSeconds": 6,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/be015b4e-e0fa-4e6b-9780-d0ee624e4bf5/scene_0_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In An Olympic diving event featuring a competitive cat., A cat's unexpected Olympic diving prowess steals the show.: Close-up of the cat's determined face as it stands on the diving board, squinting at the camera. The background is filled with a cheering crowd, all wearing Olympic gear."
+        },
+        {
+          "id": "d9c46958-0f52-443b-b58d-54c442fb6c43",
+          "kind": "point1",
+          "caption": "Can this cat score a perfect 10?",
+          "durationSeconds": 4,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/be015b4e-e0fa-4e6b-9780-d0ee624e4bf5/scene_1_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In An Olympic diving event featuring a competitive cat., A cat's unexpected Olympic diving prowess steals the show.: Wide shot showing the cat swaying unsteadily on the board, its eyes wide and fixated on the butterfly. The audience gasps, with scorecards already raised in anticipation."
+        },
+        {
+          "id": "73e8b10a-ee45-49b7-bf65-f30b6237cc9d",
+          "kind": "point2",
+          "caption": "Olympic glory awaits!",
+          "durationSeconds": 2,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/be015b4e-e0fa-4e6b-9780-d0ee624e4bf5/scene_2_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In An Olympic diving event featuring a competitive cat., A cat's unexpected Olympic diving prowess steals the show.: Medium shot of the cat soaring through the air, twisting and flipping with perfect form. The sunlight glints off the water, and the judges are seen with their jaws dropped."
+        },
+        {
+          "id": "71465d79-67fb-4650-a49a-aa9f5d1363f4",
+          "kind": "point3",
+          "caption": "Stay tuned for more cat-tastic events!",
+          "durationSeconds": 2,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/be015b4e-e0fa-4e6b-9780-d0ee624e4bf5/scene_3_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In An Olympic diving event featuring a competitive cat., A cat's unexpected Olympic diving prowess steals the show.: Wide shot of the pool with the cat emerging from the water, shaking droplets off like a pro. The judges are shown excitedly holding up their scorecards, while the crowd is ecstatic."
+        },
+        {
+          "id": "8d96c4db-92f6-4373-9f98-60f42824fc13",
+          "kind": "ending",
+          "caption": "Catch me in the next event—Cat Wrestling!",
+          "durationSeconds": 16,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/be015b4e-e0fa-4e6b-9780-d0ee624e4bf5/scene_4_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In An Olympic diving event featuring a competitive cat., A cat's unexpected Olympic diving prowess steals the show.: Close-up of the cat winking at the camera, with water glistening on its fur. The background shows applause and cheering, with confetti falling everywhere."
+        }
+      ],
+      "voiceover": {
+        "mode": "tts_openai",
+        "fileRelativePath": "uploads/projects/be015b4e-e0fa-4e6b-9780-d0ee624e4bf5/voice_tts.mp3",
+        "providerId": "openai_tts"
+      },
+      "music": {
+        "rightsConfirmed": false,
+        "volumePercent": 12
+      },
+      "voiceVolume": 1,
+      "musicVolume": 0.12,
+      "renderChecklist": {
+        "scriptOriginal": false,
+        "voiceOriginalOrLicensed": false,
+        "visualsOriginalOrLicensed": false,
+        "musicOriginalOrLicensed": false,
+        "noThirdPartyClips": false,
+        "noCopyrightedSong": false,
+        "notSpammy": false,
+        "disclosureNoted": false
+      },
+      "rights": {
+        "allMediaRightsConfirmed": false
+      },
+      "render": {
+        "status": "done",
+        "message": "Render complete",
+        "outputRelativePath": "renders/purr-fect olympic dive.mp4",
+        "startedAt": "2026-05-19T19:03:55.704Z",
+        "finishedAt": "2026-05-19T19:04:17.786Z"
+      },
+      "exportApproved": false,
+      "generatedScript": {
+        "title": "Skit 1 — Purr-fect Olympic Dive",
+        "description": "A cat takes the Olympic diving stage by storm, showcasing its flawless skills and hilarious antics!",
+        "skitConcept": "A cat competes in the Olympics, preparing to make a perfect dive that wows the judges.",
+        "castDescription": "One fluffy orange tabby cat, wearing a tiny Olympic swim cap and goggles, with a determined expression.",
+        "settingAndProps": "An Olympic diving board over a sparkling blue pool, with brightly colored judges' scorecards and a cheering audience.",
+        "primarySubject": "A cat's unexpected Olympic diving prowess steals the show.",
+        "primarySetting": "An Olympic diving event featuring a competitive cat.",
+        "skitBeats": [
+          {
+            "label": "Setup",
+            "action": "The cat stands nervously on the diving board, looking back at the audience. It takes a deep breath, adjusting its swim cap with its paw.",
+            "dialogue": "I got this! It's just a little jump!",
+            "visual": "Close-up of the cat's determined face as it stands on the diving board, squinting at the camera. The background is filled with a cheering crowd, all wearing Olympic gear."
+          },
+          {
+            "label": "Complication",
+            "action": "As the cat prepares to dive, it suddenly spots a butterfly fluttering nearby and gets distracted. It loses focus, wobbling slightly on the edge.",
+            "dialogue": "Ooh, what's that? A snack?",
+            "visual": "Wide shot showing the cat swaying unsteadily on the board, its eyes wide and fixated on the butterfly. The audience gasps, with scorecards already raised in anticipation."
+          },
+          {
+            "label": "Escalation",
+            "action": "The cat snaps back to reality, sees the judges are watching, and shakes off the distraction. It jumps into the air, performing a dramatic twirl.",
+            "dialogue": "Time to shine!",
+            "visual": "Medium shot of the cat soaring through the air, twisting and flipping with perfect form. The sunlight glints off the water, and the judges are seen with their jaws dropped."
+          },
+          {
+            "label": "Payoff",
+            "action": "The cat hits the water with a splash, creating an impressive fountain. The audience erupts in cheers, and the judges raise their scorecards, all showing 10s.",
+            "dialogue": "Nailed it!",
+            "visual": "Wide shot of the pool with the cat emerging from the water, shaking droplets off like a pro. The judges are shown excitedly holding up their scorecards, while the crowd is ecstatic."
+          },
+          {
+            "label": "Button",
+            "action": "The cat climbs out of the pool, looks directly at the camera, and winks. It struts confidently, tail high, as the crowd continues to cheer.",
+            "dialogue": "Catch me in the next event—Cat Wrestling!",
+            "visual": "Close-up of the cat winking at the camera, with water glistening on its fur. The background shows applause and cheering, with confetti falling everywhere."
+          }
+        ],
+        "hook": "I got this! It's just a little jump!",
+        "mainPoints": [
+          "Ooh, what's that? A snack?",
+          "Time to shine!",
+          "Nailed it!"
+        ],
+        "ending": "Catch me in the next event—Cat Wrestling!",
+        "ctaLine": "Don't forget to subscribe for more purr-fect moments!",
+        "fullVoiceoverScript": "I got this! It's just a little jump! Ooh, what's that? A snack? Time to shine! Nailed it! Catch me in the next event—Cat Wrestling! Don't forget to subscribe for more purr-fect moments!",
+        "captionLines": [
+          {
+            "text": "Purr-fect Olympic Dive!",
+            "highlights": [
+              "Purr-fect"
+            ]
+          },
+          {
+            "text": "Can this cat score a perfect 10?",
+            "highlights": [
+              "perfect 10"
+            ]
+          },
+          {
+            "text": "Olympic glory awaits!",
+            "highlights": [
+              "Olympic glory"
+            ]
+          },
+          {
+            "text": "Stay tuned for more cat-tastic events!",
+            "highlights": [
+              "cat-tastic"
+            ]
+          }
+        ],
+        "sceneVisualSuggestions": [
+          "In An Olympic diving event featuring a competitive cat., A cat's unexpected Olympic diving prowess steals the show.: Close-up of the cat's determined face as it stands on the diving board, squinting at the camera. The background is filled with a cheering crowd, all wearing Olympic gear.",
+          "In An Olympic diving event featuring a competitive cat., A cat's unexpected Olympic diving prowess steals the show.: Wide shot showing the cat swaying unsteadily on the board, its eyes wide and fixated on the butterfly. The audience gasps, with scorecards already raised in anticipation.",
+          "In An Olympic diving event featuring a competitive cat., A cat's unexpected Olympic diving prowess steals the show.: Medium shot of the cat soaring through the air, twisting and flipping with perfect form. The sunlight glints off the water, and the judges are seen with their jaws dropped.",
+          "In An Olympic diving event featuring a competitive cat., A cat's unexpected Olympic diving prowess steals the show.: Wide shot of the pool with the cat emerging from the water, shaking droplets off like a pro. The judges are shown excitedly holding up their scorecards, while the crowd is ecstatic.",
+          "In An Olympic diving event featuring a competitive cat., A cat's unexpected Olympic diving prowess steals the show.: Close-up of the cat winking at the camera, with water glistening on its fur. The background shows applause and cheering, with confetti falling everywhere."
+        ],
+        "hashtags": [
+          "#OlympicCat",
+          "#DivingCat",
+          "#FunnyCats",
+          "#CatOlympics",
+          "#Subscribe"
+        ],
+        "estimatedDurationSeconds": 30
+      },
+      "safetyReport": {
+        "overall": "low",
+        "findings": [],
+        "keywordWarnings": []
+      },
+      "visualContinuity": {
+        "setting": "Keep the exact same location and props: An Olympic diving board over a sparkling blue pool, with brightly colored judges' scorecards and a cheering audience.. Same cast throughout: One fluffy orange tabby cat, wearing a tiny Olympic swim cap and goggles, with a determined expression..",
+        "lighting": "bright even daylight, cheerful and consistent",
+        "palette": "natural realistic colors, cohesive white balance",
+        "colorGrade": "consistent color grade and white balance across every shot",
+        "sceneBackgrounds": [
+          "0x18201f",
+          "0x1b2422",
+          "0x1c2624",
+          "0x1a2321",
+          "0x192120"
+        ]
+      },
+      "topicKeywordWarnings": [],
+      "visualGeneration": {
+        "active": false,
+        "mode": "sora",
+        "sceneIndices": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "sceneIndex": 4,
+        "sceneCount": 4,
+        "phase": "completed",
+        "progress": 100,
+        "sceneProgress": 100,
+        "message": "All scenes complete",
+        "startedAt": "2026-05-19T18:29:23.054Z",
+        "cancelRequested": false,
+        "finishedAt": "2026-05-19T18:43:15.169Z"
+      }
     }
   ]
 }

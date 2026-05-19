@@ -3,7 +3,19 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { scanTopicForRiskyKeywords } from "@/lib/safety/checker";
-import type { CtaType, Niche, ShortDuration, Tone, VisualStyle, VoiceStyle } from "@/types";
+import type {
+  ContentType,
+  CtaType,
+  LyricSourceKind,
+  LyriaModelId,
+  MusicGenre,
+  Niche,
+  ShortDuration,
+  Tone,
+  VisualStyle,
+  VoiceStyle,
+} from "@/types";
+import { defaultTitleFromSource } from "@/lib/ai/sourceText";
 
 const niches: Niche[] = [
   "facts",
@@ -17,10 +29,27 @@ const niches: Niche[] = [
   "other",
 ];
 
+const musicGenres: MusicGenre[] = [
+  "pop",
+  "hip-hop",
+  "country",
+  "r&b",
+  "rock",
+  "indie",
+  "electronic",
+  "other",
+];
+
 export default function NewProjectPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [contentType, setContentType] = useState<ContentType>("skit");
   const [topic, setTopic] = useState("");
+  const [sourceText, setSourceText] = useState("");
+  const [lyricSourceKind, setLyricSourceKind] = useState<LyricSourceKind>("reddit");
+  const [musicGenre, setMusicGenre] = useState<MusicGenre>("pop");
+  const [artistStyle, setArtistStyle] = useState("");
+  const [lyriaModel, setLyriaModel] = useState<LyriaModelId | "auto">("auto");
   const [niche, setNiche] = useState<Niche>("other");
   const [tone, setTone] = useState<Tone>("funny");
   const [duration, setDuration] = useState<ShortDuration>(30);
@@ -39,7 +68,14 @@ export default function NewProjectPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           form: {
-            topic,
+            contentType,
+            topic:
+              contentType === "music_lyrics"
+                ? topic.trim() || defaultTitleFromSource(sourceText)
+                : topic,
+            ...(contentType === "music_lyrics"
+              ? { sourceText: sourceText.trim(), lyricSourceKind }
+              : {}),
             niche,
             tone,
             duration,
@@ -48,6 +84,13 @@ export default function NewProjectPage() {
             cta,
             targetAudience,
             language,
+            ...(contentType === "music_lyrics"
+              ? {
+                  musicGenre,
+                  artistStyle: artistStyle.trim() || undefined,
+                  ...(lyriaModel !== "auto" ? { lyriaModel } : {}),
+                }
+              : {}),
           },
         }),
       });
@@ -62,30 +105,122 @@ export default function NewProjectPage() {
   return (
     <div className="mx-auto max-w-2xl flex flex-col gap-8">
       <div>
-        <h1 className="text-2xl font-semibold text-white">New skit Short</h1>
+        <h1 className="text-2xl font-semibold text-white">New Short</h1>
         <p className="mt-1 text-sm text-[var(--muted)]">
-          Enter a skit title or idea. The script becomes five story beats (Setup → Button) with the
-          same cast and setting in every scene — not a documentary.
+          Comedy skit (OpenAI), or turn a text thread / Reddit story into a song with Lyria 3.
         </p>
       </div>
 
       <div className="flex flex-col gap-4 rounded-xl border border-[var(--card-border)] bg-[var(--card)] p-6">
-        <label className="flex flex-col gap-1 text-sm">
-          <span className="text-[var(--muted)]">Skit prompt</span>
-          <input
-            className="rounded-lg border border-[var(--card-border)] bg-black/30 px-3 py-2 text-white outline-none focus:border-[var(--accent)]"
-            value={topic}
-            onChange={(e) => {
-              const v = e.target.value;
-              setTopic(v);
-              setKw(scanTopicForRiskyKeywords(v));
-            }}
-            placeholder="e.g. Skit 1 — Bath Bubble Betrayal"
-          />
-          <span className="text-xs text-zinc-500">
-            AI expands this into 5 detailed scenes: same characters, same location, story comedy.
-          </span>
-        </label>
+        <Field label="Content type">
+          <select
+            className="w-full rounded-lg border border-[var(--card-border)] bg-black/30 px-3 py-2 text-sm text-white"
+            value={contentType}
+            onChange={(e) => setContentType(e.target.value as ContentType)}
+          >
+            <option value="skit">Comedy skit (OpenAI)</option>
+            <option value="music_lyrics">Story → song (messages or Reddit)</option>
+          </select>
+        </Field>
+
+        {contentType === "music_lyrics" ? (
+          <>
+            <Field label="Source type">
+              <select
+                className="w-full rounded-lg border border-[var(--card-border)] bg-black/30 px-3 py-2 text-sm text-white"
+                value={lyricSourceKind}
+                onChange={(e) => setLyricSourceKind(e.target.value as LyricSourceKind)}
+              >
+                <option value="reddit">Reddit story</option>
+                <option value="messages">Text messages</option>
+              </select>
+            </Field>
+            <label className="flex flex-col gap-1 text-sm">
+              <span className="text-[var(--muted)]">Paste your story or chat</span>
+              <textarea
+                className="min-h-[200px] rounded-lg border border-[var(--card-border)] bg-black/30 px-3 py-2 text-sm text-white outline-none focus:border-[var(--accent)]"
+                value={sourceText}
+                onChange={(e) => {
+                  const v = e.target.value;
+                  setSourceText(v);
+                  setKw(scanTopicForRiskyKeywords(v));
+                }}
+                placeholder={
+                  lyricSourceKind === "messages"
+                    ? "Alex: hey are you coming?\nJordan: maybe\nAlex: it's been 2 hours..."
+                    : "AITA for telling my roommate I was moving out after she replaced my shampoo with mayo?"
+                }
+              />
+              <span className="text-xs text-zinc-500">
+                Adapted into original lyrics, then Lyria 3 produces the full song. GEMINI_API_KEY
+                required.
+              </span>
+            </label>
+            <Field label="Project title (optional)">
+              <input
+                className="w-full rounded-lg border border-[var(--card-border)] bg-black/30 px-3 py-2 text-sm text-white"
+                value={topic}
+                onChange={(e) => setTopic(e.target.value)}
+                placeholder="Auto from first line if empty"
+              />
+            </Field>
+          </>
+        ) : (
+          <label className="flex flex-col gap-1 text-sm">
+            <span className="text-[var(--muted)]">Skit prompt</span>
+            <input
+              className="rounded-lg border border-[var(--card-border)] bg-black/30 px-3 py-2 text-white outline-none focus:border-[var(--accent)]"
+              value={topic}
+              onChange={(e) => {
+                const v = e.target.value;
+                setTopic(v);
+                setKw(scanTopicForRiskyKeywords(v));
+              }}
+              placeholder="e.g. Skit 1 — Bath Bubble Betrayal"
+            />
+            <span className="text-xs text-zinc-500">
+              OpenAI expands into 5 story beats: same cast and location, comedy skit.
+            </span>
+          </label>
+        )}
+
+        {contentType === "music_lyrics" && (
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="Genre">
+              <select
+                className="w-full rounded-lg border border-[var(--card-border)] bg-black/30 px-3 py-2 text-sm text-white"
+                value={musicGenre}
+                onChange={(e) => setMusicGenre(e.target.value as MusicGenre)}
+              >
+                {musicGenres.map((g) => (
+                  <option key={g} value={g}>
+                    {g}
+                  </option>
+                ))}
+              </select>
+            </Field>
+            <Field label="Style reference (optional)">
+              <input
+                className="w-full rounded-lg border border-[var(--card-border)] bg-black/30 px-3 py-2 text-sm text-white"
+                value={artistStyle}
+                onChange={(e) => setArtistStyle(e.target.value)}
+                placeholder="e.g. upbeat 80s synth — mood only"
+              />
+            </Field>
+            <Field label="Lyria model">
+              <select
+                className="w-full rounded-lg border border-[var(--card-border)] bg-black/30 px-3 py-2 text-sm text-white sm:col-span-2"
+                value={lyriaModel}
+                onChange={(e) => setLyriaModel(e.target.value as LyriaModelId | "auto")}
+              >
+                <option value="auto">Auto (Clip if ≤30s, else Pro)</option>
+                <option value="lyria-3-clip-preview">Lyria 3 Clip — 30s</option>
+                <option value="lyria-3-pro-preview">Lyria 3 Pro — full song</option>
+              </select>
+            </Field>
+          </div>
+        )}
+
         {kw.length > 0 && (
           <div className="rounded-lg border border-amber-700/50 bg-amber-950/30 px-3 py-2 text-xs text-amber-100">
             <p className="font-medium text-amber-200">Copyright / reuse warning</p>
@@ -206,7 +341,10 @@ export default function NewProjectPage() {
 
         <button
           type="button"
-          disabled={loading || !topic.trim()}
+          disabled={
+            loading ||
+            (contentType === "music_lyrics" ? sourceText.trim().length < 20 : !topic.trim())
+          }
           onClick={submit}
           className="mt-2 rounded-lg bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-white hover:bg-[var(--accent-hover)] disabled:opacity-40"
         >

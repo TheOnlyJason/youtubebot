@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 import { getProject, saveProject } from "@/lib/db";
-import { buildScenesForScript, generateScriptWithOpenAI } from "@/lib/ai/script";
+import {
+  buildScenesForProject,
+  generateProjectScript,
+} from "@/lib/ai/generateProjectScript";
+import { getSourceText } from "@/lib/ai/sourceText";
 import { runSafetyCheck, scanTopicForRiskyKeywords } from "@/lib/safety/checker";
 import { distributeCaptionLinesToScenes } from "@/lib/captions";
 import { deriveVisualContinuity } from "@/lib/visuals/continuity";
@@ -12,10 +16,15 @@ export async function POST(_req: Request, ctx: { params: Promise<{ id: string }>
   const project = getProject(id);
   if (!project) return NextResponse.json({ error: "Not found" }, { status: 404 });
   try {
-    const script = await generateScriptWithOpenAI(project.form);
-    const safety = runSafetyCheck(script, project.form.topic);
-    const topicKeywordWarnings = scanTopicForRiskyKeywords(project.form.topic);
-    let scenes = buildScenesForScript(script, project.form.duration);
+    const script = await generateProjectScript(project.form);
+    const safetyTopic = getSourceText(project.form, script) || project.form.topic;
+    const safety = runSafetyCheck(script, safetyTopic);
+    const topicKeywordWarnings = scanTopicForRiskyKeywords(safetyTopic);
+    let scenes = buildScenesForProject(
+      script,
+      project.form.duration,
+      project.form,
+    );
     scenes = distributeCaptionLinesToScenes(scenes, script.captionLines);
     const visualContinuity = deriveVisualContinuity(
       project.form,

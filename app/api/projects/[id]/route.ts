@@ -33,10 +33,10 @@ export async function GET(
   ctx: { params: Promise<{ id: string }> },
 ) {
   const { id } = await ctx.params;
-  const p = getProject(id);
+  let p = getProject(id);
   if (!p) return NextResponse.json({ error: "Not found" }, { status: 404 });
-  const project = reconcileProjectState(p);
-  return NextResponse.json({ project });
+  p = reconcileProjectState(p);
+  return NextResponse.json({ project: p });
 }
 
 export async function PATCH(req: Request, ctx: { params: Promise<{ id: string }> }) {

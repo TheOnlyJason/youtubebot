@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getProject, saveProject } from "@/lib/db";
 import { generateAllSceneImages } from "@/lib/ai/images";
-import { forceResetVisualGeneration } from "@/lib/visuals/soraReconcile";
+import { forceClearSoraGeneration } from "@/lib/visuals/soraReconcile";
 import { requestStopSoraGeneration, startSoraGeneration } from "@/lib/visuals/soraRunner";
 import { fetchAllSceneStockVideos } from "@/lib/visuals/pexels";
 
@@ -24,22 +24,21 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
   let mode: VisualMode = "images";
   let soraOptions: number | { sceneIndex?: number; retryFailed?: boolean } | undefined;
   let cancelSora = false;
-  let resetSora = false;
+  let forceClearSora = false;
   try {
     const body = (await req.json()) as {
       mode?: VisualMode;
       sceneIndex?: number;
       retryFailed?: boolean;
       cancel?: boolean;
-      resetSora?: boolean;
+      force?: boolean;
     };
     if (body.mode === "stock_video" || body.mode === "images" || body.mode === "sora") {
       mode = body.mode;
     }
-    if (body.resetSora === true) {
-      resetSora = true;
-    } else if (body.cancel === true) {
+    if (body.cancel === true) {
       cancelSora = true;
+      forceClearSora = body.force === true;
     } else if (body.retryFailed === true) {
       soraOptions = { retryFailed: true };
     } else if (typeof body.sceneIndex === "number" && body.sceneIndex >= 0 && body.sceneIndex < 5) {
@@ -49,23 +48,21 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
     /* default images */
   }
 
-  if (resetSora) {
-    const reset = forceResetVisualGeneration(id);
-    if (!reset.ok) {
-      return NextResponse.json({ error: reset.error }, { status: 404 });
-    }
-    return NextResponse.json({ reset: true, project: reset.project });
-  }
-
   if (cancelSora) {
-    const stopped = requestStopSoraGeneration(id);
-    const project = getProject(id);
-    if (!stopped.ok && !project?.visualGeneration?.active) {
-      return NextResponse.json({ stopped: true, project });
+    if (forceClearSora) {
+      const cleared = forceClearSoraGeneration(id);
+      if (!cleared.ok) {
+        return NextResponse.json(
+          { error: cleared.error, project: getProject(id) },
+          { status: 409 },
+        );
+      }
+      return NextResponse.json({ stopped: true, project: cleared.project });
     }
+    const stopped = requestStopSoraGeneration(id);
     if (!stopped.ok) {
       return NextResponse.json(
-        { error: stopped.error, project },
+        { error: stopped.error, project: getProject(id) },
         { status: 409 },
       );
     }

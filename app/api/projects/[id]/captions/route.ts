@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getProject, saveProject } from "@/lib/db";
-import { buildScenesForScript } from "@/lib/ai/script";
+import { buildScenesForProject } from "@/lib/ai/generateProjectScript";
 import { distributeCaptionLinesToScenes, scriptToFlatCaptionLines } from "@/lib/captions";
 
 export const dynamic = "force-dynamic";
@@ -20,7 +20,7 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
     project.scenes.length === 5
       ? distributeCaptionLinesToScenes(project.scenes, captionLines)
       : distributeCaptionLinesToScenes(
-          buildScenesForScript(gs, project.form.duration),
+          buildScenesForProject(gs, project.form.duration, project.form),
           captionLines,
         );
   const next = { ...project, generatedScript: gs, scenes };

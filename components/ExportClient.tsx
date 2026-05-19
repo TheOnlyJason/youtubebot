@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { renderFilenameFromProject } from "@/lib/video/renderFilename";
 import type { Project } from "@/types";
 
 export function ExportClient({ initialProject }: { initialProject: Project }) {
@@ -45,6 +46,9 @@ export function ExportClient({ initialProject }: { initialProject: Project }) {
   const videoUrl = project.render.outputRelativePath
     ? `/api/projects/${project.id}/video`
     : null;
+  const downloadName =
+    project.render.outputRelativePath?.split(/[/\\]/).pop() ??
+    renderFilenameFromProject(project);
 
   function copy(text: string) {
     void navigator.clipboard.writeText(text);
@@ -87,7 +91,7 @@ export function ExportClient({ initialProject }: { initialProject: Project }) {
           />
           <a
             href={videoUrl}
-            download={`safeshorts-${project.id}.mp4`}
+            download={downloadName}
             className="mt-3 inline-flex rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-medium text-white hover:bg-[var(--accent-hover)]"
           >
             Download MP4

@@ -9,6 +9,7 @@ import {
   ffmpegMissingMessage,
   getFfmpegExecutable,
 } from "@/lib/video/ffmpegBin";
+import { resolveUniqueRenderFilename } from "@/lib/video/renderFilename";
 
 function runFfmpeg(args: string[], cwd?: string): Promise<string> {
   const bin = getFfmpegExecutable();
@@ -356,7 +357,7 @@ export async function renderVerticalMp4(project: Project): Promise<RenderResult>
   const assPath = path.join(workDir, "captions.ass");
   fs.writeFileSync(assPath, buildAssTimed(scenes), "utf-8");
 
-  const outName = `short_${project.id}.mp4`;
+  const outName = resolveUniqueRenderFilename(project);
   const outAbs = path.join(rendersDir(), outName);
   const assForFilter = assPath.replace(/\\/g, "/").replace(":", "\\:");
 

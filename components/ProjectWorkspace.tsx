@@ -16,6 +16,7 @@ export function ProjectWorkspace({ initialProject }: { initialProject: Project }
   }, [project]);
   const [busy, setBusy] = useState<string | null>(null);
   const [err, setErr] = useState<string | null>(null);
+  const [lyriaInstrumental, setLyriaInstrumental] = useState(false);
 
   const refresh = useCallback(async () => {
     const res = await fetch(`/api/projects/${project.id}`);
@@ -48,6 +49,9 @@ export function ProjectWorkspace({ initialProject }: { initialProject: Project }
   }, [soraFailedMessage]);
 
   const gate = useMemo(() => canRender(project), [project]);
+  const isMusicLyrics =
+    project.form.contentType === "music_lyrics" ||
+    project.generatedScript?.contentType === "music_lyrics";
   const missingMediaScenes = useMemo(() => scenesMissingMedia(project), [project]);
   const hasAllSceneMedia = useMemo(() => allScenesHaveMedia(project), [project]);
   const missingSceneIndices = useMemo(() => scenesMissingMedia(project), [project]);
@@ -110,6 +114,40 @@ export function ProjectWorkspace({ initialProject }: { initialProject: Project }
     }
   }
 
+  async function generateLyriaSong(opts?: { adaptOnly?: boolean }) {
+    setBusy(opts?.adaptOnly ? "adapt" : "lyria");
+    setErr(null);
+    try {
+      if (opts?.adaptOnly) {
+        const res = await fetch(`/api/projects/${project.id}/music`, { method: "PUT" });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Adapt failed");
+        setProject(data.project);
+        return;
+      }
+      const res = await fetch(`/api/projects/${project.id}/music`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          instrumental: lyriaInstrumental,
+          asPrimaryAudio: true,
+          adaptFromSource: true,
+          sourceText:
+            project.form.sourceText?.trim() ||
+            project.generatedScript?.sourceText?.trim() ||
+            undefined,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Lyria failed");
+      setProject(data.project);
+    } catch (e) {
+      setErr(e instanceof Error ? e.message : "Error");
+    } finally {
+      setBusy(null);
+    }
+  }
+
   async function serverTts() {
     setBusy("tts");
     setErr(null);
@@ -145,34 +183,18 @@ export function ProjectWorkspace({ initialProject }: { initialProject: Project }
     }
   }
 
-  async function stopSoraGeneration() {
+  async function stopSoraGeneration(force = false) {
     setErr(null);
     try {
       const res = await fetch(`/api/projects/${project.id}/visuals`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ cancel: true }),
+        body: JSON.stringify({ cancel: true, force }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Could not stop Sora");
       setProject(data.project);
-    } catch (e) {
-      setErr(e instanceof Error ? e.message : "Error");
-    }
-  }
-
-  async function resetStuckSora() {
-    setErr(null);
-    setBusy(null);
-    try {
-      const res = await fetch(`/api/projects/${project.id}/visuals`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ resetSora: true }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Could not reset Sora status");
-      setProject(data.project);
+      setBusy(null);
     } catch (e) {
       setErr(e instanceof Error ? e.message : "Error");
     }
@@ -324,18 +346,90 @@ export function ProjectWorkspace({ initialProject }: { initialProject: Project }
       )}
 
       <Step
-        title="1 · Skit script"
-        description="Generate a 5-beat comedy skit from your prompt — same cast and setting every scene."
+        title={isMusicLyrics ? "1 · Your story" : "1 · Skit script"}
+        description={
+          isMusicLyrics
+            ? "Paste or edit the message thread or Reddit post. Step 2 turns it into a full song."
+            : "Generate a 5-beat comedy skit from your prompt — same cast and setting every scene."
+        }
       >
+        {isMusicLyrics && (
+          <div className="mb-4 flex flex-col gap-3">
+            <label className="text-xs text-[var(--muted)]">
+              Source type
+              <select
+                className="mt-1 w-full rounded-lg border border-[var(--card-border)] bg-black/40 px-2 py-2 text-sm text-white"
+                value={project.form.lyricSourceKind ?? "reddit"}
+                onChange={(e) =>
+                  patch({
+                    form: {
+                      ...projectRef.current.form,
+                      lyricSourceKind: e.target.value as "messages" | "reddit",
+                    },
+                  })
+                }
+              >
+                <option value="reddit">Reddit story</option>
+                <option value="messages">Text messages</option>
+              </select>
+            </label>
+            <label className="text-xs text-[var(--muted)]">
+              Story or chat (your input)
+              <textarea
+                className="mt-1 min-h-[180px] w-full rounded-lg border border-[var(--card-border)] bg-black/40 p-3 text-sm text-white"
+                value={
+                  project.form.sourceText ??
+                  project.generatedScript?.sourceText ??
+                  project.form.topic
+                }
+                onChange={(e) =>
+                  setProject({
+                    ...project,
+                    form: { ...project.form, sourceText: e.target.value },
+                  })
+                }
+                onBlur={() =>
+                  patch({
+                    form: {
+                      ...projectRef.current.form,
+                      sourceText: projectRef.current.form.sourceText,
+                    },
+                  })
+                }
+              />
+            </label>
+          </div>
+        )}
         <div className="flex flex-wrap gap-2">
-          <button
-            type="button"
-            disabled={!!busy}
-            onClick={generateScript}
-            className="rounded-lg bg-[var(--accent)] px-3 py-2 text-sm font-medium text-white hover:bg-[var(--accent-hover)] disabled:opacity-40"
-          >
-            {busy === "script" ? "Generating…" : "Generate skit script"}
-          </button>
+          {isMusicLyrics ? (
+            <>
+              <button
+                type="button"
+                disabled={!!busy}
+                onClick={() => generateLyriaSong({ adaptOnly: true })}
+                className="rounded-lg border border-[var(--card-border)] px-3 py-2 text-sm text-white hover:bg-white/5 disabled:opacity-40"
+              >
+                {busy === "adapt" ? "Adapting…" : "Preview adapted lyrics only"}
+              </button>
+              <button
+                type="button"
+                disabled={!!busy}
+                onClick={generateScript}
+                className="rounded-lg border border-[var(--card-border)] px-3 py-2 text-sm text-white hover:bg-white/5 disabled:opacity-40"
+              >
+                {busy === "script" ? "Adapting…" : "Re-adapt lyrics for visuals"}
+              </button>
+            </>
+          ) : (
+            <button
+              type="button"
+              disabled={!!busy}
+              onClick={generateScript}
+              className="rounded-lg bg-[var(--accent)] px-3 py-2 text-sm font-medium text-white hover:bg-[var(--accent-hover)] disabled:opacity-40"
+            >
+              {busy === "script" ? "Generating…" : "Generate skit script"}
+            </button>
+          )}
           <button
             type="button"
             disabled={!project.generatedScript || !!busy}
@@ -378,7 +472,7 @@ export function ProjectWorkspace({ initialProject }: { initialProject: Project }
         {project.generatedScript && (
           <div className="mt-4 flex flex-col gap-3">
             <label className="text-xs text-[var(--muted)]">
-              Full voiceover script
+              {isMusicLyrics ? "Full lyrics (voiceover / captions)" : "Full voiceover script"}
               <textarea
                 className="mt-1 min-h-[160px] w-full rounded-lg border border-[var(--card-border)] bg-black/40 p-3 text-sm text-white"
                 value={project.generatedScript.fullVoiceoverScript}
@@ -419,8 +513,59 @@ export function ProjectWorkspace({ initialProject }: { initialProject: Project }
                   <p>{project.generatedScript.settingAndProps}</p>
                 </div>
               )}
+              {isMusicLyrics && (
+                <>
+                  <div>
+                    <p className="font-medium text-white/90">Genre</p>
+                    <p>{project.generatedScript.genre ?? project.form.musicGenre ?? "—"}</p>
+                  </div>
+                  <div>
+                    <p className="font-medium text-white/90">Mood / BPM</p>
+                    <p>
+                      {project.generatedScript.mood ?? project.form.tone}
+                      {project.generatedScript.bpm != null
+                        ? ` · ${project.generatedScript.bpm} BPM`
+                        : ""}
+                    </p>
+                  </div>
+                  {project.generatedScript.primarySubject && (
+                    <div className="sm:col-span-2">
+                      <p className="font-medium text-white/90">Video subject (locked)</p>
+                      <p>{project.generatedScript.primarySubject}</p>
+                    </div>
+                  )}
+                  {project.generatedScript.primarySetting && (
+                    <div className="sm:col-span-2">
+                      <p className="font-medium text-white/90">Setting (locked)</p>
+                      <p>{project.generatedScript.primarySetting}</p>
+                    </div>
+                  )}
+                </>
+              )}
             </div>
-            {project.generatedScript.skitBeats && (
+            {isMusicLyrics && project.generatedScript.lyricsSections && (
+              <div className="mt-2 flex flex-col gap-3">
+                <p className="text-xs font-medium text-white/90">Lyrics by section</p>
+                {project.generatedScript.lyricsSections.map((section, i) => (
+                  <div
+                    key={`${section.label}-${i}`}
+                    className="rounded-lg border border-[var(--card-border)] bg-black/30 p-3 text-xs"
+                  >
+                    <p className="font-medium text-[var(--accent)]">
+                      Scene {i + 1} — {section.label}
+                    </p>
+                    <pre className="mt-2 whitespace-pre-wrap font-sans text-white/90">
+                      {section.lines.join("\n")}
+                    </pre>
+                    <p className="mt-2 text-zinc-300">
+                      <span className="text-zinc-500">Visual: </span>
+                      {section.visual}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
+            {!isMusicLyrics && project.generatedScript.skitBeats && (
               <div className="mt-2 flex flex-col gap-3">
                 <p className="text-xs font-medium text-white/90">Scene layout (story skit)</p>
                 {project.generatedScript.skitBeats.map((beat, i) => (
@@ -451,10 +596,37 @@ export function ProjectWorkspace({ initialProject }: { initialProject: Project }
         )}
       </Step>
 
-      <Step title="2 · Voiceover" description="Upload WAV/MP3, use OpenAI TTS if configured, or browser preview only.">
+      <Step
+        title={isMusicLyrics ? "2 · Generate song" : "2 · Voiceover"}
+        description={
+          isMusicLyrics
+            ? "Adapts your story into lyrics, then Lyria 3 sings it (44.1 kHz MP3). This is your main audio for the Short."
+            : "Upload WAV/MP3, use OpenAI TTS if configured, or browser preview only."
+        }
+      >
         <div className="flex flex-wrap gap-2">
+          {isMusicLyrics && (
+            <>
+              <button
+                type="button"
+                disabled={!!busy}
+                onClick={() => generateLyriaSong()}
+                className="rounded-lg bg-[var(--accent)] px-3 py-2 text-sm font-medium text-white hover:bg-[var(--accent-hover)] disabled:opacity-40"
+              >
+                {busy === "lyria" ? "Creating song…" : "Generate song from story"}
+              </button>
+              <label className="flex items-center gap-2 rounded-lg border border-[var(--card-border)] px-3 py-2 text-xs text-[var(--muted)]">
+                <input
+                  type="checkbox"
+                  checked={lyriaInstrumental}
+                  onChange={(e) => setLyriaInstrumental(e.target.checked)}
+                />
+                Instrumental only
+              </label>
+            </>
+          )}
           <label className="cursor-pointer rounded-lg border border-[var(--card-border)] px-3 py-2 text-sm hover:bg-white/5">
-            Upload voiceover
+            {isMusicLyrics ? "Upload song audio" : "Upload voiceover"}
             <input
               type="file"
               accept="audio/*"
@@ -467,14 +639,16 @@ export function ProjectWorkspace({ initialProject }: { initialProject: Project }
               }}
             />
           </label>
-          <button
-            type="button"
-            disabled={!project.generatedScript || !!busy}
-            onClick={serverTts}
-            className="rounded-lg bg-white/10 px-3 py-2 text-sm text-white hover:bg-white/15 disabled:opacity-40"
-          >
-            {busy === "tts" ? "Synthesizing…" : "Server TTS (OpenAI)"}
-          </button>
+          {!isMusicLyrics && (
+            <button
+              type="button"
+              disabled={!project.generatedScript || !!busy}
+              onClick={serverTts}
+              className="rounded-lg bg-white/10 px-3 py-2 text-sm text-white hover:bg-white/15 disabled:opacity-40"
+            >
+              {busy === "tts" ? "Synthesizing…" : "Server TTS (OpenAI)"}
+            </button>
+          )}
           <button
             type="button"
             disabled={!project.generatedScript}
@@ -486,8 +660,14 @@ export function ProjectWorkspace({ initialProject }: { initialProject: Project }
         </div>
         {project.voiceover.fileRelativePath && (
           <p className="mt-2 text-xs text-emerald-300">
-            Voice file: {project.voiceover.fileRelativePath}
+            {isMusicLyrics ? "Song" : "Voice"} file: {project.voiceover.fileRelativePath}
             {project.voiceover.providerId ? ` · ${project.voiceover.providerId}` : ""}
+          </p>
+        )}
+        {isMusicLyrics && project.voiceover.providerId?.startsWith("lyria") && (
+          <p className="mt-1 text-xs text-zinc-500">
+            Lyria output includes SynthID watermark. Skip OpenAI TTS for music shorts — use this
+            track as your main audio.
           </p>
         )}
         <label className="mt-3 flex items-center gap-2 text-xs text-[var(--muted)]">
@@ -583,21 +763,21 @@ export function ProjectWorkspace({ initialProject }: { initialProject: Project }
                 <span className="tabular-nums font-medium">
                   {Math.round(project.visualGeneration.progress)}%
                 </span>
-                {!project.visualGeneration.cancelRequested ? (
+                {project.visualGeneration.cancelRequested ? (
                   <button
                     type="button"
-                    onClick={() => void stopSoraGeneration()}
-                    className="rounded border border-red-400/50 bg-red-950/60 px-2 py-0.5 text-xs font-medium text-red-100 hover:bg-red-900/60"
+                    onClick={() => void stopSoraGeneration(true)}
+                    className="rounded border border-amber-400/50 bg-amber-950/60 px-2 py-0.5 text-xs font-medium text-amber-100 hover:bg-amber-900/60"
                   >
-                    Stop
+                    Force stop
                   </button>
                 ) : (
                   <button
                     type="button"
-                    onClick={() => void resetStuckSora()}
-                    className="rounded border border-amber-400/50 bg-amber-950/60 px-2 py-0.5 text-xs font-medium text-amber-100 hover:bg-amber-900/60"
+                    onClick={() => void stopSoraGeneration(false)}
+                    className="rounded border border-red-400/50 bg-red-950/60 px-2 py-0.5 text-xs font-medium text-red-100 hover:bg-red-900/60"
                   >
-                    Clear stuck
+                    Stop
                   </button>
                 )}
               </div>
@@ -784,7 +964,44 @@ export function ProjectWorkspace({ initialProject }: { initialProject: Project }
         </div>
       </Step>
 
-      <Step title="4 · Background music (optional)" description="Only use tracks you own or licensed. Separate confirmation required.">
+      <Step
+        title="4 · Background music (optional)"
+        description={
+          isMusicLyrics
+            ? "Optional extra bed under your Lyria song. Usually leave empty — Lyria is already full mix."
+            : "Only use tracks you own or licensed. Separate confirmation required."
+        }
+      >
+        {isMusicLyrics && (
+          <button
+            type="button"
+            disabled={!!busy}
+            onClick={async () => {
+              setBusy("lyria");
+              setErr(null);
+              try {
+                const res = await fetch(`/api/projects/${project.id}/music`, {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    instrumental: lyriaInstrumental,
+                    asPrimaryAudio: false,
+                  }),
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || "Lyria failed");
+                setProject(data.project);
+              } catch (e) {
+                setErr(e instanceof Error ? e.message : "Error");
+              } finally {
+                setBusy(null);
+              }
+            }}
+            className="mb-3 rounded-lg border border-[var(--card-border)] px-3 py-2 text-sm text-white hover:bg-white/5 disabled:opacity-40"
+          >
+            {busy === "lyria" ? "Generating…" : "Generate instrumental bed (Lyria → background)"}
+          </button>
+        )}
         <label className="cursor-pointer rounded-lg border border-[var(--card-border)] px-3 py-2 text-sm hover:bg-white/5">
           Upload music (MP3/WAV)
           <input
@@ -873,7 +1090,12 @@ export function ProjectWorkspace({ initialProject }: { initialProject: Project }
               ["visualsOriginalOrLicensed", "Visuals are original or licensed"],
               ["musicOriginalOrLicensed", "Music is original, licensed, or not used"],
               ["noThirdPartyClips", "No movie/TV/anime/sports/social clips used"],
-              ["noCopyrightedSong", "No copyrighted commercial song used"],
+              [
+                "noCopyrightedSong",
+                isMusicLyrics
+                  ? "Lyrics are 100% original (not a cover or famous song)"
+                  : "No copyrighted commercial song used",
+              ],
               ["notSpammy", "Content is not repetitive spam"],
               [
                 "disclosureNoted",
