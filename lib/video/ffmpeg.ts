@@ -9,7 +9,7 @@ import {
   ffmpegMissingMessage,
   getFfmpegExecutable,
 } from "@/lib/video/ffmpegBin";
-import { resolveUniqueRenderFilename } from "@/lib/video/renderFilename";
+import { resolveUniqueRenderFilename } from "@/lib/video/renderFilename.server";
 
 function runFfmpeg(args: string[], cwd?: string): Promise<string> {
   const bin = getFfmpegExecutable();

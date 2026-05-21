@@ -1,3 +1,4 @@
+import { geminiErrorMessage } from "@/lib/ai/geminiErrors";
 import { getLyricSourceKind, getSourceText } from "@/lib/ai/sourceText";
 import type { GeneratedScript, LyriaModelId, Project, ProjectForm } from "@/types";
 
@@ -203,7 +204,7 @@ export async function generateLyriaMusic(
 
   if (!res.ok) {
     const err = await res.text();
-    throw new Error(`Lyria API error: ${res.status} ${err.slice(0, 600)}`);
+    throw new Error(geminiErrorMessage(res.status, err));
   }
 
   const body = (await res.json()) as {

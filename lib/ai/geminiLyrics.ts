@@ -1,4 +1,5 @@
 import { scriptToFlatCaptionLines } from "@/lib/captions";
+import { geminiErrorMessage } from "@/lib/ai/geminiErrors";
 import {
   getLyricSourceKind,
   getSourceText,
@@ -250,7 +251,7 @@ async function geminiGenerateJson(prompt: string, kind: LyricSourceKind): Promis
 
   if (!res.ok) {
     const err = await res.text();
-    throw new Error(`Gemini API error: ${res.status} ${err.slice(0, 500)}`);
+    throw new Error(geminiErrorMessage(res.status, err));
   }
 
   const body = (await res.json()) as {

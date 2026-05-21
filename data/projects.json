@@ -1956,6 +1956,1336 @@
         "cancelRequested": false,
         "finishedAt": "2026-05-19T18:43:15.169Z"
       }
+    },
+    {
+      "id": "9915dbad-1339-4f56-9f3e-b361b387dfe8",
+      "createdAt": "2026-05-19T22:26:24.095Z",
+      "updatedAt": "2026-05-20T16:30:30.844Z",
+      "status": "Rendered",
+      "form": {
+        "niche": "other",
+        "topic": "cat muckbang ",
+        "tone": "funny",
+        "duration": 30,
+        "voiceStyle": "calm",
+        "visualStyle": "realistic",
+        "cta": "subscribe",
+        "targetAudience": "curious beginners",
+        "language": "English",
+        "contentType": "skit"
+      },
+      "scenes": [
+        {
+          "id": "b9c38f6a-c40f-4080-ad5a-4ff15de8ac7a",
+          "kind": "hook",
+          "caption": "Tuna tsunami incoming!",
+          "durationSeconds": 6,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/9915dbad-1339-4f56-9f3e-b361b387dfe8/scene_0_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In Living room with cat food spread out on a table., Bella and Whiskers participate in a funny muckbang challenge.: Camera zooms in on Bella's fluffy face, lighting bright and cheerful. The table is cluttered with bowls of fish, chicken, and catnip treats. Whiskers does a little dance, his chef's hat tilting to one side."
+        },
+        {
+          "id": "000d43f6-99a6-4d2c-abcb-2593b3ba59cf",
+          "kind": "point1",
+          "caption": "It's a rescue mission!",
+          "durationSeconds": 5,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/9915dbad-1339-4f56-9f3e-b361b387dfe8/scene_1_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In Living room with cat food spread out on a table., Bella and Whiskers participate in a funny muckbang challenge.: Wide shot of the mess, with tuna splattered on the floor. Bella looks shocked, her paws covered in fish. Whiskers dramatically pretends to be swept away by the 'tsunami,' rolling over."
+        },
+        {
+          "id": "7a109293-2cca-4662-a038-10b72b090653",
+          "kind": "point2",
+          "caption": "I prefer a little chaos with my cuisine!",
+          "durationSeconds": 4,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/9915dbad-1339-4f56-9f3e-b361b387dfe8/scene_2_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In Living room with cat food spread out on a table., Bella and Whiskers participate in a funny muckbang challenge.: Close-up of Bella's determined face, tuna smeared across her paws. She comically struggles to scoop the fish back into the bowl, while Whiskers tries to help but just ends up slipping on the floor."
+        },
+        {
+          "id": "7a8da320-9b7d-4fa2-9a03-ff98151ec297",
+          "kind": "point3",
+          "caption": "Whiskers: \"I prefer a little chaos with my cuisine!\"",
+          "durationSeconds": 7,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/9915dbad-1339-4f56-9f3e-b361b387dfe8/scene_3_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In Living room with cat food spread out on a table., Bella and Whiskers participate in a funny muckbang challenge.: Medium shot of the two cats finally enjoying their food, looking satisfied despite the mess around them. Bella licks her paw, while Whiskers leans back with a full belly, looking pleased."
+        },
+        {
+          "id": "a9fe281c-5d71-4c05-b513-45ab343b7d03",
+          "kind": "ending",
+          "caption": "Bella: \"Good luck with that!\"",
+          "durationSeconds": 8,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/9915dbad-1339-4f56-9f3e-b361b387dfe8/scene_4_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In Living room with cat food spread out on a table., Bella and Whiskers participate in a funny muckbang challenge.: Wide shot of the dining table, now a chaotic mess of food, with both cats playfully tussling over the last piece of tuna. The camera pulls back, capturing the fun vibe of their living room."
+        }
+      ],
+      "voiceover": {
+        "mode": "tts_openai",
+        "fileRelativePath": "uploads/projects/9915dbad-1339-4f56-9f3e-b361b387dfe8/voice_tts.mp3",
+        "providerId": "openai_tts"
+      },
+      "music": {
+        "rightsConfirmed": false,
+        "volumePercent": 12
+      },
+      "voiceVolume": 1,
+      "musicVolume": 0.12,
+      "renderChecklist": {
+        "scriptOriginal": false,
+        "voiceOriginalOrLicensed": false,
+        "visualsOriginalOrLicensed": false,
+        "musicOriginalOrLicensed": false,
+        "noThirdPartyClips": false,
+        "noCopyrightedSong": false,
+        "notSpammy": false,
+        "disclosureNoted": false
+      },
+      "rights": {
+        "allMediaRightsConfirmed": false
+      },
+      "render": {
+        "status": "done",
+        "message": "Render complete",
+        "outputRelativePath": "renders/cat muckbang.mp4",
+        "startedAt": "2026-05-20T16:30:12.159Z",
+        "finishedAt": "2026-05-20T16:30:30.843Z"
+      },
+      "exportApproved": false,
+      "generatedScript": {
+        "title": "Skit 1 — Cat Muckbang",
+        "description": "Join Bella the fluffy calico cat and her trusty sidekick, Whiskers the sleek black cat, as they embark on a hilarious food adventure in their living room, trying to conquer the ultimate muckbang challenge!",
+        "skitConcept": "Two cats attempt a muckbang, showcasing their funny personalities as they tackle different flavors and textures of food.",
+        "castDescription": "Bella: a fluffy calico cat, medium-sized, wearing a red bandana; Whiskers: a sleek black cat, small-sized, wearing a tiny chef's hat.",
+        "settingAndProps": "A cozy living room with a dining table filled with various colorful cat foods and bowls; a comfy cat bed in the corner.",
+        "primarySubject": "Bella and Whiskers participate in a funny muckbang challenge.",
+        "primarySetting": "Living room with cat food spread out on a table.",
+        "skitBeats": [
+          {
+            "label": "Setup",
+            "action": "Bella and Whiskers sit eagerly at a dining table, their eyes wide as they stare at the array of colorful cat food laid out before them. Whiskers is bouncing on his paws excitedly.",
+            "dialogue": "Bella: \"Are you ready for the ultimate feast?\"",
+            "visual": "Camera zooms in on Bella's fluffy face, lighting bright and cheerful. The table is cluttered with bowls of fish, chicken, and catnip treats. Whiskers does a little dance, his chef's hat tilting to one side."
+          },
+          {
+            "label": "Complication",
+            "action": "As they start digging into the food, Bella accidentally flips a bowl of tuna off the table, spilling it everywhere. Whiskers gasps dramatically.",
+            "dialogue": "Whiskers: \"Tuna tsunami incoming!\"",
+            "visual": "Wide shot of the mess, with tuna splattered on the floor. Bella looks shocked, her paws covered in fish. Whiskers dramatically pretends to be swept away by the 'tsunami,' rolling over."
+          },
+          {
+            "label": "Escalation",
+            "action": "Bella decides to take charge, jumping onto the table and trying to save the food. She starts scooping the tuna up with her paws, but it just makes things worse.",
+            "dialogue": "Bella: \"It's a rescue mission!\"",
+            "visual": "Close-up of Bella's determined face, tuna smeared across her paws. She comically struggles to scoop the fish back into the bowl, while Whiskers tries to help but just ends up slipping on the floor."
+          },
+          {
+            "label": "Payoff",
+            "action": "After all the chaos, both cats finally manage to settle down and taste the remaining food. They look at each other and nod in agreement that it was worth it.",
+            "dialogue": "Whiskers: \"I prefer a little chaos with my cuisine!\"",
+            "visual": "Medium shot of the two cats finally enjoying their food, looking satisfied despite the mess around them. Bella licks her paw, while Whiskers leans back with a full belly, looking pleased."
+          },
+          {
+            "label": "Button",
+            "action": "As they finish their meal, Whiskers spots a stray piece of tuna on the floor. He dives for it, causing Bella to laugh and playfully swat at him.",
+            "dialogue": "Bella: \"Good luck with that!\"",
+            "visual": "Wide shot of the dining table, now a chaotic mess of food, with both cats playfully tussling over the last piece of tuna. The camera pulls back, capturing the fun vibe of their living room."
+          }
+        ],
+        "hook": "Bella: \"Are you ready for the ultimate feast?\"",
+        "mainPoints": [
+          "Whiskers: \"Tuna tsunami incoming!\"",
+          "Bella: \"It's a rescue mission!\"",
+          "Whiskers: \"I prefer a little chaos with my cuisine!\""
+        ],
+        "ending": "Bella: \"Good luck with that!\"",
+        "ctaLine": "Subscribe for more cat antics!",
+        "fullVoiceoverScript": "Bella: \"Are you ready for the ultimate feast?\" Whiskers: \"Tuna tsunami incoming!\" Bella: \"It's a rescue mission!\" Whiskers: \"I prefer a little chaos with my cuisine!\" Bella: \"Good luck with that!\"",
+        "captionLines": [
+          {
+            "text": "Tuna tsunami incoming!",
+            "highlights": [
+              "tsunami"
+            ]
+          },
+          {
+            "text": "It's a rescue mission!",
+            "highlights": [
+              "rescue"
+            ]
+          },
+          {
+            "text": "I prefer a little chaos with my cuisine!",
+            "highlights": [
+              "chaos",
+              "cuisine"
+            ]
+          }
+        ],
+        "sceneVisualSuggestions": [
+          "In Living room with cat food spread out on a table., Bella and Whiskers participate in a funny muckbang challenge.: Camera zooms in on Bella's fluffy face, lighting bright and cheerful. The table is cluttered with bowls of fish, chicken, and catnip treats. Whiskers does a little dance, his chef's hat tilting to one side.",
+          "In Living room with cat food spread out on a table., Bella and Whiskers participate in a funny muckbang challenge.: Wide shot of the mess, with tuna splattered on the floor. Bella looks shocked, her paws covered in fish. Whiskers dramatically pretends to be swept away by the 'tsunami,' rolling over.",
+          "In Living room with cat food spread out on a table., Bella and Whiskers participate in a funny muckbang challenge.: Close-up of Bella's determined face, tuna smeared across her paws. She comically struggles to scoop the fish back into the bowl, while Whiskers tries to help but just ends up slipping on the floor.",
+          "In Living room with cat food spread out on a table., Bella and Whiskers participate in a funny muckbang challenge.: Medium shot of the two cats finally enjoying their food, looking satisfied despite the mess around them. Bella licks her paw, while Whiskers leans back with a full belly, looking pleased.",
+          "In Living room with cat food spread out on a table., Bella and Whiskers participate in a funny muckbang challenge.: Wide shot of the dining table, now a chaotic mess of food, with both cats playfully tussling over the last piece of tuna. The camera pulls back, capturing the fun vibe of their living room."
+        ],
+        "hashtags": [
+          "#CatMuckbang",
+          "#FunnyCats",
+          "#FoodChallenge",
+          "#CatComedy",
+          "#PetVideos"
+        ],
+        "estimatedDurationSeconds": 30
+      },
+      "safetyReport": {
+        "overall": "low",
+        "findings": [],
+        "keywordWarnings": []
+      },
+      "visualContinuity": {
+        "setting": "Keep the exact same location and props: A cozy living room with a dining table filled with various colorful cat foods and bowls; a comfy cat bed in the corner.. Same cast throughout: Bella: a fluffy calico cat, medium-sized, wearing a red bandana; Whiskers: a sleek black cat, small-sized, wearing a tiny chef's hat..",
+        "lighting": "bright even daylight, cheerful and consistent",
+        "palette": "natural realistic colors, cohesive white balance",
+        "colorGrade": "consistent color grade and white balance across every shot",
+        "sceneBackgrounds": [
+          "0x18201f",
+          "0x1b2422",
+          "0x1c2624",
+          "0x1a2321",
+          "0x192120"
+        ]
+      },
+      "topicKeywordWarnings": [],
+      "visualGeneration": {
+        "active": false,
+        "mode": "sora",
+        "sceneIndices": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "sceneIndex": 4,
+        "sceneCount": 5,
+        "phase": "completed",
+        "progress": 100,
+        "sceneProgress": 100,
+        "message": "All scenes complete",
+        "startedAt": "2026-05-20T16:02:40.816Z",
+        "cancelRequested": false,
+        "finishedAt": "2026-05-20T16:20:11.783Z"
+      }
+    },
+    {
+      "id": "5a0c5a37-088f-4c1c-af25-4a01d469bcb2",
+      "createdAt": "2026-05-20T17:13:26.381Z",
+      "updatedAt": "2026-05-20T17:13:26.382Z",
+      "status": "Draft",
+      "form": {
+        "niche": "other",
+        "topic": "alex: Hii baby",
+        "tone": "funny",
+        "duration": 30,
+        "voiceStyle": "calm",
+        "visualStyle": "realistic",
+        "cta": "subscribe",
+        "targetAudience": "curious beginners",
+        "language": "English",
+        "contentType": "music_lyrics",
+        "sourceText": "alex: Hii baby \njordan: :hii\njordan: :hii\njordan: :hii\njordan: :hii\njordan: :hii",
+        "lyricSourceKind": "messages",
+        "musicGenre": "electronic"
+      },
+      "scenes": [],
+      "voiceover": {
+        "mode": "none"
+      },
+      "music": {
+        "rightsConfirmed": false,
+        "volumePercent": 12
+      },
+      "voiceVolume": 1,
+      "musicVolume": 0.12,
+      "renderChecklist": {
+        "scriptOriginal": false,
+        "voiceOriginalOrLicensed": false,
+        "visualsOriginalOrLicensed": false,
+        "musicOriginalOrLicensed": false,
+        "noThirdPartyClips": false,
+        "noCopyrightedSong": false,
+        "notSpammy": false,
+        "disclosureNoted": false
+      },
+      "rights": {
+        "allMediaRightsConfirmed": false
+      },
+      "render": {
+        "status": "idle"
+      },
+      "exportApproved": false
+    },
+    {
+      "id": "f8f0f2a6-615a-4d57-b1a9-a528f17dbbeb",
+      "createdAt": "2026-05-20T17:49:52.829Z",
+      "updatedAt": "2026-05-20T18:18:46.419Z",
+      "status": "Rendered",
+      "form": {
+        "niche": "other",
+        "topic": "a cat doing the viral fortnite dance battle ",
+        "tone": "funny",
+        "duration": 30,
+        "voiceStyle": "calm",
+        "visualStyle": "realistic",
+        "cta": "subscribe",
+        "targetAudience": "curious beginners",
+        "language": "English",
+        "contentType": "skit"
+      },
+      "scenes": [
+        {
+          "id": "63a98b90-73a0-4203-b022-7cd8de14e795",
+          "kind": "hook",
+          "caption": "Can a cat really dance?",
+          "durationSeconds": 5,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/f8f0f2a6-615a-4d57-b1a9-a528f17dbbeb/scene_0_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In A sunny living room where the cat performs its dance routine., An orange tabby cat showcasing Fortnite dance moves.: A medium shot captures the cat looking determined while standing on its hind legs, stretching. The sunlight streams in through the window, illuminating its shiny fur. The owner is seen on the couch, chuckling and holding their tablet as if they can’t wait to see the performance."
+        },
+        {
+          "id": "71b0d6a6-3267-49b1-8ae7-f71136a01443",
+          "kind": "point1",
+          "caption": "Oops! Floss or Flop?",
+          "durationSeconds": 5,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/f8f0f2a6-615a-4d57-b1a9-a528f17dbbeb/scene_1_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In A sunny living room where the cat performs its dance routine., An orange tabby cat showcasing Fortnite dance moves.: A close-up shot captures the cat's confused expression while it spins awkwardly. The couch and potted plant provide context in the background. The owner laughs uncontrollably, trying to stifle their giggles."
+        },
+        {
+          "id": "9f0fc447-2c7f-4e8f-986c-24d923841506",
+          "kind": "point2",
+          "caption": "A tail-tastic distraction!",
+          "durationSeconds": 6,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/f8f0f2a6-615a-4d57-b1a9-a528f17dbbeb/scene_2_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In A sunny living room where the cat performs its dance routine., An orange tabby cat showcasing Fortnite dance moves.: In a wide shot, the cat begins performing the Orange Justice move, only to suddenly trip over its own tail. The owner is now doubled over with laughter, clutching their stomach."
+        },
+        {
+          "id": "5e079c4d-41a3-48d1-bee3-3059f6632d3b",
+          "kind": "point3",
+          "caption": "Too cute to dance!",
+          "durationSeconds": 4,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/f8f0f2a6-615a-4d57-b1a9-a528f17dbbeb/scene_3_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In A sunny living room where the cat performs its dance routine., An orange tabby cat showcasing Fortnite dance moves.: A medium shot shows the cat posing adorably, with one paw raised in the air and a big grin on its face. The owner shakes their head, still grinning, as the sunlight creates a warm glow around them."
+        },
+        {
+          "id": "27457c21-4fab-4db6-b539-2f97e9530601",
+          "kind": "ending",
+          "caption": "Remember to subscribe to see my next epic move!",
+          "durationSeconds": 10,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/f8f0f2a6-615a-4d57-b1a9-a528f17dbbeb/scene_4_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In A sunny living room where the cat performs its dance routine., An orange tabby cat showcasing Fortnite dance moves.: A close-up shot shows the cat winking with a playful smirk, while the owner laughs in the background. The camera focuses on the cat’s expressive eyes as the sun shines brightly, emphasizing the fun and silliness of the moment."
+        }
+      ],
+      "voiceover": {
+        "mode": "tts_openai",
+        "fileRelativePath": "uploads/projects/f8f0f2a6-615a-4d57-b1a9-a528f17dbbeb/voice_tts.mp3",
+        "providerId": "openai_tts"
+      },
+      "music": {
+        "rightsConfirmed": false,
+        "volumePercent": 12
+      },
+      "voiceVolume": 1,
+      "musicVolume": 0.12,
+      "renderChecklist": {
+        "scriptOriginal": false,
+        "voiceOriginalOrLicensed": false,
+        "visualsOriginalOrLicensed": false,
+        "musicOriginalOrLicensed": false,
+        "noThirdPartyClips": false,
+        "noCopyrightedSong": false,
+        "notSpammy": false,
+        "disclosureNoted": false
+      },
+      "rights": {
+        "allMediaRightsConfirmed": false
+      },
+      "render": {
+        "status": "done",
+        "message": "Render complete",
+        "outputRelativePath": "renders/feline fortnite face-off.mp4",
+        "startedAt": "2026-05-20T18:18:29.099Z",
+        "finishedAt": "2026-05-20T18:18:46.418Z"
+      },
+      "exportApproved": false,
+      "generatedScript": {
+        "title": "Skit 1 — Feline Fortnite Face-off",
+        "description": "A determined cat tries to impress its owner with viral Fortnite dance moves, leading to a hilarious showdown.",
+        "skitConcept": "A cat attempts to perform popular Fortnite dance moves to show off its skills, but gets a little too competitive.",
+        "castDescription": "One fluffy orange tabby cat with a bright red bow tie, small in size, sitting on a colorful rug.",
+        "settingAndProps": "A cozy living room with a large, comfy couch and a potted plant in the corner, featuring a bright, sunny window.",
+        "primarySubject": "An orange tabby cat showcasing Fortnite dance moves.",
+        "primarySetting": "A sunny living room where the cat performs its dance routine.",
+        "skitBeats": [
+          {
+            "label": "Setup",
+            "action": "The cat stretches dramatically, looking straight at the camera as it gets ready for its big dance performance. It eyes its owner sitting on the couch, who has their phone recording.",
+            "dialogue": "Watch this, human! I'm about to go viral.",
+            "visual": "A medium shot captures the cat looking determined while standing on its hind legs, stretching. The sunlight streams in through the window, illuminating its shiny fur. The owner is seen on the couch, chuckling and holding their phone as if they can’t wait to see the performance."
+          },
+          {
+            "label": "Complication",
+            "action": "As the cat begins its dance, it starts with the classic 'Floss' move but can’t quite get the rhythm right and ends up spinning in circles instead.",
+            "dialogue": "Oops! I meant to do the Floss, not the Flop!",
+            "visual": "A close-up shot captures the cat's confused expression while it spins awkwardly. The couch and potted plant provide context in the background. The owner laughs uncontrollably, trying to stifle their giggles."
+          },
+          {
+            "label": "Escalation",
+            "action": "Undeterred, the cat tries the 'Orange Justice' dance next, but gets tangled up in its own tail, causing it to tumble over comically.",
+            "dialogue": "Nailed it! Wait... why's my tail so distracting?",
+            "visual": "In a wide shot, the cat begins performing the Orange Justice move, only to suddenly trip over its own tail. The owner is now doubled over with laughter, clutching their stomach."
+          },
+          {
+            "label": "Payoff",
+            "action": "The cat, frustrated yet determined, decides to settle for a cute pose, striking a playful stance as if to say, 'Who needs dancing anyway?'",
+            "dialogue": "Fine! I’m just too cute to dance!",
+            "visual": "A medium shot shows the cat posing adorably, with one paw raised in the air and a big grin on its face. The owner shakes their head, still grinning, as the sunlight creates a warm glow around them."
+          },
+          {
+            "label": "Button",
+            "action": "The cat gives a final exaggerated wink to the camera and flicks its tail, as if to say it's ready for the next challenge. The owner holds up their phone, suggesting they’ll post this video.",
+            "dialogue": "Remember to subscribe to see my next epic move!",
+            "visual": "A close-up shot shows the cat winking with a playful smirk, while the owner laughs in the background. The camera focuses on the cat’s expressive eyes as the sun shines brightly, emphasizing the fun and silliness of the moment."
+          }
+        ],
+        "hook": "Watch this, human! I'm about to go viral.",
+        "mainPoints": [
+          "Oops! I meant to do the Floss, not the Flop!",
+          "Nailed it! Wait... why's my tail so distracting?",
+          "Fine! I’m just too cute to dance!"
+        ],
+        "ending": "Remember to subscribe to see my next epic move!",
+        "ctaLine": "Subscribe for more furry fun!",
+        "fullVoiceoverScript": "Watch this, human! I'm about to go viral. Oops! I meant to do the Floss, not the Flop! Nailed it! Wait... why's my tail so distracting? Fine! I’m just too cute to dance! Remember to subscribe to see my next epic move!",
+        "captionLines": [
+          {
+            "text": "Can a cat really dance?",
+            "highlights": [
+              "cat",
+              "dance"
+            ]
+          },
+          {
+            "text": "Oops! Floss or Flop?",
+            "highlights": [
+              "Floss",
+              "Flop"
+            ]
+          },
+          {
+            "text": "A tail-tastic distraction!",
+            "highlights": [
+              "tail",
+              "distraction"
+            ]
+          },
+          {
+            "text": "Too cute to dance!",
+            "highlights": [
+              "cute",
+              "dance"
+            ]
+          }
+        ],
+        "sceneVisualSuggestions": [
+          "In A sunny living room where the cat performs its dance routine., An orange tabby cat showcasing Fortnite dance moves.: A medium shot captures the cat looking determined while standing on its hind legs, stretching. The sunlight streams in through the window, illuminating its shiny fur. The owner is seen on the couch, chuckling and holding their tablet as if they can’t wait to see the performance.",
+          "In A sunny living room where the cat performs its dance routine., An orange tabby cat showcasing Fortnite dance moves.: A close-up shot captures the cat's confused expression while it spins awkwardly. The couch and potted plant provide context in the background. The owner laughs uncontrollably, trying to stifle their giggles.",
+          "In A sunny living room where the cat performs its dance routine., An orange tabby cat showcasing Fortnite dance moves.: In a wide shot, the cat begins performing the Orange Justice move, only to suddenly trip over its own tail. The owner is now doubled over with laughter, clutching their stomach.",
+          "In A sunny living room where the cat performs its dance routine., An orange tabby cat showcasing Fortnite dance moves.: A medium shot shows the cat posing adorably, with one paw raised in the air and a big grin on its face. The owner shakes their head, still grinning, as the sunlight creates a warm glow around them.",
+          "In A sunny living room where the cat performs its dance routine., An orange tabby cat showcasing Fortnite dance moves.: A close-up shot shows the cat winking with a playful smirk, while the owner laughs in the background. The camera focuses on the cat’s expressive eyes as the sun shines brightly, emphasizing the fun and silliness of the moment."
+        ],
+        "hashtags": [
+          "#CatDance",
+          "#FortniteChallenge",
+          "#ViralCats",
+          "#FunnyPets",
+          "#SubscribeNow"
+        ],
+        "estimatedDurationSeconds": 30
+      },
+      "safetyReport": {
+        "overall": "low",
+        "findings": [],
+        "keywordWarnings": []
+      },
+      "visualContinuity": {
+        "setting": "Keep the exact same location and props: A cozy living room with a large, comfy couch and a potted plant in the corner, featuring a bright, sunny window.. Same cast throughout: One fluffy orange tabby cat with a bright red bow tie, small in size, sitting on a colorful rug..",
+        "lighting": "bright even daylight, cheerful and consistent",
+        "palette": "natural realistic colors, cohesive white balance",
+        "colorGrade": "consistent color grade and white balance across every shot",
+        "sceneBackgrounds": [
+          "0x201b2c",
+          "0x241e31",
+          "0x262034",
+          "0x231d30",
+          "0x211c2e"
+        ]
+      },
+      "topicKeywordWarnings": [],
+      "visualGeneration": {
+        "active": false,
+        "mode": "sora",
+        "sceneIndices": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "sceneIndex": 4,
+        "sceneCount": 5,
+        "phase": "completed",
+        "progress": 100,
+        "sceneProgress": 100,
+        "message": "All scenes complete",
+        "startedAt": "2026-05-20T17:56:01.800Z",
+        "cancelRequested": false,
+        "finishedAt": "2026-05-20T18:13:17.988Z"
+      }
+    },
+    {
+      "id": "64ee478e-f3ef-4974-b33e-4cb74ed20db1",
+      "createdAt": "2026-05-20T18:19:19.824Z",
+      "updatedAt": "2026-05-20T18:49:51.394Z",
+      "status": "Rendered",
+      "form": {
+        "niche": "other",
+        "topic": "cat spiderman saving the town ",
+        "tone": "funny",
+        "duration": 30,
+        "voiceStyle": "calm",
+        "visualStyle": "realistic",
+        "cta": "subscribe",
+        "targetAudience": "curious beginners",
+        "language": "English",
+        "contentType": "skit"
+      },
+      "scenes": [
+        {
+          "id": "0ba765c2-58ee-41a7-9269-6a8bf6d7f82d",
+          "kind": "hook",
+          "caption": "Cat Spiderman is on a mission!",
+          "durationSeconds": 4,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/64ee478e-f3ef-4974-b33e-4cb74ed20db1/scene_0_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In A suburban backyard filled with toys and a tree., A goofy cat superhero trying to perform heroic deeds in a backyard.: Wide shot of the fluffy gray tabby cat perched on the fence, its tiny superhero costume catching the sunlight. The background has the bird feeder swaying gently, while the cat looks determined yet puzzled."
+        },
+        {
+          "id": "874a6ae1-8bad-41bb-95db-4729da049fa5",
+          "kind": "point1",
+          "caption": "Oops, hero landing! 😂",
+          "durationSeconds": 4,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/64ee478e-f3ef-4974-b33e-4cb74ed20db1/scene_1_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In A suburban backyard filled with toys and a tree., A goofy cat superhero trying to perform heroic deeds in a backyard.: Medium shot of the cat rolling in the leaves, its costume hilariously crumpled. The camera captures the cat's frantic movements as it attempts to regain composure, with leaves flying everywhere."
+        },
+        {
+          "id": "6bf4b063-e6b1-4b76-8207-6cd71f64ed10",
+          "kind": "point2",
+          "caption": "Hanging in there like a true hero!",
+          "durationSeconds": 6,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/64ee478e-f3ef-4974-b33e-4cb74ed20db1/scene_2_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In A suburban backyard filled with toys and a tree., A goofy cat superhero trying to perform heroic deeds in a backyard.: Close-up of the cat hanging onto a branch, its little paw reaching for the stuffed animal. Its eyes are wide, showcasing a mix of determination and fear, while the suburban landscape blurs in the background."
+        },
+        {
+          "id": "00c49c02-50b3-40df-978b-791e8c596e09",
+          "kind": "point3",
+          "caption": "Did the human just save the day? 😹",
+          "durationSeconds": 4,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/64ee478e-f3ef-4974-b33e-4cb74ed20db1/scene_3_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In A suburban backyard filled with toys and a tree., A goofy cat superhero trying to perform heroic deeds in a backyard.: Wide shot with the human standing beneath the tree, laughing while holding the stuffed animal. The cat looks down, puffing its chest out, trying to maintain its superhero image despite the obvious help."
+        },
+        {
+          "id": "079b5f2d-a8c4-443a-bfc9-132d8eb369ef",
+          "kind": "ending",
+          "caption": "Every hero needs a sidekick! 🐾",
+          "durationSeconds": 12,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/64ee478e-f3ef-4974-b33e-4cb74ed20db1/scene_4_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In A suburban backyard filled with toys and a tree., A goofy cat superhero trying to perform heroic deeds in a backyard.: Medium shot shows the cat entangled in the colorful yarn, looking both heroic and ridiculous. The camera focuses on its frustrated face as it struggles, surrounded by scattered toys."
+        }
+      ],
+      "voiceover": {
+        "mode": "tts_openai",
+        "fileRelativePath": "uploads/projects/64ee478e-f3ef-4974-b33e-4cb74ed20db1/voice_tts.mp3",
+        "providerId": "openai_tts"
+      },
+      "music": {
+        "rightsConfirmed": false,
+        "volumePercent": 12
+      },
+      "voiceVolume": 1,
+      "musicVolume": 0.12,
+      "renderChecklist": {
+        "scriptOriginal": false,
+        "voiceOriginalOrLicensed": false,
+        "visualsOriginalOrLicensed": false,
+        "musicOriginalOrLicensed": false,
+        "noThirdPartyClips": false,
+        "noCopyrightedSong": false,
+        "notSpammy": false,
+        "disclosureNoted": false
+      },
+      "rights": {
+        "allMediaRightsConfirmed": false
+      },
+      "render": {
+        "status": "done",
+        "message": "Render complete",
+        "outputRelativePath": "renders/cat spiderman saves the town.mp4",
+        "startedAt": "2026-05-20T18:49:33.684Z",
+        "finishedAt": "2026-05-20T18:49:51.394Z"
+      },
+      "exportApproved": false,
+      "generatedScript": {
+        "title": "Skit 1 — Cat Spiderman Saves the Town",
+        "description": "A hilarious skit featuring a cat who thinks it’s a superhero, swinging through the neighborhood to save the day.",
+        "skitConcept": "A cat dons a makeshift Spiderman suit and attempts to save the town from minor inconveniences, but hilariously fails every time.",
+        "castDescription": "One fluffy gray tabby cat, wearing a tiny red and blue superhero costume with a mask, and a small black cape.",
+        "settingAndProps": "In a suburban backyard with a few playful toys scattered around, such as a ball of yarn, a scratching post, and a tree for climbing.",
+        "primarySubject": "A goofy cat superhero trying to perform heroic deeds in a backyard.",
+        "primarySetting": "A suburban backyard filled with toys and a tree.",
+        "skitBeats": [
+          {
+            "label": "Setup",
+            "action": "The cat sits atop a low fence, striking a superhero pose, looking brave but slightly confused. It stares at a nearby bird feeder.",
+            "dialogue": "Cat: \"Time to save the day!\"",
+            "visual": "Wide shot of the fluffy gray tabby cat perched on the fence, its tiny superhero costume catching the sunlight. The background has the bird feeder swaying gently, while the cat looks determined yet puzzled."
+          },
+          {
+            "label": "Complication",
+            "action": "The cat leaps off the fence but miscalculates its landing and tumbles into a pile of leaves at the bottom.",
+            "dialogue": "Cat: \"Oops! Just warming up!\"",
+            "visual": "Medium shot of the cat rolling in the leaves, its costume hilariously crumpled. The camera captures the cat's frantic movements as it attempts to regain composure, with leaves flying everywhere."
+          },
+          {
+            "label": "Escalation",
+            "action": "Undeterred, the cat climbs the tree to rescue a stuffed animal that’s caught on a branch, but it gets scared and clings on, meowing loudly.",
+            "dialogue": "Cat: \"I’m... uh... definitely in control here!\"",
+            "visual": "Close-up of the cat hanging onto a branch, its little paw reaching for the stuffed animal. Its eyes are wide, showcasing a mix of determination and fear, while the suburban landscape blurs in the background."
+          },
+          {
+            "label": "Payoff",
+            "action": "A human nearby sees the commotion, casually walks over, and rescues the stuffed animal while the cat hangs there, looking proud.",
+            "dialogue": "Human: \"Nice job... hero?\"",
+            "visual": "Wide shot with the human standing beneath the tree, laughing while holding the stuffed animal. The cat looks down, puffing its chest out, trying to maintain its superhero image despite the obvious help."
+          },
+          {
+            "label": "Button",
+            "action": "The cat jumps down dramatically but lands right in its ball of yarn, getting stuck. It meows in annoyance.",
+            "dialogue": "Cat: \"Every hero needs a sidekick...\"",
+            "visual": "Medium shot shows the cat entangled in the colorful yarn, looking both heroic and ridiculous. The camera focuses on its frustrated face as it struggles, surrounded by scattered toys."
+          }
+        ],
+        "hook": "Cat: \"Time to save the day!\"",
+        "mainPoints": [
+          "Cat: \"Oops! Just warming up!\"",
+          "Cat: \"I’m... uh... definitely in control here!\"",
+          "Human: \"Nice job... hero?\""
+        ],
+        "ending": "Cat: \"Every hero needs a sidekick...\"",
+        "ctaLine": "Don't forget to subscribe for more heroic adventures!",
+        "fullVoiceoverScript": "Cat: \"Time to save the day!\" Cat: \"Oops! Just warming up!\" Cat: \"I’m... uh... definitely in control here!\" Human: \"Nice job... hero?\" Cat: \"Every hero needs a sidekick...\"",
+        "captionLines": [
+          {
+            "text": "Cat Spiderman is on a mission!",
+            "highlights": [
+              "Cat Spiderman"
+            ]
+          },
+          {
+            "text": "Oops, hero landing! 😂",
+            "highlights": [
+              "Oops"
+            ]
+          },
+          {
+            "text": "Hanging in there like a true hero!",
+            "highlights": [
+              "Hanging"
+            ]
+          },
+          {
+            "text": "Did the human just save the day? 😹",
+            "highlights": [
+              "save the day"
+            ]
+          },
+          {
+            "text": "Every hero needs a sidekick! 🐾",
+            "highlights": [
+              "sidekick"
+            ]
+          }
+        ],
+        "sceneVisualSuggestions": [
+          "In A suburban backyard filled with toys and a tree., A goofy cat superhero trying to perform heroic deeds in a backyard.: Wide shot of the fluffy gray tabby cat perched on the fence, its tiny superhero costume catching the sunlight. The background has the bird feeder swaying gently, while the cat looks determined yet puzzled.",
+          "In A suburban backyard filled with toys and a tree., A goofy cat superhero trying to perform heroic deeds in a backyard.: Medium shot of the cat rolling in the leaves, its costume hilariously crumpled. The camera captures the cat's frantic movements as it attempts to regain composure, with leaves flying everywhere.",
+          "In A suburban backyard filled with toys and a tree., A goofy cat superhero trying to perform heroic deeds in a backyard.: Close-up of the cat hanging onto a branch, its little paw reaching for the stuffed animal. Its eyes are wide, showcasing a mix of determination and fear, while the suburban landscape blurs in the background.",
+          "In A suburban backyard filled with toys and a tree., A goofy cat superhero trying to perform heroic deeds in a backyard.: Wide shot with the human standing beneath the tree, laughing while holding the stuffed animal. The cat looks down, puffing its chest out, trying to maintain its superhero image despite the obvious help.",
+          "In A suburban backyard filled with toys and a tree., A goofy cat superhero trying to perform heroic deeds in a backyard.: Medium shot shows the cat entangled in the colorful yarn, looking both heroic and ridiculous. The camera focuses on its frustrated face as it struggles, surrounded by scattered toys."
+        ],
+        "hashtags": [
+          "#CatSpiderman",
+          "#FunnyCats",
+          "#HeroicFeline",
+          "#PetComedy",
+          "#Subscribe"
+        ],
+        "estimatedDurationSeconds": 30
+      },
+      "safetyReport": {
+        "overall": "low",
+        "findings": [],
+        "keywordWarnings": []
+      },
+      "visualContinuity": {
+        "setting": "Keep the exact same location and props: In a suburban backyard with a few playful toys scattered around, such as a ball of yarn, a scratching post, and a tree for climbing.. Same cast throughout: One fluffy gray tabby cat, wearing a tiny red and blue superhero costume with a mask, and a small black cape..",
+        "lighting": "bright even daylight, cheerful and consistent",
+        "palette": "natural realistic colors, cohesive white balance",
+        "colorGrade": "consistent color grade and white balance across every shot",
+        "sceneBackgrounds": [
+          "0x1a2431",
+          "0x1d2837",
+          "0x1e2a3a",
+          "0x1c2735",
+          "0x1a2533"
+        ]
+      },
+      "topicKeywordWarnings": [],
+      "visualGeneration": {
+        "active": false,
+        "mode": "sora",
+        "sceneIndices": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "sceneIndex": 4,
+        "sceneCount": 5,
+        "phase": "completed",
+        "progress": 100,
+        "sceneProgress": 100,
+        "message": "All scenes complete",
+        "startedAt": "2026-05-20T18:29:32.766Z",
+        "cancelRequested": false,
+        "finishedAt": "2026-05-20T18:47:21.191Z"
+      }
+    },
+    {
+      "id": "ae8b2943-58ab-42e1-8e4e-25f51661700d",
+      "createdAt": "2026-05-20T18:54:20.751Z",
+      "updatedAt": "2026-05-20T18:54:20.752Z",
+      "status": "Draft",
+      "form": {
+        "niche": "other",
+        "topic": "Ethan: hi maya",
+        "tone": "funny",
+        "duration": 30,
+        "voiceStyle": "calm",
+        "visualStyle": "realistic",
+        "cta": "subscribe",
+        "targetAudience": "curious beginners",
+        "language": "English",
+        "contentType": "music_lyrics",
+        "sourceText": "Ethan: hi maya\n\nMaya: hey ethan\n\nEthan: can we talk for a minute?\n\nMaya: yeah… what’s wrong?\n\nEthan: i don’t really know how to say this\n\nMaya: you’re scaring me\n\nEthan: i’ve been feeling like things between us are different\n\nMaya: different how?\n\nEthan: like we don’t laugh the same anymore\nEthan: and every conversation feels forced\n\nMaya: so what are you saying?\n\nEthan: i think we should break up\n\nMaya: wow\n\nEthan: i’m sorry\nEthan: i didn’t want to hurt you\n\nMaya: but you did\n\nEthan: i know\nEthan: and i hate that\n\nMaya: was it something i did?\n\nEthan: no\nEthan: it’s not your fault\n\nMaya: then why?\n\nEthan: because i don’t think i can be the person you need anymore\n\nMaya: i wish you told me sooner\n\nEthan: me too\n\nMaya: i really loved you, ethan\n\nEthan: i loved you too, maya\nEthan: i still care about you\n\nMaya: caring isn’t the same as staying\n\nEthan: i know\n\nMaya: i guess this is goodbye then\n\nEthan: yeah\nEthan: goodbye maya\n\nMaya: goodbye ethan",
+        "lyricSourceKind": "messages",
+        "musicGenre": "electronic"
+      },
+      "scenes": [],
+      "voiceover": {
+        "mode": "none"
+      },
+      "music": {
+        "rightsConfirmed": false,
+        "volumePercent": 12
+      },
+      "voiceVolume": 1,
+      "musicVolume": 0.12,
+      "renderChecklist": {
+        "scriptOriginal": false,
+        "voiceOriginalOrLicensed": false,
+        "visualsOriginalOrLicensed": false,
+        "musicOriginalOrLicensed": false,
+        "noThirdPartyClips": false,
+        "noCopyrightedSong": false,
+        "notSpammy": false,
+        "disclosureNoted": false
+      },
+      "rights": {
+        "allMediaRightsConfirmed": false
+      },
+      "render": {
+        "status": "idle"
+      },
+      "exportApproved": false
+    },
+    {
+      "id": "9480baf0-505a-420f-b518-f71d80ea5acf",
+      "createdAt": "2026-05-20T20:44:59.898Z",
+      "updatedAt": "2026-05-20T21:26:30.750Z",
+      "status": "Rendered",
+      "form": {
+        "niche": "other",
+        "topic": "a cat playing wordle in real life ",
+        "tone": "funny",
+        "duration": 30,
+        "voiceStyle": "calm",
+        "visualStyle": "realistic",
+        "cta": "subscribe",
+        "targetAudience": "curious beginners",
+        "language": "English",
+        "contentType": "skit"
+      },
+      "scenes": [
+        {
+          "id": "dfdb8961-119c-4162-a947-f004fd60dd10",
+          "kind": "hook",
+          "caption": "Can Whiskers crack the Wordle code?",
+          "durationSeconds": 6,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/9480baf0-505a-420f-b518-f71d80ea5acf/scene_0_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In A cozy living room filled with a homemade Wordle board and playful props., Whiskers the cat struggles to play Wordle.: Wide shot of the living room. Whiskers, a fluffy ginger tabby cat wearing nerdy glasses and a bowtie, looks serious as he studies the Wordle board. The board has colorful letters scattered around, and the lighting is warm and inviting."
+        },
+        {
+          "id": "022d6634-f963-44ce-99b3-a694faac8a09",
+          "kind": "point1",
+          "caption": "Snack time or word time?",
+          "durationSeconds": 6,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/9480baf0-505a-420f-b518-f71d80ea5acf/scene_1_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In A cozy living room filled with a homemade Wordle board and playful props., Whiskers the cat struggles to play Wordle.: Close-up of Whiskers' surprised face as he watches treats scatter across the floor. The camera then pan to the spilled treats, bright and colorful, creating a mess in the cozy living room."
+        },
+        {
+          "id": "ad81c097-1bc8-4c06-b622-eb433ee41955",
+          "kind": "point2",
+          "caption": "Ultimate word: MEOW!",
+          "durationSeconds": 5,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/9480baf0-505a-420f-b518-f71d80ea5acf/scene_2_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In A cozy living room filled with a homemade Wordle board and playful props., Whiskers the cat struggles to play Wordle.: Medium shot of Whiskers rolling around with the treats, clearly having more fun than trying to guess words. The camera captures his energetic movements and the chaos of treats flying around the cozy room."
+        },
+        {
+          "id": "1508d1eb-8e7d-450f-9de8-8da324aa812b",
+          "kind": "point3",
+          "caption": "The dog steals the show!",
+          "durationSeconds": 4,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/9480baf0-505a-420f-b518-f71d80ea5acf/scene_3_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In A cozy living room filled with a homemade Wordle board and playful props., Whiskers the cat struggles to play Wordle.: Wide shot of Whiskers standing triumphantly in front of the Wordle board, the letters ‘MEOW’ perfectly placed. The room is filled with playful energy as treats are still scattered around."
+        },
+        {
+          "id": "2bde8a92-9053-41fb-889a-57e95d71e650",
+          "kind": "ending",
+          "caption": "Not cool, buddy! This is my word game!",
+          "durationSeconds": 9,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/9480baf0-505a-420f-b518-f71d80ea5acf/scene_4_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In A cozy living room filled with a homemade Wordle board and playful props., Whiskers the cat struggles to play Wordle.: Close-up of Whiskers with a shocked expression, as the dog, a playful beagle, quickly grabs a treat and runs off. The cozy living room remains full of laughter and chaos."
+        }
+      ],
+      "voiceover": {
+        "mode": "tts_openai",
+        "fileRelativePath": "uploads/projects/9480baf0-505a-420f-b518-f71d80ea5acf/voice_tts.mp3",
+        "providerId": "openai_tts"
+      },
+      "music": {
+        "rightsConfirmed": false,
+        "volumePercent": 12
+      },
+      "voiceVolume": 1,
+      "musicVolume": 0.12,
+      "renderChecklist": {
+        "scriptOriginal": false,
+        "voiceOriginalOrLicensed": false,
+        "visualsOriginalOrLicensed": false,
+        "musicOriginalOrLicensed": false,
+        "noThirdPartyClips": false,
+        "noCopyrightedSong": false,
+        "notSpammy": false,
+        "disclosureNoted": false
+      },
+      "rights": {
+        "allMediaRightsConfirmed": false
+      },
+      "render": {
+        "status": "done",
+        "message": "Render complete",
+        "outputRelativePath": "renders/feline wordle woes.mp4",
+        "startedAt": "2026-05-20T21:26:12.986Z",
+        "finishedAt": "2026-05-20T21:26:30.749Z"
+      },
+      "exportApproved": false,
+      "generatedScript": {
+        "title": "Skit 1 — Feline Wordle Woes",
+        "description": "Watch as Whiskers the cat hilariously attempts to play Wordle in real life, with a few unexpected twists!",
+        "skitConcept": "A cat tries to guess the right word in a playful version of Wordle, facing hilarious obstacles along the way.",
+        "castDescription": "One fluffy ginger tabby cat named Whiskers, wearing a tiny pair of nerdy glasses and a colorful bowtie.",
+        "settingAndProps": "A cozy living room with a giant Wordle board drawn on a whiteboard, featuring colorful magnetic letters scattered around.",
+        "primarySubject": "Whiskers the cat struggles to play Wordle.",
+        "primarySetting": "A cozy living room filled with a homemade Wordle board and playful props.",
+        "skitBeats": [
+          {
+            "label": "Setup",
+            "action": "Whiskers sits in front of the giant Wordle board, intently staring at the letters with a paw poised on a letter magnet. The room is quiet except for soft background music.",
+            "dialogue": "Alright, Whiskers, let's guess that word!",
+            "visual": "Wide shot of the living room. Whiskers, a fluffy ginger tabby cat wearing nerdy glasses and a bowtie, looks serious as he studies the Wordle board. The board has colorful letters scattered around, and the lighting is warm and inviting."
+          },
+          {
+            "label": "Complication",
+            "action": "Whiskers attempts to bat at a letter, but instead, he knocks over a bowl of treats that spills everywhere. He looks shocked.",
+            "dialogue": "Oops! Not the snack attack I was going for!",
+            "visual": "Close-up of Whiskers' surprised face as he watches treats scatter across the floor. The camera then pan to the spilled treats, bright and colorful, creating a mess in the cozy living room."
+          },
+          {
+            "label": "Escalation",
+            "action": "Whiskers, now distracted, starts playing with the treats instead of the game, swatting them around playfully. He forgets about the Wordle board.",
+            "dialogue": "Who needs words when there are snacks?!",
+            "visual": "Medium shot of Whiskers rolling around with the treats, clearly having more fun than trying to guess words. The camera captures his energetic movements and the chaos of treats flying around the cozy room."
+          },
+          {
+            "label": "Payoff",
+            "action": "After a snack break, Whiskers refocuses and confidently slaps a letter onto the board, spelling 'MEOW' with a proud look.",
+            "dialogue": "I did it! The ultimate word!",
+            "visual": "Wide shot of Whiskers standing triumphantly in front of the Wordle board, the letters ‘MEOW’ perfectly placed. The room is filled with playful energy as treats are still scattered around."
+          },
+          {
+            "label": "Button",
+            "action": "Suddenly, a dog enters the room and snatches a treat, making Whiskers jump in surprise. He looks at the camera with a comical expression.",
+            "dialogue": "Not cool, buddy! This is my word game!",
+            "visual": "Close-up of Whiskers with a shocked expression, as the dog, a playful beagle, quickly grabs a treat and runs off. The cozy living room remains full of laughter and chaos."
+          }
+        ],
+        "hook": "Alright, Whiskers, let's guess that word!",
+        "mainPoints": [
+          "Oops! Not the snack attack I was going for!",
+          "Who needs words when there are snacks?!",
+          "I did it! The ultimate word!"
+        ],
+        "ending": "Not cool, buddy! This is my word game!",
+        "ctaLine": "Subscribe for more feline fun!",
+        "fullVoiceoverScript": "Alright, Whiskers, let's guess that word! Oops! Not the snack attack I was going for! Who needs words when there are snacks?! I did it! The ultimate word! Not cool, buddy! This is my word game!",
+        "captionLines": [
+          {
+            "text": "Can Whiskers crack the Wordle code?",
+            "highlights": [
+              "Whiskers",
+              "Wordle"
+            ]
+          },
+          {
+            "text": "Snack time or word time?",
+            "highlights": [
+              "snack",
+              "word"
+            ]
+          },
+          {
+            "text": "Ultimate word: MEOW!",
+            "highlights": [
+              "MEOW"
+            ]
+          },
+          {
+            "text": "The dog steals the show!",
+            "highlights": [
+              "dog",
+              "steals"
+            ]
+          }
+        ],
+        "sceneVisualSuggestions": [
+          "In A cozy living room filled with a homemade Wordle board and playful props., Whiskers the cat struggles to play Wordle.: Wide shot of the living room. Whiskers, a fluffy ginger tabby cat wearing nerdy glasses and a bowtie, looks serious as he studies the Wordle board. The board has colorful letters scattered around, and the lighting is warm and inviting.",
+          "In A cozy living room filled with a homemade Wordle board and playful props., Whiskers the cat struggles to play Wordle.: Close-up of Whiskers' surprised face as he watches treats scatter across the floor. The camera then pan to the spilled treats, bright and colorful, creating a mess in the cozy living room.",
+          "In A cozy living room filled with a homemade Wordle board and playful props., Whiskers the cat struggles to play Wordle.: Medium shot of Whiskers rolling around with the treats, clearly having more fun than trying to guess words. The camera captures his energetic movements and the chaos of treats flying around the cozy room.",
+          "In A cozy living room filled with a homemade Wordle board and playful props., Whiskers the cat struggles to play Wordle.: Wide shot of Whiskers standing triumphantly in front of the Wordle board, the letters ‘MEOW’ perfectly placed. The room is filled with playful energy as treats are still scattered around.",
+          "In A cozy living room filled with a homemade Wordle board and playful props., Whiskers the cat struggles to play Wordle.: Close-up of Whiskers with a shocked expression, as the dog, a playful beagle, quickly grabs a treat and runs off. The cozy living room remains full of laughter and chaos."
+        ],
+        "hashtags": [
+          "#CatComedy",
+          "#Wordle",
+          "#FunnyCats",
+          "#WordleCat",
+          "#Subscribe"
+        ],
+        "estimatedDurationSeconds": 30
+      },
+      "safetyReport": {
+        "overall": "review",
+        "findings": [
+          {
+            "code": "health_claim",
+            "message": "Health claims may be sensitive for monetization. Prefer cautious, evidence-aligned language.",
+            "level": "review"
+          }
+        ],
+        "keywordWarnings": []
+      },
+      "visualContinuity": {
+        "setting": "Keep the exact same location and props: A cozy living room with a giant Wordle board drawn on a whiteboard, featuring colorful magnetic letters scattered around.. Same cast throughout: One fluffy ginger tabby cat named Whiskers, wearing a tiny pair of nerdy glasses and a colorful bowtie..",
+        "lighting": "bright even daylight, cheerful and consistent",
+        "palette": "natural realistic colors, cohesive white balance",
+        "colorGrade": "consistent color grade and white balance across every shot",
+        "sceneBackgrounds": [
+          "0x18201f",
+          "0x1b2422",
+          "0x1c2624",
+          "0x1a2321",
+          "0x192120"
+        ]
+      },
+      "topicKeywordWarnings": [],
+      "visualGeneration": {
+        "active": false,
+        "mode": "sora",
+        "sceneIndices": [
+          3,
+          4
+        ],
+        "sceneIndex": 4,
+        "sceneCount": 2,
+        "phase": "completed",
+        "progress": 100,
+        "sceneProgress": 100,
+        "message": "All scenes complete",
+        "startedAt": "2026-05-20T21:08:44.658Z",
+        "cancelRequested": false,
+        "finishedAt": "2026-05-20T21:15:26.179Z"
+      }
+    },
+    {
+      "id": "606d59f8-f5d4-4899-84f8-bcae9ea161d9",
+      "createdAt": "2026-05-20T21:58:18.245Z",
+      "updatedAt": "2026-05-20T22:27:04.998Z",
+      "status": "Visuals Ready",
+      "form": {
+        "niche": "other",
+        "topic": "a grandma is getting saved by a cat as she is trying to cross the road from a car",
+        "tone": "dramatic",
+        "duration": 30,
+        "voiceStyle": "calm",
+        "visualStyle": "realistic",
+        "cta": "subscribe",
+        "targetAudience": "curious beginners",
+        "language": "English",
+        "contentType": "skit"
+      },
+      "scenes": [
+        {
+          "id": "be854247-822b-49f7-9edf-348db3986d77",
+          "kind": "hook",
+          "caption": "When Grandma crosses the road...",
+          "durationSeconds": 6,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/606d59f8-f5d4-4899-84f8-bcae9ea161d9/scene_0_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In A suburban street with a crosswalk where the drama unfolds., An elderly woman trying to cross the road while her cat senses danger.: Wide shot of Grandma at the crosswalk, with a sunny day backdrop. She looks both ways and takes a step forward, her cat sitting beside her, ears perked up, sensing something is off."
+        },
+        {
+          "id": "2b54eb50-41d7-44bf-8ebc-5fb56c649ab6",
+          "kind": "point1",
+          "caption": "Her cat has other plans!",
+          "durationSeconds": 2,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/606d59f8-f5d4-4899-84f8-bcae9ea161d9/scene_1_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In A suburban street with a crosswalk where the drama unfolds., An elderly woman trying to cross the road while her cat senses danger.: Close-up on the cat's face, fur bristling, before cutting to a medium shot of the car barreling down the road. The sunlight reflects off the car, creating a tense moment."
+        },
+        {
+          "id": "ec035507-bbe2-4ee1-8ace-e9c8ea191e51",
+          "kind": "point2",
+          "caption": "No crossing without my permission!",
+          "durationSeconds": 5,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/606d59f8-f5d4-4899-84f8-bcae9ea161d9/scene_2_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In A suburban street with a crosswalk where the drama unfolds., An elderly woman trying to cross the road while her cat senses danger.: A dynamic shot shows the cat in mid-air, gracefully landing between Grandma and the approaching car. The camera zooms in on Grandma’s shocked expression as she clutches her shopping bag tighter."
+        },
+        {
+          "id": "5d52451a-3545-40fe-b65a-599682b33be5",
+          "kind": "point3",
+          "caption": "You saved me, little hero!",
+          "durationSeconds": 4,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/606d59f8-f5d4-4899-84f8-bcae9ea161d9/scene_3_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In A suburban street with a crosswalk where the drama unfolds., An elderly woman trying to cross the road while her cat senses danger.: Wide shot of Grandma on her knees, beaming at her cat. The car is stopped nearby, with the driver shaking their head in disbelief. The sun shines down warmly, making the moment feel triumphant."
+        },
+        {
+          "id": "62e028fb-7653-413b-af80-4ce2bfe74d12",
+          "kind": "ending",
+          "caption": "Maybe I should let you lead the way next time!",
+          "durationSeconds": 13,
+          "motion": "none",
+          "media": {
+            "sourceType": "upload",
+            "fileRelativePath": "uploads/projects/606d59f8-f5d4-4899-84f8-bcae9ea161d9/scene_4_sora.mp4",
+            "mimeType": "video/mp4"
+          },
+          "visualSuggestion": "In A suburban street with a crosswalk where the drama unfolds., An elderly woman trying to cross the road while her cat senses danger.: Close-up on Grandma lovingly holding the cat, who purrs contently. The camera captures their joyful expressions as they head back to the sidewalk, the car still parked behind them."
+        }
+      ],
+      "voiceover": {
+        "mode": "tts_openai",
+        "fileRelativePath": "uploads/projects/606d59f8-f5d4-4899-84f8-bcae9ea161d9/voice_tts.mp3",
+        "providerId": "openai_tts"
+      },
+      "music": {
+        "rightsConfirmed": false,
+        "volumePercent": 12
+      },
+      "voiceVolume": 1,
+      "musicVolume": 0.12,
+      "renderChecklist": {
+        "scriptOriginal": false,
+        "voiceOriginalOrLicensed": false,
+        "visualsOriginalOrLicensed": false,
+        "musicOriginalOrLicensed": false,
+        "noThirdPartyClips": false,
+        "noCopyrightedSong": false,
+        "notSpammy": false,
+        "disclosureNoted": false
+      },
+      "rights": {
+        "allMediaRightsConfirmed": false
+      },
+      "render": {
+        "status": "idle"
+      },
+      "exportApproved": false,
+      "generatedScript": {
+        "title": "Skit 1 — Cat to the Rescue",
+        "description": "A dramatic encounter unfolds as Grandma prepares to cross the road, only to be saved by her quick-thinking cat.",
+        "skitConcept": "A grandma attempts to cross a busy road, unaware of an approaching car, until her heroic cat intervenes.",
+        "castDescription": "One elderly woman, gray hair in a bun, wearing a floral dress and a sunhat; one medium-sized tabby cat, brown with black stripes, wearing a small red collar.",
+        "settingAndProps": "A suburban street with a crosswalk, a classic wooden fence in the background, and a few scattered flower pots.",
+        "primarySubject": "An elderly woman trying to cross the road while her cat senses danger.",
+        "primarySetting": "A suburban street with a crosswalk where the drama unfolds.",
+        "skitBeats": [
+          {
+            "label": "Setup",
+            "action": "Grandma stands on the sidewalk, clutching her shopping bag and looking across the street. She squints at the road, deciding it’s safe to cross.",
+            "dialogue": "It's just a quick dash, I can make it!",
+            "visual": "Wide shot of Grandma at the crosswalk, with a sunny day backdrop. She looks both ways and takes a step forward, her cat sitting beside her, ears perked up, sensing something is off."
+          },
+          {
+            "label": "Complication",
+            "action": "As Grandma steps off the curb, a car suddenly appears, speeding towards her. The cat's eyes widen, realizing the danger.",
+            "dialogue": "Wait, Grandma!",
+            "visual": "Close-up on the cat's face, fur bristling, before cutting to a medium shot of the car barreling down the road. The sunlight reflects off the car, creating a tense moment."
+          },
+          {
+            "label": "Escalation",
+            "action": "The cat leaps into action, dashing in front of Grandma, blocking her path. Grandma gasps and comes to a halt, surprised.",
+            "dialogue": "No crossing without my permission!",
+            "visual": "A dynamic shot shows the cat in mid-air, gracefully landing between Grandma and the approaching car. The camera zooms in on Grandma’s shocked expression as she clutches her shopping bag tighter."
+          },
+          {
+            "label": "Payoff",
+            "action": "The car screeches to a halt, just in time. The driver looks baffled while Grandma kneels down to pet her heroic cat.",
+            "dialogue": "You saved me, little hero!",
+            "visual": "Wide shot of Grandma on her knees, beaming at her cat. The car is stopped nearby, with the driver shaking their head in disbelief. The sun shines down warmly, making the moment feel triumphant."
+          },
+          {
+            "label": "Button",
+            "action": "Grandma stands up, cradling the cat in her arms. She smiles, walking back towards the sidewalk, her heart racing.",
+            "dialogue": "Maybe I should let you lead the way next time!",
+            "visual": "Close-up on Grandma lovingly holding the cat, who purrs contently. The camera captures their joyful expressions as they head back to the sidewalk, the car still parked behind them."
+          }
+        ],
+        "hook": "It's just a quick dash, I can make it!",
+        "mainPoints": [
+          "Wait, Grandma!",
+          "No crossing without my permission!",
+          "You saved me, little hero!"
+        ],
+        "ending": "Maybe I should let you lead the way next time!",
+        "ctaLine": "Subscribe for more heartwarming moments!",
+        "fullVoiceoverScript": "It's just a quick dash, I can make it! Wait, Grandma! No crossing without my permission! You saved me, little hero! Maybe I should let you lead the way next time!",
+        "captionLines": [
+          {
+            "text": "When Grandma crosses the road...",
+            "highlights": [
+              "Grandma",
+              "crosses",
+              "road"
+            ]
+          },
+          {
+            "text": "Her cat has other plans!",
+            "highlights": [
+              "cat",
+              "other",
+              "plans"
+            ]
+          }
+        ],
+        "sceneVisualSuggestions": [
+          "In A suburban street with a crosswalk where the drama unfolds., An elderly woman trying to cross the road while her cat senses danger.: Wide shot of Grandma at the crosswalk, with a sunny day backdrop. She looks both ways and takes a step forward, her cat sitting beside her, ears perked up, sensing something is off.",
+          "In A suburban street with a crosswalk where the drama unfolds., An elderly woman trying to cross the road while her cat senses danger.: Close-up on the cat's face, fur bristling, before cutting to a medium shot of the car barreling down the road. The sunlight reflects off the car, creating a tense moment.",
+          "In A suburban street with a crosswalk where the drama unfolds., An elderly woman trying to cross the road while her cat senses danger.: A dynamic shot shows the cat in mid-air, gracefully landing between Grandma and the approaching car. The camera zooms in on Grandma’s shocked expression as she clutches her shopping bag tighter.",
+          "In A suburban street with a crosswalk where the drama unfolds., An elderly woman trying to cross the road while her cat senses danger.: Wide shot of Grandma on her knees, beaming at her cat. The car is stopped nearby, with the driver shaking their head in disbelief. The sun shines down warmly, making the moment feel triumphant.",
+          "In A suburban street with a crosswalk where the drama unfolds., An elderly woman trying to cross the road while her cat senses danger.: Close-up on Grandma lovingly holding the cat, who purrs contently. The camera captures their joyful expressions as they head back to the sidewalk, the car still parked behind them."
+        ],
+        "hashtags": [
+          "#CatRescue",
+          "#GrandmaHero",
+          "#ComedySkits",
+          "#Subscribe",
+          "#DramaticMoments"
+        ],
+        "estimatedDurationSeconds": 30
+      },
+      "safetyReport": {
+        "overall": "low",
+        "findings": [],
+        "keywordWarnings": []
+      },
+      "visualContinuity": {
+        "setting": "Keep the exact same location and props: A suburban street with a crosswalk, a classic wooden fence in the background, and a few scattered flower pots.. Same cast throughout: One elderly woman, gray hair in a bun, wearing a floral dress and a sunhat; one medium-sized tabby cat, brown with black stripes, wearing a small red collar..",
+        "lighting": "dramatic but consistent side lighting, same time of day",
+        "palette": "natural realistic colors, cohesive white balance",
+        "colorGrade": "consistent color grade and white balance across every shot",
+        "sceneBackgrounds": [
+          "0x18201f",
+          "0x1b2422",
+          "0x1c2624",
+          "0x1a2321",
+          "0x192120"
+        ]
+      },
+      "topicKeywordWarnings": [],
+      "visualGeneration": {
+        "active": false,
+        "mode": "sora",
+        "sceneIndices": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "sceneIndex": 4,
+        "sceneCount": 5,
+        "phase": "completed",
+        "progress": 100,
+        "sceneProgress": 100,
+        "message": "All scenes complete",
+        "startedAt": "2026-05-20T22:04:58.571Z",
+        "cancelRequested": false,
+        "finishedAt": "2026-05-20T22:27:04.998Z"
+      }
     }
   ]
 }
